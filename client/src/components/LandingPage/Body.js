@@ -10,7 +10,9 @@ import ForgotPw from '../Body/ForgotPw';
 import ResetPassword from '../Body/ResetPassword'
 import Notfound from '../utils/Notfound'
 import Profile from '../Body/Profile'
+import Home from '../Body/Home'
 import Successfully from '../utils/Successfully'
+
 
 
 
@@ -23,9 +25,10 @@ function Body() {
     //render
     return (
         <div className='body'>
-            <section className='page'>
+            <section>
                 <Switch>
                     <Route exact path="/login" component={isLogged? Notfound : LoginPage}/>
+                    <Route exact path="/" component={Home}/>
                     <Route exact path="/register" component={isLogged? Notfound: Register}/>
                     <Route exact path="/user/activation/:activation_token" component={ActiveEmail}/>
                     <Route exact path="/forgot" component={isLogged? Notfound:ForgotPw}/>

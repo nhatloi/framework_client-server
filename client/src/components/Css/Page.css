@@ -1,6 +1,6 @@
 
 .body{
-    min-height: 1000px;
+    min-height: 100vmax;
     min-width: max-content;
     margin: auto;
 }
@@ -96,3 +96,23 @@
     display: block;
     text-transform:initial;
 }
+
+.movies{
+    display: flex;
+    overflow-x: auto;
+    margin-top: 1em;
+    overflow-y: hidden;
+}
+Title text{
+    margin: 50px;
+    padding: 10em;
+}
+.container .body{
+    width: 80%;
+    margin: 1rem auto;
+}
+.container .content{
+    width: 20%;
+    float: right;
+}
+
