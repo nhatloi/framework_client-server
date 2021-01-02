@@ -1,0 +1,48 @@
+@import '~antd/dist/antd.css';
+
+.background {
+    border-style: inset;
+    background-color: #cccccc; /* Used if the image is unavailable */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+
+  }
+.actor{
+  width: 200px;
+  height: 100%;
+}
+
+
+.movie a img{
+  width: 100%;
+  height: 350px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.card {
+  width: 240px;
+  border-radius: 10px;
+  margin: 10px;
+}
+.movie-over{
+  background-color: #d1d0d0;
+  color: rgb(104, 19, 104);
+  padding: 1rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(100%);
+  transition: transform 0.4s ease-in-out;
+  visibility: hidden;
+  width: 100%;
+  height: 70%;
+  overflow-x: auto;
+  border-radius: 10px;
+}
+.movie:hover .movie-over{
+  visibility: visible;
+  transform: translateY(0%);
+}
+
