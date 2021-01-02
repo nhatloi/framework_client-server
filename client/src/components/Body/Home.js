@@ -7,7 +7,6 @@ import GridCard from './commons/GridCards'
 function Home() {
 
     //const 
-    const [MoviesRate, setMoviesRate] = useState([])
     const [MoviesPop, setMoviesPop] = useState([])
     const [MoviesComing, setMoviesComing] = useState([])
     const [MoviesNow, setMoviesNow] = useState([])

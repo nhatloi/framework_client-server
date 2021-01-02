@@ -34,8 +34,8 @@
     margin-left: 10px;
 }
 
-.card {
-    width: 350px;
+.profile .card {
+    width: max-content;
 }
 .banner{
     width: 300px;
@@ -114,5 +114,13 @@ Title text{
 .container .content{
     width: 20%;
     float: right;
+}
+
+
+
+.framework {
+    width: 1000px;
+    border-style: solid ;
+
 }
 
