@@ -24,7 +24,7 @@ function GridCards(props) {
             return(
                 <div>
                 <Card className='actor'
-                   cover={<img alt={characterName} src={Logo} />}>
+                   cover={<img alt={characterName} style={{height:'300px'}} />}>
                    <Meta title={characterName} description={characterC} />
                </Card>
                </div>

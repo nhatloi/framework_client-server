@@ -217,3 +217,12 @@
     width: 20px;
 }
 
+.actors{
+    width: 90%;
+    display: flex;
+    overflow-x: scroll;
+    padding: 10px;
+    margin: auto;
+}
+
+

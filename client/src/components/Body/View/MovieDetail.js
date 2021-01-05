@@ -1,8 +1,9 @@
 import React ,{useEffect,useState} from 'react'
 import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE,POSTER_SIZE } from '../../../Config'
-import { Button } from 'antd'
+import { Button, Row ,Spin} from 'antd'
 import ReactPlayer from 'react-player/youtube'
-import { CloseOutlined,FieldTimeOutlined,CalendarOutlined } from '@ant-design/icons';
+import { CloseOutlined,FieldTimeOutlined,CalendarOutlined} from '@ant-design/icons';
+import GridCards from '../commons/GridCards'
 
 function MovieDetailPage(props) {
 
@@ -81,7 +82,7 @@ function MovieDetailPage(props) {
 
     //render
     return (
-        <div>
+        <div className='body'>
             <div className='detail'>
                 <div className='detail-banner'>
                     <img src={`${IMAGE_BASE_URL}${IMAGE_SIZE}${Movie.backdrop_path}`}/>
@@ -113,7 +114,17 @@ function MovieDetailPage(props) {
             playing = {playvideo ==='visible' ? true:false }
             />
       </div>
-
+    {/* Actors Grid*/}
+    <h2>Series Cast</h2>
+    <div className='actors'>
+                {Casts && Casts.map((cast, index) => (
+                        <React.Fragment key={index}>
+                           <GridCards actor image={cast.profile_path} characterName={cast.name} characterC={cast.character}/>
+                        </React.Fragment>
+                    ))}
+                {!Casts.length &&
+                    <Spin tip="Loading..." />}
+                </div>
                
         </div>
         
