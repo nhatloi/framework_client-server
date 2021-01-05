@@ -1,3 +1,5 @@
+/* Header */
+
 .header {
     position: fixed;
     top:0;
@@ -9,42 +11,41 @@
 .header a{
     color: black;
 }
+
+.header a:hover{
+    color: brown;
+}
+
 .header label{
     text-transform: uppercase;
     font-size: 19px;
     font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
-.header a:hover{
-    color: brown;
-}
+
 
 .header .search{
     right: 10px;
     left: 10px;
 }
 
-
 .header img{
     width: 40px;
     border-radius: 50%;
-}
-
-.user {
-    text-transform: uppercase;
-}
-
-.user:hover {
-    color: red;
-}
-
-.header img{
     width: 50px;
     transform: translateY(-3px);
     cursor: pointer;
 }
 
+.header .user {
+    text-transform: uppercase;
+}
+
+.header .user:hover {
+    color: red;
+}
+
+/* left menu */
 .left-menu {
-    background: white;
     position:absolute;
     height: 100vh;
 }

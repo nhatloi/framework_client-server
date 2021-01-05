@@ -172,7 +172,7 @@ function Profile() {
                         </Card>
                     </div>
                     <div className='recent-activity'>
-                        <Card style={{ width: 800,height:350}}>
+                        <Card style={{ width: 800,height:'100%'}}>
                             <h2>Recent activity</h2>
                             <Divider/>
                             <p>Card content</p>

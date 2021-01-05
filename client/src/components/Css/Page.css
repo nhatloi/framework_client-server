@@ -1,8 +1,9 @@
-
+/* body */
 .body{
     min-height: 100vmax;
     width:100%;
-    background: linear-gradient(to bottom, #1e8baf 0%, #ff99cc 100%);
+    background: linear-gradient(to right, #00b09b, #96c93d);
+    padding-top: 35px;
 }
 
 .body h2{
@@ -12,7 +13,7 @@
     letter-spacing: 1.5px;
 }
 
-
+/* forgot password form */
 .fg_pass{
     text-align: center;
 }
@@ -30,24 +31,52 @@
     margin: 10px;
 }
 
+/* Login form */
+
+.login-form{
+    width: 30vw;
+    margin: auto;
+}
+
+/* register form */
+.register-form {
+    width: 40%;
+    margin: auto;
+}
+.register-form h2{
+    color:white;
+    letter-spacing: 3px;
+}
+
+/* Profile page*/
 .recent-activity{
     margin-left: 10px;
+    border: solid 2px #0b1413;
+    background: white;
+    margin-top: 10px;
+}
+.profile .recent-activity Card{
+    height: 100px;
 }
 
 .profile {
-   padding: 10vw;
+   padding-left: 10vw;
+   min-width: max-content;
 }
+
 .profile .card {
     width: 350px;
-    border: 0;
+    border: none;
 }
-.banner{
+
+.profile .card .banner{
     width: 300px;
     height:150px;
     background-size: cover;
+    border-radius: 4px;
 }
 
-.card .avatar{
+.profile .card .avatar{
     width: 100px;
     height: 100px;
     position: relative;
@@ -57,7 +86,7 @@
     overflow: hidden;
 }
 
-.infor {
+.profile .infor {
     transform: translateY(-60px);
 }
 .avatar img{
@@ -101,31 +130,18 @@
     text-transform:initial;
 }
 
+/* Home page*/
 .movies{
     display: flex;
     overflow-x: auto;
     margin-top: 1em;
     overflow-y: hidden;
 }
-Title text{
-    margin: 50px;
-    padding: 10em;
-}
-.container .body{
-    width: 80%;
-    margin: 1rem auto;
-}
-.container .content{
-    width: 20%;
-    float: right;
-}
 
+/* Movie detail page */
 
-
-.framework {
-    width: 1000px;
-    border-style: solid ;
-
+.detail {
+    position: relative;
 }
 
 .movies-banner {
@@ -141,32 +157,63 @@ Title text{
 
 }
 
-.detail {
-    position: relative;
-}
 .detail-banner img{
     opacity: 0.5;
-    width: 100vw;
-
+    width: 100%;
 }
 .detail-card{
     position:absolute;
     left: 15%;
-    top: 20%;
+    top: 10%;
     height: 65%;
     display: flex;
+    overflow: hidden;
 }
-.detail-card label{
-    color: white;
-    font-size: 40px;
-    font-family:'Times New Roman', Times, serif;
-}
-.detail-card label Button{
-    position: absolute;
-    bottom: 0;
-}
+
 .detail-card img{
     height: 100%;
     margin-right: 20px;
+}
+
+.detail-card span{
+    color: white;
+    font-size: 200%;
+    font-family:'Times New Roman', Times, serif;
+}
+.detail-card span Button{
+    position: absolute;
+    bottom: 0;
+    background: black;
+    height: 50px;
+
+}
+.detail-card span h1{
+    color: #5CA17C; /*non-webkit fallback*/
+    font-size: 50px;
+    text-transform: uppercase;
+    background-image: linear-gradient(to bottom, #e2fdf9, #000000, #20c91a, #a6bd26);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.player-wrapper {
+    width: 80vw;
+    height: 80vh;
+    padding: 10px;
+    background: black;
+    color: white;
+    margin: auto;
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    visibility:hidden;
+}
+
+.player-wrapper label{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 20px;
 }
 
