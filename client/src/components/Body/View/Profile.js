@@ -2,8 +2,8 @@ import React,{useState,useEffect} from 'react'
 import { Card,Row,Divider,Button ,Form,Input,message} from 'antd';
 import { CameraOutlined} from '@ant-design/icons';
 import {useSelector} from 'react-redux'
-import banner from '../../access/images/banner.jpg'
-import {Islengt} from '../utils/functionCheck'
+import banner from '../../../access/images/banner.jpg'
+import {Islengt} from '../../utils/functionCheck'
 import axios from 'axios'
 import {useDispatch} from 'react-redux'
 

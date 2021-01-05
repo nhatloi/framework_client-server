@@ -1,4 +1,11 @@
-
+.header {
+    position: fixed;
+    top:0;
+    background: white;
+    width: 100vmax;
+    padding-right: 10px;
+    
+}
 .header a{
     color: black;
 }
@@ -17,7 +24,7 @@
 }
 
 
-.header .avatar img{
+.header img{
     width: 40px;
     border-radius: 50%;
 }
@@ -34,5 +41,11 @@
     width: 50px;
     transform: translateY(-3px);
     cursor: pointer;
+}
+
+.left-menu {
+    background: white;
+    position:absolute;
+    height: 100vh;
 }
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {Carousel,Spin} from 'antd';
-import { API_URL,API_KEY, IMAGE_BASE_URL, IMAGE_SIZE, POSTER_SIZE } from '../../Config'
-import MainImage from './commons/MainImage'
-import GridCard from './commons/GridCards'
+import { API_URL,API_KEY, IMAGE_BASE_URL, IMAGE_SIZE, POSTER_SIZE } from '../../../Config'
+import MainImage from '../commons/MainImage'
+import GridCard from '../commons/GridCards'
 
 function Home() {
 
@@ -62,11 +62,13 @@ function Home() {
              {MainMovieImage && MainMovieImage.map((movieimage, index)=> (
                         <React.Fragment key={index}>
                          <a href={`/movie/${movieimage.id}`}>
-                        <MainImage
-                            image={`${IMAGE_BASE_URL}${IMAGE_SIZE}${movieimage.backdrop_path}`}
-                            title={movieimage.original_title}
-                            text={movieimage.overview}
-                        />
+                             <div style={{height:400}}>
+                                <MainImage 
+                                image={`${IMAGE_BASE_URL}${IMAGE_SIZE}${movieimage.backdrop_path}`}
+                                title={movieimage.original_title}
+                                text={movieimage.overview}
+                                />
+                             </div>
                         </a>
                         </React.Fragment>
                     ))}

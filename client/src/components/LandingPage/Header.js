@@ -4,6 +4,7 @@ import axios from 'axios';
 import logo from '../../access/images/Logo.png';    
 import { Menu, Dropdown} from 'antd';
 import { Button,Navbar,Nav,Form,FormControl} from 'react-bootstrap';
+import LeftMenu from './LeftMenu'
 
 
 
@@ -53,8 +54,9 @@ function NavHeader() {
     // Render
     return (
         <div className='header'>
-            <Navbar bg="light" expand="lg">
+            <Navbar expand="lg">
                 <Navbar.Brand href="/">
+               
                     <img src={logo} alt=''/>
                     FRadar
                     </Navbar.Brand>
@@ -76,6 +78,7 @@ function NavHeader() {
                     }
                 </Navbar.Collapse>
                 </Navbar>
+                <LeftMenu/>
         </div>
     )
 }

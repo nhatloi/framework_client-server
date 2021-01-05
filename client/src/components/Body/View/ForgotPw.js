@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React,{useState} from 'react'
-import {} from '../../'
-import {IsEmail} from '../utils/functionCheck'
+import {} from '../../..'
+import {IsEmail} from '../../utils/functionCheck'
 
 const initialState ={
     email:'',

@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
-import {dispatchLogin} from '../../redux/actions/authAction'
+import {dispatchLogin} from '../../../redux/actions/authAction'
 import {useDispatch} from 'react-redux'
 import { Form, Input, Button, Checkbox,message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';

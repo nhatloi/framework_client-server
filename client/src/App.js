@@ -43,13 +43,15 @@ useEffect(()=>{
 
 //render
   return (
-    <Router>
-      <NavHeader/>
-      <Row className='body'>
-          <LeftMenu/>
-          <Body/>
-      </Row>
-    </Router>
+    <div>
+      <Router>
+        <Row className='body'>
+            <Body/>
+        </Row>
+        <NavHeader/>
+      </Router>
+    </div>
+    
     
   )
 }

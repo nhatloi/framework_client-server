@@ -5,25 +5,12 @@ const { Title } = Typography;
 
 function MainImage(props) {
     return (
-        <div
+        <div className='movies-banner'
             style={{
-                background:
-                    `linear-gradient(to bottom, rgba(0,0,0,0)
-            39%,rgba(0,0,0,0)
-            41%,rgba(0,0,0,0.65)
-            100%),
-            url('${props.image}'), #1c1c1c`,
-                height: '400px',
-                backgroundSize: '100%, cover',
-                backgroundPosition: 'center,center',
-                width: '100%',
-                position: 'relative',
-                minWidth:'1000px'
-            }}
+                background:`url('${props.image}')`}}
         >
-            
-            <div>
-                <div style={{ position: 'absolute', maxWidth: '500px', bottom: '2rem', marginLeft: '2rem' }} >
+        <div>
+            <div style={{ position: 'absolute', maxWidth: '500px', bottom: '2rem', marginLeft: '2rem' }} >
                     <Title style={{ color: 'white' }} level={2} > {props.title} </Title>
                     <p style={{ color: 'white', fontSize: '1rem' }}  >{props.text} </p>
                     <p style={{ color: 'gray', fontSize: '1rem',fontFamily:'cursive'}} >{props.tag} </p>

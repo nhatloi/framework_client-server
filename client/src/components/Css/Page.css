@@ -1,8 +1,8 @@
 
 .body{
     min-height: 100vmax;
-    min-width: max-content;
-    margin: auto;
+    width:100%;
+    background: linear-gradient(to bottom, #1e8baf 0%, #ff99cc 100%);
 }
 
 .body h2{
@@ -34,8 +34,12 @@
     margin-left: 10px;
 }
 
+.profile {
+   padding: 10vw;
+}
 .profile .card {
-    width: max-content;
+    width: 350px;
+    border: 0;
 }
 .banner{
     width: 300px;
@@ -122,5 +126,47 @@ Title text{
     width: 1000px;
     border-style: solid ;
 
+}
+
+.movies-banner {
+    background:
+            linear-gradient(to bottom, rgba(0,0,0,0)
+            39%,rgba(0,0,0,0)
+            41%,rgba(0,0,0,0.65)
+            100%)
+            ;
+    height: 100%;
+    background-position: center center;
+    min-width:1000px;
+
+}
+
+.detail {
+    position: relative;
+}
+.detail-banner img{
+    opacity: 0.5;
+    width: 100vw;
+
+}
+.detail-card{
+    position:absolute;
+    left: 15%;
+    top: 20%;
+    height: 65%;
+    display: flex;
+}
+.detail-card label{
+    color: white;
+    font-size: 40px;
+    font-family:'Times New Roman', Times, serif;
+}
+.detail-card label Button{
+    position: absolute;
+    bottom: 0;
+}
+.detail-card img{
+    height: 100%;
+    margin-right: 20px;
 }
 
