@@ -13,6 +13,7 @@ import Profile from '../Body/View/Profile'
 import Home from '../Body/View/Home'
 import Successfully from '../utils/Successfully'
 import MovieDetail from '../Body/View/MovieDetail'
+import Test from '../Body/View/Test'
 
 
 
@@ -43,6 +44,9 @@ function Body() {
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/user/activation/:activation_token" component={ActiveEmail}/>
                     <Route exact path="/movie/:movieId" component={MovieDetail}/>
+                    <Route exact path="/test" component={Test}/>
+
+
 
                 </Switch>
             </section>

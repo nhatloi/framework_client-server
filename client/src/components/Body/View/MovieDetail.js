@@ -1,6 +1,6 @@
 import React ,{useEffect,useState} from 'react'
 import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE,POSTER_SIZE } from '../../../Config'
-import { Button, Row ,Spin} from 'antd'
+import { Button,Spin} from 'antd'
 import ReactPlayer from 'react-player/youtube'
 import { CloseOutlined,FieldTimeOutlined,CalendarOutlined} from '@ant-design/icons';
 import GridCards from '../commons/GridCards'
