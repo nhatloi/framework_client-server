@@ -138,6 +138,11 @@
     overflow-y: hidden;
 }
 
+.list-movies {
+    display: flex;
+    margin: auto;
+}
+
 /* Movie detail page */
 
 .detail {

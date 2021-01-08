@@ -14,7 +14,7 @@ import Home from '../Body/View/Home'
 import Successfully from '../utils/Successfully'
 import MovieDetail from '../Body/View/MovieDetail'
 import Test from '../Body/View/Test'
-
+import FreeMovies from '../Body/View/FreeMovies'
 
 
 
@@ -45,6 +45,7 @@ function Body() {
                     <Route exact path="/user/activation/:activation_token" component={ActiveEmail}/>
                     <Route exact path="/movie/:movieId" component={MovieDetail}/>
                     <Route exact path="/test" component={Test}/>
+                    <Route exact path="/freemovies/:category" component={FreeMovies}/>
 
 
 

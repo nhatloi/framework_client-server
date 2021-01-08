@@ -3,7 +3,6 @@ import {useDispatch,useSelector} from 'react-redux'
 import Body from './components/LandingPage/Body'
 import NavHeader from './components/LandingPage/Header'
 import {BrowserRouter as Router} from 'react-router-dom'
-import LeftMenu from './components/LandingPage/LeftMenu'
 import axios from 'axios'
 import {dispatchLogin,fetchUser,dispatchGetUser} from './redux/actions/authAction'
 import { Row} from 'antd';
