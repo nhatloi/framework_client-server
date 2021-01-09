@@ -1,9 +1,9 @@
 import React ,{useEffect,useState} from 'react'
-import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE,POSTER_SIZE } from '../../../Config'
+import { API_URL, API_KEY, IMAGE_BASE_URL, IMAGE_SIZE,POSTER_SIZE,LANGUAGE } from '../../../../Config'
 import { Button,Spin} from 'antd'
 import ReactPlayer from 'react-player/youtube'
 import { CloseOutlined,FieldTimeOutlined,CalendarOutlined} from '@ant-design/icons';
-import GridCards from '../commons/GridCards'
+import GridCards from '../../commons/GridCards'
 
 function MovieDetailPage(props) {
 
@@ -13,26 +13,19 @@ function MovieDetailPage(props) {
     const [Key, setKey] = useState()
     const [Movie, setMovie] = useState([])
     const [Casts, setCasts] = useState([])
-    const [CommentLists, setCommentLists] = useState([])
-    const [LoadingForMovie, setLoadingForMovie] = useState(true)
-    const [LoadingForCasts, setLoadingForCasts] = useState(true)
-    const [LoadingForKey, setLoadingForKey] = useState(true)
-    const [ActorToggle, setActorToggle] = useState(false)
-    const movieVariable = {
-        movieId: movieId
-    }
+
     const LinkVideo =`https://www.youtube.com/watch?v=${Key}`
 
 
     //fetch API
     useEffect(() => {
-        const endpoint_video = `${API_URL}movie/${movieId}/videos?api_key=${API_KEY}&language=en-US`;
+        const endpoint_video = `${API_URL}movie/${movieId}/videos?api_key=${API_KEY}&language=${LANGUAGE}`;
         fetchKey(endpoint_video)
 
-        let endpointForMovieInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=en-US`;
+        let endpointForMovieInfo = `${API_URL}movie/${movieId}?api_key=${API_KEY}&language=${LANGUAGE}`;
         fetchDetailInfo(endpointForMovieInfo)
         
-    }, [])
+    },[movieId])
 
     //get id video trailer
     const fetchKey = (endpoint) => {
@@ -43,7 +36,7 @@ function MovieDetailPage(props) {
                 console.log(result)
                 setKey(result.results[0].key)
                
-            }, setLoadingForKey(false))
+            })
             .catch(error => console.error('Error:', error)
             )
     }
@@ -56,7 +49,6 @@ function MovieDetailPage(props) {
             .then(result => {
                 console.log(result)
                 setMovie(result)
-                setLoadingForMovie(false)
 
                 let endpointForCasts = `${API_URL}movie/${movieId}/credits?api_key=${API_KEY}`;
                 fetch(endpointForCasts)
@@ -65,8 +57,6 @@ function MovieDetailPage(props) {
                         console.log(result)
                         setCasts(result.cast)
                     })
-
-                setLoadingForCasts(false)
             })
             .catch(error => console.error('Error:', error)
             )
@@ -83,23 +73,51 @@ function MovieDetailPage(props) {
     //render
     return (
         <div className='body'>
-            <div className='detail'>
+             <div className='detail'>
                 <div className='detail-banner'>
-                    <img src={`${IMAGE_BASE_URL}${IMAGE_SIZE}${Movie.backdrop_path}`}/>
+                    <img alt='banner' src={`${IMAGE_BASE_URL}${IMAGE_SIZE}${Movie.backdrop_path}`}/>
                 </div>
                 <div  className='detail-card'>
-                    <img src ={`${IMAGE_BASE_URL}${POSTER_SIZE}${Movie.poster_path}`}/>
+                    <img alt='card' src ={`${IMAGE_BASE_URL}${POSTER_SIZE}${Movie.poster_path}`}/>
                     <span>
                         <div className='info-Movie'>
                             <h1>{Movie.original_title}</h1>
+                            <div>
+                                Genres: 
+                                {Movie.genres && Movie.genres.map((genres, index) => (
+                                    <label>
+                                        {index === 0?
+                                            <label>{genres.name}</label>:
+                                            <label> - {genres.name}</label>
+                                        }
+                                    </label>
+                                ))}
+                                <div>Vote average: {Movie.vote_average}</div>
+                            </div>
                             <CalendarOutlined /> {Movie.release_date} <FieldTimeOutlined /> {parseInt(Movie.runtime/60)}h{Movie.runtime%60}m
                             
                         </div>
-                        OVERVIEW: <br/>{Movie.overview}<br/> 
                         <Button
                             onClick={PlayTrailer}
                             >
                         View Trailer</Button>
+                        <a href={Movie.homepage}>Home page</a>
+                        <div>
+                            {Movie.production_companies && Movie.production_companies.map((companies, index) => (
+                                <span>
+                                    {
+                                        companies.logo_path?<img alt='companies'
+                                        src={`${IMAGE_BASE_URL}${POSTER_SIZE}${companies.logo_path}`}
+                                        style={{width:30,height:30  }}/>:
+                                        null
+                                    }
+                                </span>
+                                        
+                            
+                            ))}
+                        </div>
+                        
+
                     </span>
                 </div>
             </div>
@@ -115,7 +133,7 @@ function MovieDetailPage(props) {
             />
       </div>
     {/* Actors Grid*/}
-    <h2>Series Cast</h2>
+     <h2>Series Cast</h2>
     <div className='actors'>
                 {Casts && Casts.map((cast, index) => (
                         <React.Fragment key={index}>
@@ -125,7 +143,6 @@ function MovieDetailPage(props) {
                 {!Casts.length &&
                     <Spin tip="Loading..." />}
                 </div>
-               
         </div>
         
     )

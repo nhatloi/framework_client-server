@@ -2,8 +2,6 @@ import React from 'react'
 import { IMAGE_BASE_URL } from '../../../Config';
 import { Rate, Card } from 'antd';
 import './GridCard.css'
-
-const Logo = require('../../../access/images/User.png');
 const { Meta } = Card;
 
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import {Carousel,Spin} from 'antd';
-import { API_URL,API_KEY, IMAGE_BASE_URL, IMAGE_SIZE, POSTER_SIZE } from '../../../Config'
-import MainImage from '../commons/MainImage'
-import GridCard from '../commons/GridCards'
+import { API_URL,API_KEY, IMAGE_BASE_URL, IMAGE_SIZE, POSTER_SIZE,LANGUAGE} from '../../../../Config'
+import MainImage from '../../commons/MainImage'
+import GridCard from '../../commons/GridCards'
 
 function Home() {
 
@@ -12,13 +12,12 @@ function Home() {
     const [MoviesNow, setMoviesNow] = useState([])
     const [MainMovieImage, setMainMovieImage] = useState([])
     const [Loading, setLoading] = useState(true)
-    const language = 'en-US'
 
     //fetch Movies
     useEffect(() => {
-        fetchMoviesPop(`${API_URL}movie/popular?api_key=${API_KEY}&language=${language}`)
-        fetchMoviesCom(`${API_URL}movie/upcoming?api_key=${API_KEY}&language=${language}`)
-        fetchMoviesNow(`${API_URL}movie/now_playing?api_key=${API_KEY}&language=${language}`)
+        fetchMoviesPop(`${API_URL}movie/popular?api_key=${API_KEY}&language=${LANGUAGE}`)
+        fetchMoviesCom(`${API_URL}movie/upcoming?api_key=${API_KEY}&language=${LANGUAGE}`)
+        fetchMoviesNow(`${API_URL}movie/now_playing?api_key=${API_KEY}&language=${LANGUAGE}`)
     }, [])
 
 

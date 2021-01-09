@@ -1,34 +1,26 @@
 import React,{useEffect,useState}from 'react'
 import axios from 'axios'
-import {message,Card,Row,Col} from 'antd';
+import {Card,Row,Col,Pagination} from 'antd';
 
 const { Meta } = Card;
 
 function FreeMovies(props) {
 
-    //const 
+    //const     
     const category = props.match.params.category
-    const [url, seturl] = useState('')
     
     const [movies, setMovies] = useState([])
     const [totalMovie, settotalMovie] = useState(0)
     const [totalPage, settotalPage] = useState(0)
     const [page, setpage] = useState(1)
+    const url = `http://motphimmoi.net/${category}/page/${page}`
 
-    const findPage = () =>{
-        if(category == 'Movie theaters')
-            seturl('http://motphimmoi.net/phim-chieu-rap/');
-        if(category == 'Good movies')
-            seturl('http://motphimmoi.net/phim-hay/');
-        if(category == 'Odd movies')
-            seturl('http://motphimmoi.net/phim-le/');
-        if(category == 'Series movies')
-            seturl('http://motphimmoi.net/phim-bo/');
-    }
+
+
+    
     useEffect(() => {
-        findPage()
         fetchData()
-    }, [url])
+    }, [page])
     const fetchData = async () =>{
         try {
             const res = await axios.post('/movie/fetchMovies', {url:url})
@@ -43,21 +35,21 @@ function FreeMovies(props) {
     return (
         <div className='container'>
             <h2>{category}</h2>
-            <button onClick={()=>{seturl(`${url}/page/1/`)}}>1</button>
-            <button onClick={()=>{seturl(`${url}/page/2/`)}}>2</button>
+            <Pagination simple current={page} total={totalPage*10} onChange={(page)=>{setpage(page)}}/>
             <div className='list-movies'>
                 <Row gutter={[8, 8]}>
-                    
                         {movies && movies.map((movie, index) => (
                             <React.Fragment key={index}>
                                <Col span={6} >
-                                    <a href={`/freemovie/`}>
+                                    <a href={`/whatmovie/${movie.href.substring(22)}`}>
                                         <Card
                                                 hoverable
                                                 style={{ width: 240 }}
-                                                cover={<img alt={movie.title} src={movie.img} />}
+                                                cover={<img alt={movie.title} src={movie.img} 
+                                                        style={{height:350}}/>}
                                             >
-                                                <Meta title={movie.title}  description={movie.time} />
+                                                <Meta title={movie.title}  description={movie.episode} />
+                                                <Meta description={movie.time} />
                                         </Card>
                                    </a>
                                     
@@ -67,7 +59,6 @@ function FreeMovies(props) {
                                 
                         ))}
                 </Row>
-                
             </div>
         </div>
     )

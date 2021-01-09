@@ -3,18 +3,20 @@ import { Route, Switch } from "react-router-dom";
 import {useSelector} from 'react-redux'
 
 // pages for this product
-import LoginPage from "../Body/View/Login"; 
-import Register from '../Body/View/Register';
-import ActiveEmail from '../Body/View/ActiveEmail';
-import ForgotPw from '../Body/View/ForgotPw';
-import ResetPassword from '../Body/View/ResetPassword'
+import LoginPage from "../auth/Login"; 
+import Register from '../auth/Register';
+import ActiveEmail from '../auth/ActiveEmail';
+import ForgotPw from '../auth/ForgotPw';
+import ResetPassword from '../auth/ResetPassword'
 import Notfound from '../utils/Notfound'
 import Profile from '../Body/View/Profile'
-import Home from '../Body/View/Home'
+import Home from '../Body/View/News/Home'
 import Successfully from '../utils/Successfully'
-import MovieDetail from '../Body/View/MovieDetail'
+import MovieDetail from '../Body/View/News/MovieDetail'
 import Test from '../Body/View/Test'
-import FreeMovies from '../Body/View/FreeMovies'
+import FreeMovies from '../Body/View/FreeMovies/FreeMovies'
+import WhatMovie from '../Body/View/FreeMovies/WhatMovie'
+
 
 
 
@@ -46,6 +48,7 @@ function Body() {
                     <Route exact path="/movie/:movieId" component={MovieDetail}/>
                     <Route exact path="/test" component={Test}/>
                     <Route exact path="/freemovies/:category" component={FreeMovies}/>
+                    <Route exact path="/whatmovie/:nameMovie" component={WhatMovie}/>
 
 
 

@@ -20,11 +20,13 @@ const moviesCtrl = {
                 const img = $(e).find('img').attr('src');
                 const time = $(e).find('.duration').text();
                 const href = $(e).attr('href');
+                const episode = $(e).find('>span.episode').text();
                 const movie ={
                     title:title,
                     img:img,
                     time:time,
-                    href:href
+                    href:href,
+                    episode:episode,
                 }
                 movies.push(movie)
             })
@@ -34,7 +36,7 @@ const moviesCtrl = {
                 totalPage.push(page);
             })
                 totalPage.pop()
-            res.json({totalPage:totalPage[totalPage.length-1],totalResult:movies.length,result:movies})
+            res.json({totalPage:totalPage[totalPage.length-1],result:movies})
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }    

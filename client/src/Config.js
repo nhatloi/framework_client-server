@@ -1,7 +1,7 @@
 //SERVER ROUTES
 export const USER_SERVER = '/api/users';
 
-export const LANGUAGE = 'en-US'
+export const LANGUAGE = 'vi-VN'
 
 export const API_URL = 'https://api.themoviedb.org/3/';
 export const API_KEY = '844dba0bfd8f3a4f3799f6130ef9e335';
@@ -15,3 +15,5 @@ export const IMAGE_SIZE = 'w1280'
 
 // w92, w154, w185, w342, w500, w780, original
 export const POSTER_SIZE = 'w500'
+
+export const FREE_MOVIES_URL = 'http://motphimmoi.net/'
