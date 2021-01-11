@@ -15,7 +15,7 @@ import Successfully from '../utils/Successfully'
 import MovieDetail from '../Body/View/News/MovieDetail'
 import Test from '../Body/View/Test'
 import FreeMovies from '../Body/View/FreeMovies/FreeMovies'
-import WhatMovie from '../Body/View/FreeMovies/WhatMovie'
+import WhatMovie from '../Body/View/FreeMovies/WatchMovie'
 
 
 

@@ -1,6 +1,6 @@
 import React,{useEffect,useState}from 'react'
 import axios from 'axios'
-import ReactPlayer from 'react-player'
+import Iframe from 'react-iframe'
 
 
 function WhatMovie(props) {
@@ -23,15 +23,15 @@ function WhatMovie(props) {
 
     return (
         <div className='container'> 
-            <div>
+            <div className='free-movie'>
                 <img alt='poster' src={movie.poster}/>
-                <ReactPlayer 
-                url={movie.trailer}
-                controls={true}/>
-
+                {/* <Iframe url={movie.linkMovies}
+                        width="100%"
+                        height="600px"
+                        id='movie'
+                        allowFullScreen
+                        allow = "fullscreen" /> */}
             </div>
-            
-
         </div>
     )
 }
