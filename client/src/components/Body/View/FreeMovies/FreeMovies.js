@@ -10,7 +10,6 @@ function FreeMovies(props) {
     const category = props.match.params.category
     
     const [movies, setMovies] = useState([])
-    const [totalMovie, settotalMovie] = useState(0)
     const [totalPage, settotalPage] = useState(0)
     const [page, setpage] = useState(1)
     const url = `http://motphimmoi.net/${category}/page/${page}`
@@ -19,13 +18,13 @@ function FreeMovies(props) {
 
     
     useEffect(() => {
-        fetchData()
-    }, [page])
+        fetchData();
+    },[page])
+
     const fetchData = async () =>{
         try {
             const res = await axios.post('/movie/fetchMovies', {url:url})
             setMovies(res.data.result);
-            settotalMovie(res.data.totalResult);
             settotalPage(res.data.totalPage)
         } catch (err) {
            return err.response.data.msg
@@ -34,24 +33,23 @@ function FreeMovies(props) {
 
     return (
         <div className='container'>
-            <h2>{category}</h2>
             <Pagination simple current={page} total={totalPage*10} onChange={(page)=>{setpage(page)}}/>
             <div className='list-movies'>
                 <Row gutter={[8, 8]}>
                         {movies && movies.map((movie, index) => (
                             <React.Fragment key={index}>
                                <Col span={6} >
-                                    <a href={`/whatmovie/${movie.href.substring(22)}`}>
-                                        <Card
-                                                hoverable
-                                                style={{ width: 240 }}
-                                                cover={<img alt={movie.title} src={movie.img} 
-                                                        style={{height:350}}/>}
-                                            >
-                                                <Meta title={movie.title}  description={movie.episode} />
-                                                <Meta description={movie.time} />
-                                        </Card>
-                                   </a>
+                                   <div className='card-movie'>
+                                       <label>{movie.episode}</label>
+                                        <a href={`/whatmovie/${movie.href.substring(22)}tap-1-server-1`}>
+                                            <img src={movie.img}/>
+                                            <div className='movie-infor'>
+                                                {movie.title}<p/>
+                                                {movie.time}
+                                                </div>
+                                        </a>
+                                   </div>
+                                    
                                     
                                 </Col>
                                 

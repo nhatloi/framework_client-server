@@ -1,5 +1,5 @@
 const axios = require('axios');
-const cheerio = require('cheerio')
+const cheerio = require('cheerio');
 const fs = require("fs");
 
 const fetchData = async(url) =>{
@@ -54,8 +54,8 @@ const moviesCtrl = {
             category:'',
             poster:'',
             trailer:'',
-            linkMovies:'',
-            totalEpisode:0,
+            overview:'',
+            playvideo:[],
         }
 
         try {
@@ -69,8 +69,8 @@ const moviesCtrl = {
                 movie.year = body.find ('.title-year').text()
                 movie.episode = body.find ('.episode').text().trim()
                 movie.duration = body.find ('.duration').text().trim()
-                
                 movie.country = body.find ('.actors').first().text().trim()
+                movie.overview = body.find('.item-content > p').text().trim()
 
                 $('.movie-detail > p.actors > a').each((i,e)=>{
                     movie.actors.push($(e).attr('title'));
@@ -79,20 +79,17 @@ const moviesCtrl = {
                 movie.category = body.find ('.category').text().trim()
         
                 //movies link
-                movie.poster = body.find('.movie-thumb').attr('src').trim()
+                movie.poster = body.find('.item-content > p > img').attr('src')
                 movie.trailer = body.find('.show-trailer').attr('data-url')
 
-         
                  //get link movies
-                const link = body.find('.halim-watch-box > a').attr('href').trim()
-                const LinkMovies = await fetchData(link)
-                const $$ =cheerio.load(LinkMovies)
-                movie.linkMovies = $$('#content').find('iframe.embed-responsive-item').attr('src');
-                let count = 0
-                $$('#halim-list-server .halim-server > ul.halim-list-eps > li.halim-episode').each((i,e)=>{
-                    count++;
+                const linkPlay = body.find('.halim-watch-box > a').attr('href')
+                const getlink = await fetchData(linkPlay)
+                const $$ =cheerio.load(getlink)
+                $$('li.halim-episode > a').each((i,e)=>{
+                    movie.playvideo.push($$(e).attr('href'));
                 })
-                movie.totalEpisode = count;
+
                 res.json({results:movie})
 
         } catch (error) {
@@ -100,9 +97,19 @@ const moviesCtrl = {
         }
        
 
+    }, 
+    PlayVideo : async (req,res) =>{
+        url = req.body.url
+        try {
+            const content = await fetchData(url)
+            const $ =cheerio.load(content)
+            const playvideo = $('iframe.embed-responsive-item').attr('src');
+            return res.json({playvideo})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
     }
-    
-    
+
 }
 
 module.exports = moviesCtrl

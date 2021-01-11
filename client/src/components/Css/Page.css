@@ -144,6 +144,30 @@
     display: flex;
     margin: auto;
 }
+.list-movies .card-movie{
+    height: 470px;
+    background: white;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1rem;
+    position: relative;
+}
+.list-movies .card-movie .movie-infor{
+    color: black;
+    margin-top: 10px;
+}
+.list-movies .card-movie img{
+    width: 100%;
+    height: 80%;
+}
+.list-movies .card-movie label{
+    position:absolute;
+    right: 0;
+    background: red;
+    bottom: 90px;
+}
+
 
 /* Movie detail page */
 
@@ -233,6 +257,29 @@
 }
 
 .free-movie{
-
+    color: white;
+    display: block;
+}
+.free-movie h2{
+    text-align: start;
+    margin-top: 20px;
+    color: white;
+    text-shadow: 2px 2px #ff0000;
+}
+.free-movie label{
+    display: flex;
+}
+.free-movie .movie-infor{
+    background-size:100% 100%;
+    overflow:auto;
+    height: 500px;
+}
+.free-movie .movie-infor .episode-movie button{
+    width: 50px;
+    color: white;
+    background: black;
+    border-radius: 10px;
+    margin: 3px;
+    display: inline;
 }
 

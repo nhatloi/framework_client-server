@@ -4,8 +4,6 @@ const fs = require("fs");
 const url_Phimmoi = "http://motphimmoi.net"
 
 
-const urlUpcomingMovie= "https://moveek.com/sap-chieu/"
-const urlTheMovieMowPlaying = "https://moveek.com/dang-chieu/"
 
 
 const fetchData = async(url) =>{
@@ -18,9 +16,6 @@ const FreeMovies = async () =>{
     const content = await fetchData(url_Phimmoi)
     const $ =cheerio.load(content)
 
-    fs.writeFile('./File/movies.txt', '', function (err) {
-        if (err) throw err;
-      });
     $('.halim-thumb').each((i,e)=>{
         const title = $(e).find('img').attr('title');
         const img = $(e).find('img').attr('src');

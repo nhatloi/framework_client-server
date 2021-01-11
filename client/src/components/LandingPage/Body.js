@@ -48,7 +48,7 @@ function Body() {
                     <Route exact path="/movie/:movieId" component={MovieDetail}/>
                     <Route exact path="/test" component={Test}/>
                     <Route exact path="/freemovies/:category" component={FreeMovies}/>
-                    <Route exact path="/whatmovie/:nameMovie" component={WhatMovie}/>
+                    <Route exact path="/whatmovie/:nameMovie/:episode" component={WhatMovie}/>
 
 
 

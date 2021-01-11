@@ -5,7 +5,7 @@ import {
   AppstoreOutlined,
   HomeOutlined,
   HeartOutlined,
-  MailOutlined,
+  FastForwardOutlined,
   MenuOutlined,
 } from '@ant-design/icons';
 const { SubMenu } = Menu;
@@ -36,7 +36,7 @@ function LeftMenu() {
             <Menu.Item key="favorite" icon={<HeartOutlined />}>
             <a href="/favorite">Favorite</a>
             </Menu.Item>
-            <SubMenu key="Freemovies" icon={<MailOutlined />} title="Free movies">
+            <SubMenu key="Freemovies" icon={<FastForwardOutlined />} title="Free movies">
               <Menu.Item key="Movies in theaters">
                 <a href="/freemovies/phim-chieu-rap">Movies in theathers</a>
               </Menu.Item>
