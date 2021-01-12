@@ -72,7 +72,7 @@ function MovieDetailPage(props) {
 
     //render
     return (
-        <div className='body'>
+        <div>
              <div className='detail'>
                 <div className='detail-banner'>
                     <img alt='banner' src={`${IMAGE_BASE_URL}${IMAGE_SIZE}${Movie.backdrop_path}`}/>

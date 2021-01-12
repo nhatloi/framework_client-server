@@ -16,6 +16,8 @@ import MovieDetail from '../Body/View/News/MovieDetail'
 import Test from '../Body/View/Test'
 import FreeMovies from '../Body/View/FreeMovies/FreeMovies'
 import WhatMovie from '../Body/View/FreeMovies/WatchMovie'
+import InTheatersPage from '../Body/View/InTheater/InTheatersPage'
+import InTheatersDetail from '../Body/View/InTheater/InTheatersDetail'
 
 
 
@@ -49,6 +51,9 @@ function Body() {
                     <Route exact path="/test" component={Test}/>
                     <Route exact path="/freemovies/:category" component={FreeMovies}/>
                     <Route exact path="/whatmovie/:nameMovie/:episode" component={WhatMovie}/>
+                    <Route exact path="/intheaters/:query" component={InTheatersPage}/>
+                    <Route exact path="/intheaters/detail/:nameMovie" component={InTheatersDetail}/>
+                    
 
 
 

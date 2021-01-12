@@ -1,31 +1,21 @@
-import React,{useEffect,useState}from 'react'
+import React,{useState,useEffect}from 'react'
 import axios from 'axios'
-import {Card,Row,Col,Pagination} from 'antd';
+import {Row,Col} from 'antd';
 
-const { Meta } = Card;
-
-function FreeMovies(props) {
-
-    //const     
-    const category = props.match.params.category
-    
+function InTheatersPage(props) {
+    //const
+    const query = props.match.params.query
     const [movies, setMovies] = useState([])
-    const [totalPage, settotalPage] = useState(0)
-    const [page, setpage] = useState(1)
-    const url = `http://motphimmoi.net/${category}/page/${page}`
-
-
-
-    
+    const url = `https://moveek.com/${query}`
+ 
     useEffect(() => {
         fetchData();
-    },[page])
+    },[])
 
     const fetchData = async () =>{
         try {
-            const res = await axios.post('/movie/fetchMovies', {url:url})
-            setMovies(res.data.result);
-            settotalPage(res.data.totalPage)
+            const res = await axios.post('/movie/fetchMovieTheaters', {url:url})
+            setMovies(res.data.movies);
         } catch (err) {
            return err.response.data.msg
         }
@@ -33,7 +23,7 @@ function FreeMovies(props) {
 
     return (
         <div className='container'>
-            <Pagination simple current={page} total={totalPage*10} onChange={(page)=>{setpage(page)}}/>
+            <h2>{query}</h2>
             <div className='list-movies'>
                 <Row gutter={[8, 8]}>
                         {movies && movies.map((movie, index) => (
@@ -41,11 +31,11 @@ function FreeMovies(props) {
                                <Col span={6} >
                                    <div className='card-movie'>
                                        <label>{movie.episode}</label>
-                                        <a href={`/whatmovie/${movie.href.substring(22)}tap-1-server-1`}>
+                                        <a href={`/intheaters/detail/${movie.title}`}>
                                             <img alt ='poster' src={movie.img}/>
                                             <div className='movie-infor'>
                                                 {movie.title}<p/>
-                                                {movie.time}
+                                                Khởi chiếu: {movie.date}
                                                 </div>
                                         </a>
                                    </div>
@@ -62,4 +52,4 @@ function FreeMovies(props) {
     )
 }
 
-export default FreeMovies
+export default InTheatersPage

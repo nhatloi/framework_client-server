@@ -50,13 +50,13 @@ function LeftMenu() {
                 <a href="/freemovies/phim-bo">Series movie</a>
               </Menu.Item>
             </SubMenu>
-            <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-              <Menu.Item key="9">Option 9</Menu.Item>
-              <Menu.Item key="10">Option 10</Menu.Item>
-              <SubMenu key="sub3" title="Submenu">
-                <Menu.Item key="11">Option 11</Menu.Item>
-                <Menu.Item key="12">Option 12</Menu.Item>
-              </SubMenu>
+            <SubMenu key="In Theaters" icon={<AppstoreOutlined />} title="In Theaters">
+              <Menu.Item key="up-comming">
+              <a href="/intheaters/sap-chieu">Up Comming</a>
+              </Menu.Item>
+              <Menu.Item key="now-playing">
+              <a href="/intheaters/dang-chieu">Now Playing</a>
+              </Menu.Item>
             </SubMenu>
           </Menu>
       </div>

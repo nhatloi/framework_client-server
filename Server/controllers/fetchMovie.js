@@ -1,31 +1,72 @@
 const axios = require('axios');
 const cheerio = require('cheerio')
 const fs = require("fs");
-const url_Phimmoi = "http://motphimmoi.net"
-
-
+const url = "http://motphimmoi.net"
+const urlUpcomingMovie= "https://moveek.com/sap-chieu/"
+const urlTheMovieMowPlaying = "https://moveek.com/dang-chieu/"
 
 
 const fetchData = async(url) =>{
     const result = await axios.get(url)
     return result.data
 }
-
-// scraper all movies in motphimmoi.net
-const FreeMovies = async () =>{
-    const content = await fetchData(url_Phimmoi)
+const GoogleNews = async () =>{
+    const content = await fetchData(url)
     const $ =cheerio.load(content)
 
+    fs.writeFile('news.txt', '', function (err) {
+        if (err) throw err;
+      });
+    console.log('writing...');
+    $('.NiLAwe.y6IFtc.R7GTQ.keNKEd.j7vNaf.nID9nc').each((i,e)=>{
+        const title = $(e).find('h3 >.DY5T1d').text();
+        const source = $(e).find('.wEwyrc').text();
+        const time =  $(e).find('.WW6dff').attr('datetime');
+        const description = $(e).find('.xBbh9').text();
+        const link = 'https://news.google.com/' + $(e).find('.VDXfz').attr("href") +'\n';
+        const avatar =$(e).find('img.tvs3Id.QwxBBf').attr("src")+'\n';
+        fs.appendFile('news.txt',title +'\n'
+        + description +'\n'
+        + link +'\n'
+        + source +'\n'
+        + time +'\n'
+        + avatar +'\n'
+        ,function (err) {
+            if (err) throw err;
+            });
+
+    })
+    console.log(content)
+}
+
+// scraper all movies in Home page
+const ScraperHomePage = async () =>{
+    const content = await fetchData(url)
+    const $ =cheerio.load(content)
+    const movies=[]
+        const movie ={
+            title:'',
+            img:'',
+            time:'',
+            href:''
+        }
+
+    fs.writeFile('./File/movies.txt', '', function (err) {
+        if (err) throw err;
+      });
     $('.halim-thumb').each((i,e)=>{
+
         const title = $(e).find('img').attr('title');
+        movie.title = title
         const img = $(e).find('img').attr('src');
+        movie.img = img
         const time = $(e).find('.duration').text();
+        movie.time = time
         const href = $(e).attr('href');
+        movie.href = href
 
+        ScraperMovieDetail(href)
         // movies detail
-
-        (ScraperMovieDetail(href)) 
-
         fs.appendFile('./File/movies.txt',title +'\n'
         + img +'\n'
         + time +'\n'
@@ -50,7 +91,7 @@ const ScraperMovieDetail = async (href) =>{
         category:'',
         poster:'',
         trailer:'',
-        linkMovies:''
+        linkMovies:[]
     }
     const movies = []
     const content = await fetchData(href)
@@ -76,8 +117,8 @@ const ScraperMovieDetail = async (href) =>{
 
         //get link movies
         const link = body.find('.halim-watch-box > a').attr('href').trim()
-        const LinkMovies = await fetchData(link)
-        const $$ =cheerio.load(LinkMovies)
+        const Linkview = await fetchData(link)
+        const $$ =cheerio.load(Linkview)
         movie.linkMovies = $$('#content').find('iframe.embed-responsive-item').attr('src');
         movies.push({results:movie})
         console.log(movies)
@@ -171,6 +212,9 @@ const CrawlerDetailMovie = async (url) =>{
 
 }
 
+
+//run app
+ScraperHomePage()
 
 
 

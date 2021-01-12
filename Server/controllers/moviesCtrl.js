@@ -1,6 +1,8 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require("fs");
+const Scraper = require('images-scraper');
+
 
 const fetchData = async(url) =>{
     const result = await axios.get(url)
@@ -8,6 +10,7 @@ const fetchData = async(url) =>{
 }
 
 const moviesCtrl = {
+    //watch movies Free
     FreeMovies : async (req,res) =>{
         url = req.body.url
         const movies=[]
@@ -108,8 +111,90 @@ const moviesCtrl = {
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }
+    },
+
+    //watch movies in theaters
+    MovieTheaters : async (req,res) =>{
+        url = req.body.url
+        const movies = []
+        try {
+            const content = await fetchData(url)
+            const $ =cheerio.load(content)
+            $('.col-lg-2').each((i,e)=>{
+                const movie={
+                    img:'',
+                    title:'',
+                    date:'',
+                    linkmovie:'',
+                }
+                movie.img = $(e).find(' .card > a >img').attr('data-src');
+                movie.title = $(e).find('h3> a').attr('title');
+                movie.date = $(e).find('div.text-muted').text().trim();
+                movie.linkmovie = 'https://moveek.com'+ $(e).find('.card > a ').attr('href');
+
+                movies.push(movie)
+            })
+            return res.json({movies})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+        
+    
+    },
+    DetailMovieMovieTheaters : async (req,res) =>{
+        url = req.body.url
+        const content = await fetchData(url)
+        const $ =cheerio.load(content)
+        const movie = {
+            title:'',
+            date:'',
+            time:'',
+            ageLimit:'',
+            actors:[],
+            directors:[],
+            name:'',
+            overview:'',
+            poster:'',
+            trailer:'',
+        }
+    
+          const body = $('#app');
+          movie.img = body.find('img.img-fluid').attr('data-src');
+          movie.title = body.find('h1.text-truncate > a').attr('title');
+          movie.name = body.find('p.text-truncate').text().trim();
+          movie.name= movie.name.replace(/\s+/g,' ')
+          movie.trailer = 'https://www.youtube.com/watch?v=' + body.find('.row .text-sm-left > a.btn-outline-light').attr('data-video-url');
+          movie.overview = body.find('p.text-justify').text();
+    
+        $('.text-sm-left > span').each((i,e)=>{
+            if(i === 0) movie.date = $(e).text();
+            if(i === 1) movie.time = $(e).text();
+            if(i === 2) movie.ageLimit = $(e).text();
+        })
+        $('.mb-2').each((i,e)=>{
+            if(i===0){
+                $(e).find('span > a.text-danger').each((index,e2)=>{
+                    movie.actors.push($(e2).text());
+                })
+            }
+            if(i===1){
+                $(e).find('span > a.text-danger').each((index,e2)=>{
+                    movie.directors.push($(e2).text());
+                })
+            }
+
+        })
+
+        //get poster
+        const google = new Scraper({  
+          } );
+        const results = await google.scrape(`banner movie : '${movie.title}'`,1);
+        movie.poster = results[0];
+        return res.json({movie})
+        
     }
 
 }
+
 
 module.exports = moviesCtrl

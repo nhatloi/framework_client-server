@@ -3,16 +3,15 @@
     min-height: 100vmax;
     width:100%;
     background: linear-gradient(to bottom, #2a2833, #040405);
+    padding-top: 40px;
 }
 
-.container {
-    padding-top: 100px;
-}
 .body h2{
     text-align: center;
     text-transform: uppercase;
     font-size: 2rem;
     letter-spacing: 1.5px;
+    color: white;
 }
 
 /* forgot password form */
@@ -173,6 +172,7 @@
 
 .detail {
     position: relative;
+    top: 0;
 }
 
 .movies-banner {
@@ -271,9 +271,13 @@
 }
 .free-movie .movie-infor{
     background-size:100% 100%;
-    overflow:auto;
     height: 500px;
 }
+
+.free-movie .movie-infor .movie-overview{
+    overflow:auto;
+}
+
 .free-movie .movie-infor .episode-movie button{
     width: 50px;
     color: white;
