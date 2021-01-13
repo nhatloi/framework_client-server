@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import Body from './components/LandingPage/Body'
 import NavHeader from './components/LandingPage/Header'
@@ -6,6 +6,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import axios from 'axios'
 import {dispatchLogin,fetchUser,dispatchGetUser} from './redux/actions/authAction'
 import { Row} from 'antd';
+import AdminPage from './AdminPage/AdminPage'
 
 
 function App() {
@@ -13,6 +14,8 @@ function App() {
 const dispatch = useDispatch()
 const token = useSelector(state => state.token)
 const auth = useSelector(state => state.auth)
+const {isAdmin} = auth
+
 
 //effect
 useEffect(()=>{
@@ -24,7 +27,7 @@ useEffect(()=>{
     }
     getToken()
   }
-},[auth.isLogged,dispatch])
+},[auth.isLogged,isAdmin,dispatch])
 
 useEffect(()=>{
   if(token){
@@ -39,16 +42,18 @@ useEffect(()=>{
   }
 },[token,dispatch])
 
-
 //render
   return (
     <div>
-      <Router>
-        <Row className='body'>
-            <Body/>
-        </Row>
-        <NavHeader/>
-      </Router>
+        <Router>
+            {
+              isAdmin?<AdminPage/>
+              :<Row className='body'>
+                <Body/>
+              </Row>
+            }
+          <NavHeader/>
+        </Router>
     </div>
     
     
