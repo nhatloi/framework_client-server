@@ -3,7 +3,6 @@ import { Route, Switch } from "react-router-dom";
 import {useSelector} from 'react-redux'
 
 // pages for this product
-import LoginPage from "../auth/Login"; 
 import Register from '../auth/Register';
 import ActiveEmail from '../auth/ActiveEmail';
 import ForgotPw from '../auth/ForgotPw';
@@ -35,11 +34,11 @@ function Body() {
                 <Switch>
 
                     {/* must login first */}
-                    <Route exact path="/login" component={isLogged? Notfound : LoginPage}/>
                     <Route exact path="/register" component={isLogged? Notfound: Register}/>
                     <Route exact path="/forgot" component={isLogged? Notfound:ForgotPw}/>
                     <Route exact path="/user/reset/:token" component={isLogged? Notfound:ResetPassword}/>
                     <Route exact path="/profile" component={isLogged? Profile : Notfound}/>
+                    <Route exact path="/favorite" component={isLogged? Profile : Notfound}/>
 
                     {/* notification */}
                     <Route exact path="/success/:title/:subTitle" component={Successfully}/>
@@ -54,9 +53,6 @@ function Body() {
                     <Route exact path="/intheaters/:query" component={InTheatersPage}/>
                     <Route exact path="/intheaters/detail/:nameMovie" component={InTheatersDetail}/>
                     
-
-
-
                 </Switch>
             </section>
       </div>

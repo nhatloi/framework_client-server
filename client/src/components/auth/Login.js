@@ -28,9 +28,7 @@ function LoginPage() {
 
     //render
     return (
-        <div className='body'>
-            <div className='login-form'>
-                <h2>Login</h2>
+        <div>
                 <Form
                     name="normal_login"
                     initialValues={{ remember: true }}
@@ -69,9 +67,7 @@ function LoginPage() {
                         <a href="/register"> Register now?</a>
                     </Form.Item>
                 </Form>
-            </div>
-        </div>
-        
+        </div> 
     )
 }
 

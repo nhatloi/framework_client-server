@@ -98,7 +98,9 @@ function AdminPage() {
                     <News trans = {transNews}/>
                     <Advertisement trans = {transAdvertisement}/>
                 </div>
-                <Footer style={{ textAlign: 'center' }}>FRadar ©2021 Created by NhatLoi</Footer>
+                <div className = 'footer'>
+                    <Footer style={{ textAlign: 'center' }}>FRadar ©2021 Created by NhatLoi</Footer>
+                </div>
                 </Layout>
             </Layout>
         </div>

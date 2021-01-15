@@ -1,10 +1,12 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {useSelector} from 'react-redux'
 import axios from 'axios';
 import logo from '../../access/images/Logo.png';    
 import { Menu, Dropdown} from 'antd';
 import { Button,Navbar,Nav,Form,FormControl} from 'react-bootstrap';
 import LeftMenu from './LeftMenu'
+import { Drawer } from 'antd';
+import Login from '../auth/Login'
 
 
 
@@ -13,8 +15,8 @@ import LeftMenu from './LeftMenu'
 function NavHeader() {
     //const
     const auth = useSelector(state => state.auth)
-    
     const {user,isLogged} = auth;
+    const [visible, setvisible] = useState(false)
 
     const handleLogout = async() =>{
         try {
@@ -24,6 +26,9 @@ function NavHeader() {
         } catch (error) {
             window.location.href='/';
         }
+    }
+    const handleLogin =() =>{
+        setvisible (!visible)
     }
 
     const menu = (
@@ -72,9 +77,16 @@ function NavHeader() {
                     {
                         isLogged?userInfor()
                         :
-                        <a href='/login'>
-                            <Button>Login</Button>
-                        </a>
+                        <div>
+                            <Button onClick={handleLogin}>Login</Button>
+                            <Drawer
+                                title="Login"
+                                placement="right"
+                                visible={visible}
+                                onClose={handleLogin}>
+                                <Login/>
+                            </Drawer>
+                        </div>
                     }
                 </Navbar.Collapse>
                 </Navbar>

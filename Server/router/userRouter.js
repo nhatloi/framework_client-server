@@ -23,4 +23,6 @@ router.get('/logout', userCtrl.logout)
 
 router.patch('/update',auth, userCtrl.updateUser)
 
+router.delete('/delete/:id',auth,authAdmin,userCtrl.deleteUser)
+
 module.exports = router
