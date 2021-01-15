@@ -14,7 +14,7 @@ function App() {
 const dispatch = useDispatch()
 const token = useSelector(state => state.token)
 const auth = useSelector(state => state.auth)
-const {isAdmin} = auth
+const {isLogged,isAdmin} = auth
 
 
 //effect
@@ -27,7 +27,7 @@ useEffect(()=>{
     }
     getToken()
   }
-},[auth.isLogged,isAdmin,dispatch])
+},[isLogged,dispatch])
 
 useEffect(()=>{
   if(token){
@@ -45,15 +45,16 @@ useEffect(()=>{
 //render
   return (
     <div>
-        <Router>
-            {
-              isAdmin?<AdminPage/>
-              :<Row className='body'>
+      {isAdmin?<AdminPage/>
+        :<Router>
+
+              <Row className='body'>
                 <Body/>
               </Row>
-            }
+
           <NavHeader/>
         </Router>
+}
     </div>
     
     

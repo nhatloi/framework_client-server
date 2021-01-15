@@ -147,9 +147,8 @@ const userCtrl = {
     
     getAllUserInfor :async (req,res) =>{
         try{
-            const user = await Users.findById(req.user.id).select('-password')
-            res.json(user)
-
+            const user = await Users.find().select('-password')
+            return res.json({user:user})
         }catch(err){
             return res.status(500).json({msg: err.message})
         }
