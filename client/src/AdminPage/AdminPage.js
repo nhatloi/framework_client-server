@@ -11,7 +11,6 @@ import {
   PoweroffOutlined
 } from '@ant-design/icons';
 import './AdminPage.css'
-import Body from './Body'
 import Account from './Body/Account'
 import Movies from './Body/Movies'
 import Theaters from './Body/Theaters'
@@ -22,28 +21,29 @@ import Advertisement from './Body/Advertisement'
 const { Header,Footer, Sider } = Layout;
 
 function AdminPage() {
-    const initialState = 10000
-    const [transAcount, settransAcount] = useState(0)
-    const [transTheaters, settransTheaters] = useState(initialState)
-    const [transMovies, settransMovies] = useState(initialState)
-    const [transNews, settransNews] = useState(initialState)
-    const [transAdvertisement, settransAdvertisement] = useState(initialState)
+    const initialState = -1
+    const [indexAcount, setindexAcount] = useState(1)
+    const [indexTheaters, setindexTheaters] = useState(initialState)
+    const [indexMovies, setindexMovies] = useState(initialState)
+    const [indexNews, setindexNews] = useState(initialState)
+    const [indexAdvertisement, setindexAdvertisement] = useState(initialState)
 
     const user = useSelector(state => state.auth.user)
 
     const ClickPage =(props)=>{
         
-        settransAcount(initialState)
-        settransTheaters(initialState)
-        settransMovies(initialState)
-        settransNews(initialState)
-        settransAdvertisement(initialState)
-        if(props.key == 'Account')  settransAcount(0);
-        if(props.key == 'Theaters')  settransTheaters(0);
-        if(props.key == 'Movies')  settransMovies(0);
-        if(props.key == 'News') settransNews(0);
-        if(props.key == 'Advertisement') settransAdvertisement(0);
+        setindexAcount(initialState)
+        setindexTheaters(initialState)
+        setindexMovies(initialState)
+        setindexNews(initialState)
+        setindexAdvertisement(initialState)
+        if(props.key == 'Account')  setindexAcount(1);
+        if(props.key == 'Theaters')  setindexTheaters(1);
+        if(props.key == 'Movies')  setindexMovies(1);
+        if(props.key == 'News') setindexNews(1);
+        if(props.key == 'Advertisement') setindexAdvertisement(1);
     }
+
     const handleLogout = async() =>{
         try {
             await axios.get('/user/logout')
@@ -92,11 +92,11 @@ function AdminPage() {
                 <marquee>This is the site for admin.</marquee>
                 </Header>
                 <div className='body-admin'>
-                    <Account trans = {transAcount}/>
-                    <Movies trans = {transMovies}/>
-                    <Theaters trans = {transTheaters}/>
-                    <News trans = {transNews}/>
-                    <Advertisement trans = {transAdvertisement}/>
+                    <Account index = {indexAcount}/>
+                    <Movies index = {indexMovies}/>
+                    <Theaters index = {indexTheaters}/>
+                    <News index = {indexNews}/>
+                    <Advertisement index = {indexAdvertisement}/>
                 </div>
                 <div className = 'footer'>
                     <Footer style={{ textAlign: 'center' }}>FRadar ©2021 Created by NhatLoi</Footer>

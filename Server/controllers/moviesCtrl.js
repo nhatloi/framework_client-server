@@ -1,7 +1,17 @@
+import YouTube from "https://deno.land/x/youtube_sr/mod.ts"
+
+
 const axios = require('axios');
+const { html } = require('cheerio');
 const cheerio = require('cheerio');
 const fs = require("fs");
 const Scraper = require('images-scraper');
+const search = require('youtube-search');
+const {YOUTUBE_KEY} = process.env
+const opts = {
+    maxResults: 1,
+    key: YOUTUBE_KEY
+    };
 
 
 const fetchData = async(url) =>{
@@ -120,21 +130,48 @@ const moviesCtrl = {
         try {
             const content = await fetchData(url)
             const $ =cheerio.load(content)
-            $('.col-lg-2').each((i,e)=>{
-                const movie={
-                    img:'',
-                    title:'',
-                    date:'',
-                    linkmovie:'',
-                }
-                movie.img = $(e).find(' .card > a >img').attr('data-src');
-                movie.title = $(e).find('h3> a').attr('title');
-                movie.date = $(e).find('div.text-muted').text().trim();
-                movie.linkmovie = 'https://moveek.com'+ $(e).find('.card > a ').attr('href');
+            const tab_onshow = $('#tab_onshow')
+            // $('.col-lg-2').each((i,e)=>{
+            //     const movie={
+            //         img:'',
+            //         title:'',
+            //         date:'',
+            //         linkmovie:'',
+            //     }
+            //     movie.img = $(e).find(' .card > a >img').attr('data-src');
+            //     movie.title = $(e).find('h3> a').attr('title');
+            //     movie.date = $(e).find('div.text-muted').text().trim();
+            
+            //     movie.linkmovie = 'https://moveek.com'+ $(e).find('.card > a ').attr('href');
 
+            //     movies.push(movie)
+            // })
+            // return res.json({movies})
+
+
+            $(tab_onshow).find('.watchmovie-item').each( async (i,e)=>{
+                const movie={
+                            img:'',
+                            title:'',
+                            linkmovie:'',
+                            translation_name:'',
+                            trailer:[],
+                        }
+                movie.img = $(e).find(' .article-watchmovie >img').attr('src');
+
+                $(e).find('.title-watchmovie > h4').each((index,ex)=>{
+                    if(index == 0) movie.title = $(ex).text();
+                    if(index == 1) movie.translation_name = $(ex).text();
+                });
+
+                movie.linkmovie = 'https://www.galaxycine.vn'+ $(e).find('.article-watchmovie > a ').attr('href');
                 movies.push(movie)
             })
-            return res.json({movies})
+
+            YouTube.search("indila last dance", { limit: 3 })
+            .then(x => console.log(x))
+            .catch(console.error);
+          
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }
@@ -190,8 +227,7 @@ const moviesCtrl = {
           } );
         const results = await google.scrape(`banner movie : '${movie.title}'`,1);
         movie.poster = results[0];
-        return res.json({movie})
-        
+        return res.json({movie})        
     }
 
 }

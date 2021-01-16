@@ -1,10 +1,19 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import axios from 'axios'
+import {Typography} from 'antd';
+
+const { Text} = Typography;
+
 
 function Movies(props) {
-    const trans = props.trans
+    //const 
+
+
+    const index = props.index
     return (
-        <div className='admin-movies' style={{transform:`translateX(${trans}px)`}}>
-           <h2>Movies</h2>
+        <div className='admin-movies' style={{zIndex:index}}>
+           <h2><Text underline>Movies Manager</Text></h2>
+
         </div>
     )
 }

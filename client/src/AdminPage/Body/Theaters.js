@@ -1,10 +1,13 @@
 import React from 'react'
+import {Typography} from 'antd';
+
+const { Text} = Typography;
 
 function Theaters(props) {
-    const trans = props.trans
+    const index = props.index
     return (
-        <div className='theaters' style={{transform:`translateX(${trans}px)`}}>
-            <h2>Theaters</h2>
+        <div className='theaters' style={{zIndex:index}}>
+             <h2><Text underline>Theaters Manager</Text></h2>
         </div>
     )
 }

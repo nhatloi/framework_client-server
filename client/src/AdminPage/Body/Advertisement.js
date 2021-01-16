@@ -1,9 +1,9 @@
 import React from 'react'
 
 function Advertisement(props) {
-    const trans = props.trans
+    const index = props.index
     return (
-        <div className='advertisement' style={{transform:`translateX(${trans}px)`}}>
+        <div className='advertisement' style={{zIndex:index}}>
             <h2>Advertisement</h2>
         </div>
     )

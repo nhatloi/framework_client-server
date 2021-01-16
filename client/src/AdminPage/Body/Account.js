@@ -2,7 +2,7 @@ import React ,{useState,useEffect}from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import axios from 'axios'
 import { Table,Typography,message,Drawer,Modal} from 'antd';
-import { EyeOutlined,DeleteOutlined,RedoOutlined} from '@ant-design/icons';
+import { EyeOutlined,DeleteOutlined} from '@ant-design/icons';
 import {fetchAllUsers,dispatchGetAllUser} from '../../redux/actions/allUserAction'
 import Information from './InformationUser'
 const { Text} = Typography;
@@ -73,7 +73,7 @@ function Account(props) {
     }
     
     const [visible, setvisible] = useState(false)
-    const trans = props.trans
+    const index = props.index
     const token = useSelector(state => state.token)
     const users = useSelector(state => state.users)
     const [userInfor, setuserInfor] = useState(initialState)
@@ -83,7 +83,7 @@ function Account(props) {
 
     //render
     return (
-        <div className='account' style={{transform:`translateX(${trans}px)`}}>
+        <div className='account' style={{zIndex:index}}>
             <h2><Text underline>User Manager</Text></h2>
             <Table columns={columns} dataSource={users}
             onRow={(record, rowIndex) => {
