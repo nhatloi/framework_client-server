@@ -22,7 +22,7 @@ function Movies(props) {
                <button onClick={handleEdit}>+</button>
            </div>
            <Drawer
-                height={'80%'}
+                height={'100%'}
                 title="Add new movies"
                 placement="top"
                 visible={visible}

@@ -194,7 +194,37 @@ const moviesCtrl = {
         const results = await google.scrape(`banner movie : '${movie.title}'`,5);
         movie.poster = results
         return res.json({movie})        
-    }
+    },
+    SearchMovie : async (req,res) =>{
+        url = req.body.url
+        const movies = []
+        try {
+            const content = await fetchData(url)
+            const $ =cheerio.load(content)
+            const tab_onshow = $('.slick-track')
+            $('div.mb-4').each((i,e)=>{
+                const movie={
+                    img:'',
+                    title:'',
+                    date:'',
+                    linkmovie:'',
+                }
+                movie.img = $(e).find('a > img').attr('data-src');
+                movie.title = $(e).find('h3> a').attr('title');
+                movie.date = $(e).find('p.text-muted').text().trim();
+            
+                movie.linkmovie = 'https://moveek.com'+ $(e).find('a ').attr('href');
+
+                movies.push(movie)
+            })
+            return res.json(movies)
+          
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+        
+    
+    },
 
 }
 
