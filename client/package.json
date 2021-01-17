@@ -20,9 +20,9 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "redux": "^4.0.5",
-    "rx-player": "^3.22.0",
-    "video-react": "^0.14.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^1.1.0",
+    "ws": "^7.4.2",
+    "youtube-search": "^1.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

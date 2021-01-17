@@ -1,14 +1,7 @@
 const axios = require('axios');
-const { html } = require('cheerio');
 const cheerio = require('cheerio');
 const fs = require("fs");
 const Scraper = require('images-scraper');
-const search = require('youtube-search');
-const {YOUTUBE_KEY} = process.env
-const opts = {
-    maxResults: 1,
-    key: YOUTUBE_KEY
-    };
 
 
 const fetchData = async(url) =>{
@@ -144,30 +137,6 @@ const moviesCtrl = {
                 movies.push(movie)
             })
             return res.json({movies})
-
-
-            // $(tab_onshow).find('.watchmovie-item').each( async (i,e)=>{
-            //     const movie={
-            //                 img:'',
-            //                 title:'',
-            //                 linkmovie:'',
-            //                 translation_name:'',
-            //                 trailer:[],
-            //             }
-            //     movie.img = $(e).find(' .article-watchmovie >img').attr('src');
-
-            //     $(e).find('.title-watchmovie > h4').each((index,ex)=>{
-            //         if(index == 0) movie.title = $(ex).text();
-            //         if(index == 1) movie.translation_name = $(ex).text();
-            //     });
-
-            //     movie.linkmovie = 'https://www.galaxycine.vn'+ $(e).find('.article-watchmovie > a ').attr('href');
-            //     movies.push(movie)
-            // })
-
-            // YouTube.search("indila last dance", { limit: 3 })
-            // .then(x => console.log(x))
-            // .catch(console.error);
           
         } catch (error) {
             return res.status(500).json({msg: error.message})
@@ -222,8 +191,8 @@ const moviesCtrl = {
         //get poster
         const google = new Scraper({  
           } );
-        const results = await google.scrape(`banner movie : '${movie.title}'`,1);
-        movie.poster = results[0];
+        const results = await google.scrape(`banner movie : '${movie.title}'`,5);
+        movie.poster = results
         return res.json({movie})        
     }
 

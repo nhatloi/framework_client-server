@@ -1,18 +1,25 @@
 import React ,{useState}from 'react'
 import { Input } from 'antd';
-import Scraper from 'images-scraper'
 const { Search } = Input;
-const google = new Scraper({  
-} );
-
+const search = require('youtube-search');
+var opts = {
+    maxResults: 10,
+    key: 'AIzaSyDI_zPC4aEbkvVm03X2qtHoZL03XipKxTs'
+  };
 
 
 
 function AddNewMovie() {
+    
 
     const handleSearch = async(props) =>{
-            const results = await google.scrape('banana', 200);
-            console.log('results', results);
+        // search(`${props}`, opts, function(err, results) {
+        //     if(err) return console.log(err);
+           
+        //     console.log(results);
+        //   });
+        
+        console.log(props)
     }
 
     const [postterImg, setpostterImg] = useState('')
@@ -26,7 +33,7 @@ function AddNewMovie() {
                 onSearch={handleSearch}
                 />
 
-            <img alt= 'poster' src={'https://cdn.moveek.com/media/cache/short/5fec17e5a280e649515214.jpg'} />
+            <img alt= 'poster' />
         </div>
     )
 }

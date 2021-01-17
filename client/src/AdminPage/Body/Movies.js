@@ -1,13 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import {Typography,Drawer} from 'antd';
 import AddNewMovie from './commons/AddNewMovie'
-const search = require('youtube-search');
-var opts = {
-    maxResults: 1,
-    key: 'AIzaSyDgaev2xgHUTf5DQ_ICTcwz2CCWa1i5TNs'
-  };
+
 const { Text} = Typography;
-const url = 'https://moveek.com/dang-chieu/'
 
 
 function Movies(props) {
