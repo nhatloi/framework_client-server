@@ -1,6 +1,3 @@
-import YouTube from "https://deno.land/x/youtube_sr/mod.ts"
-
-
 const axios = require('axios');
 const { html } = require('cheerio');
 const cheerio = require('cheerio');
@@ -131,46 +128,46 @@ const moviesCtrl = {
             const content = await fetchData(url)
             const $ =cheerio.load(content)
             const tab_onshow = $('#tab_onshow')
-            // $('.col-lg-2').each((i,e)=>{
-            //     const movie={
-            //         img:'',
-            //         title:'',
-            //         date:'',
-            //         linkmovie:'',
-            //     }
-            //     movie.img = $(e).find(' .card > a >img').attr('data-src');
-            //     movie.title = $(e).find('h3> a').attr('title');
-            //     movie.date = $(e).find('div.text-muted').text().trim();
-            
-            //     movie.linkmovie = 'https://moveek.com'+ $(e).find('.card > a ').attr('href');
-
-            //     movies.push(movie)
-            // })
-            // return res.json({movies})
-
-
-            $(tab_onshow).find('.watchmovie-item').each( async (i,e)=>{
+            $('.col-lg-2').each((i,e)=>{
                 const movie={
-                            img:'',
-                            title:'',
-                            linkmovie:'',
-                            translation_name:'',
-                            trailer:[],
-                        }
-                movie.img = $(e).find(' .article-watchmovie >img').attr('src');
+                    img:'',
+                    title:'',
+                    date:'',
+                    linkmovie:'',
+                }
+                movie.img = $(e).find(' .card > a >img').attr('data-src');
+                movie.title = $(e).find('h3> a').attr('title');
+                movie.date = $(e).find('div.text-muted').text().trim();
+            
+                movie.linkmovie = 'https://moveek.com'+ $(e).find('.card > a ').attr('href');
 
-                $(e).find('.title-watchmovie > h4').each((index,ex)=>{
-                    if(index == 0) movie.title = $(ex).text();
-                    if(index == 1) movie.translation_name = $(ex).text();
-                });
-
-                movie.linkmovie = 'https://www.galaxycine.vn'+ $(e).find('.article-watchmovie > a ').attr('href');
                 movies.push(movie)
             })
+            return res.json({movies})
 
-            YouTube.search("indila last dance", { limit: 3 })
-            .then(x => console.log(x))
-            .catch(console.error);
+
+            // $(tab_onshow).find('.watchmovie-item').each( async (i,e)=>{
+            //     const movie={
+            //                 img:'',
+            //                 title:'',
+            //                 linkmovie:'',
+            //                 translation_name:'',
+            //                 trailer:[],
+            //             }
+            //     movie.img = $(e).find(' .article-watchmovie >img').attr('src');
+
+            //     $(e).find('.title-watchmovie > h4').each((index,ex)=>{
+            //         if(index == 0) movie.title = $(ex).text();
+            //         if(index == 1) movie.translation_name = $(ex).text();
+            //     });
+
+            //     movie.linkmovie = 'https://www.galaxycine.vn'+ $(e).find('.article-watchmovie > a ').attr('href');
+            //     movies.push(movie)
+            // })
+
+            // YouTube.search("indila last dance", { limit: 3 })
+            // .then(x => console.log(x))
+            // .catch(console.error);
           
         } catch (error) {
             return res.status(500).json({msg: error.message})

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Table,Typography,message,Drawer,Modal} from 'antd';
 import { EyeOutlined,DeleteOutlined} from '@ant-design/icons';
 import {fetchAllUsers,dispatchGetAllUser} from '../../redux/actions/allUserAction'
-import Information from './InformationUser'
+import Information from './commons/InformationUser'
 const { Text} = Typography;
 const initialState = {
     email:'',
