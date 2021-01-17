@@ -12,22 +12,19 @@ const initialState = {
     avatar:'',
 }
 
-
-
 function Account(props) {
 
+    
     const dispatch = useDispatch()
-    const updatePage = localStorage.getItem('updatePage')
-    useEffect(()=>{
-        fetchAllUsers(token).then(res =>{
-            dispatch(dispatchGetAllUser(res))
-          })
-        localStorage.removeItem('updatePage')
-      },[updatePage])
-
-
-    //const 
-    const columns = [
+        
+    const [visible, setvisible] = useState(false)
+    const index = props.index
+    const token = useSelector(state => state.token)
+    const users = useSelector(state => state.users)
+    const [userInfor, setuserInfor] = useState(initialState)
+    const [isModalVisible, setIsModalVisible] = useState(false);
+     //const 
+     const columns = [
         {
           title: 'Email',
           dataIndex: 'email',
@@ -71,14 +68,14 @@ function Account(props) {
     const handleEdit =() =>{
         setvisible (!visible)
     }
-    
-    const [visible, setvisible] = useState(false)
-    const index = props.index
-    const token = useSelector(state => state.token)
-    const users = useSelector(state => state.users)
-    const [userInfor, setuserInfor] = useState(initialState)
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
+
+
+    useEffect(()=>{
+        fetchAllUsers(token).then(res =>{
+            dispatch(dispatchGetAllUser(res))
+          })
+      },[dispatch,token])
 
 
     //render

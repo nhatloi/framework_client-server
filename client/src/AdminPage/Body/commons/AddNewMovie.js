@@ -3,11 +3,11 @@ import { API_URL, API_KEY,LANGUAGE ,IMAGE_BASE_URL,POSTER_SIZE} from '../../../C
 import { Row, Col,Input,Button, Radio } from 'antd';
 import axios from 'axios'
 const { Search } = Input;
-const search = require('youtube-search');
-var opts = {
-    maxResults: 10,
-    key: 'AIzaSyDI_zPC4aEbkvVm03X2qtHoZL03XipKxTs'
-  };
+// const search = require('youtube-search');
+// var opts = {
+//     maxResults: 10,
+//     key: 'AIzaSyDI_zPC4aEbkvVm03X2qtHoZL03XipKxTs'
+//   };
 
 
 
@@ -21,11 +21,11 @@ function AddNewMovie() {
     
     useEffect(() => {
 
-        if(soureFetch == 'themoviedb'){
+        if(soureFetch === 'themoviedb'){
             const endpoint_video = `${API_URL}trending/movie/week?api_key=${API_KEY}&language=${LANGUAGE}`;
             fetcMoviesThemoviedb(endpoint_video)
         }
-        if(soureFetch == 'moveek'){
+        if(soureFetch === 'moveek'){
             fetchMovieMoveek()
         }
     },[soureFetch])
@@ -38,11 +38,11 @@ function AddNewMovie() {
 
     const handleSearch = async(props) =>{
         if(!props) return
-        if(soureFetch == 'themoviedb'){
+        if(soureFetch === 'themoviedb'){
             const endpoint_video = `${API_URL}search/movie?api_key=${API_KEY}&language=${LANGUAGE}&query=${props}`;
             fetcMoviesThemoviedb(endpoint_video)
         }
-        if(soureFetch == 'moveek'){
+        if(soureFetch === 'moveek'){
             const url = ` https://moveek.com/tim-kiem/?s=${props}`
             try {
                 const res = await axios.post('/movie/searchTheaters', {url:url})
@@ -75,8 +75,6 @@ function AddNewMovie() {
             .catch(error => console.error('Error:', error)
             )
     }
-
-    const [postterImg, setpostterImg] = useState('')
     return (
         <div className= 'AddNewMovie'>
             <Radio.Group onChange={onChange} defaultValue="themoviedb">
@@ -97,7 +95,7 @@ function AddNewMovie() {
                                 <React.Fragment key={index}>
                                      <Col span={6} >
                                         <div className = 'search-detail'>
-                                            <img alt='movie-search' src={soureFetch =='themoviedb'?
+                                            <img alt='movie-search' src={soureFetch ==='themoviedb'?
                                             `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
                                             :movie.img
                                             }/>

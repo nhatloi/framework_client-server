@@ -20,7 +20,7 @@ function InformationUser(props) {
                     {infor.name}
                 </Form.Item>
                 <Form.Item label="Type Account">
-                    {infor.role== 1?<div>Admin Account</div>:<div>User Account</div>}
+                    {infor.role=== 1?<div>Admin Account</div>:<div>User Account</div>}
                 </Form.Item>
                 <Form.Item label="Date Create">
                     {infor.createdAt}

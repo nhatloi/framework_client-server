@@ -1,9 +1,6 @@
 import React,{useEffect,useState}from 'react'
 import axios from 'axios'
-import {Card,Row,Col,Pagination} from 'antd';
-
-const { Meta } = Card;
-
+import {Row,Col,Pagination} from 'antd';
 function FreeMovies(props) {
 
     //const     
@@ -18,10 +15,10 @@ function FreeMovies(props) {
 
     
     useEffect(() => {
-        fetchData();
-    },[page])
+        fetchData(url);
+    },[url])
 
-    const fetchData = async () =>{
+    const fetchData = async (url) =>{
         try {
             const res = await axios.post('/movie/fetchMovies', {url:url})
             setMovies(res.data.result);

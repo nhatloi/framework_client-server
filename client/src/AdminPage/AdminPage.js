@@ -1,6 +1,7 @@
 import React,{useState} from 'react'
+import Marquee from 'react-double-marquee';
 import {useSelector} from 'react-redux'
-import { Layout, Menu,Button } from 'antd';
+import { Layout, Menu } from 'antd';
 import axios from 'axios';
 import {
   BarChartOutlined,
@@ -37,11 +38,11 @@ function AdminPage() {
         setindexMovies(initialState)
         setindexNews(initialState)
         setindexAdvertisement(initialState)
-        if(props.key == 'Account')  setindexAcount(1);
-        if(props.key == 'Theaters')  setindexTheaters(1);
-        if(props.key == 'Movies')  setindexMovies(1);
-        if(props.key == 'News') setindexNews(1);
-        if(props.key == 'Advertisement') setindexAdvertisement(1);
+        if(props.key === 'Account')  setindexAcount(1);
+        if(props.key === 'Theaters')  setindexTheaters(1);
+        if(props.key === 'Movies')  setindexMovies(1);
+        if(props.key === 'News') setindexNews(1);
+        if(props.key === 'Advertisement') setindexAdvertisement(1);
     }
 
     const handleLogout = async() =>{
@@ -89,7 +90,7 @@ function AdminPage() {
                 </Sider>
                 <Layout className="site-layout" style={{ marginLeft: 200 }}>
                 <Header className="headder-admin">
-                <marquee>This is the site for admin.</marquee>
+                <Marquee>This is the site for admin.</Marquee>
                 </Header>
                 <div className='body-admin'>
                     <Account index = {indexAcount}/>

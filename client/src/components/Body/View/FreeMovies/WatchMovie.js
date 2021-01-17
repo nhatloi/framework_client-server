@@ -14,10 +14,11 @@ function WhatMovie(props) {
     const [linkPlay, setlinkPlay] = useState('')
     const urlVideo = `http://motphimmoi.net/xem-phim/${nameMovie}-${episode}`
     useEffect(() => {
-        fetchData()
-        fetchlistVideo();
-    }, [nameMovie,episode])
-    const fetchData = async () =>{
+        fetchData(url)
+        fetchlistVideo(urlVideo);
+    }, [url,urlVideo])
+
+    const fetchData = async (url) =>{
         try {
             const res = await axios.post('/movie/fetchMoviesDetail', {url:url})
             setMovie(res.data.results);
@@ -28,7 +29,7 @@ function WhatMovie(props) {
         }
     }
 
-    const fetchlistVideo = async () =>{
+    const fetchlistVideo = async (urlVideo) =>{
         try {
             const res = await axios.post('/movie/fetchPlayVideo', {url:urlVideo});
             setlinkPlay(res.data.playvideo)

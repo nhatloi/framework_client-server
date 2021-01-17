@@ -9,13 +9,13 @@ function InTheatersPage(props) {
     const url = `https://moveek.com/${query}`
  
     useEffect(() => {
-        fetchData();
-    },[])
+        fetchData(url);
+    },[url])
 
-    const fetchData = async () =>{
+    const fetchData = async (url) =>{
         try {
             const res = await axios.post('/movie/fetchMovieTheaters', {url:url})
-            setMovies(res.data.movies);
+            return setMovies(res.data.movies);
         } catch (err) {
            return err.response.data.msg
         }
