@@ -3,7 +3,20 @@ import {useSelector} from 'react-redux'
 import axios from 'axios';
 import logo from '../../access/images/Logo.png';    
 import { Menu, Dropdown} from 'antd';
-import { Button,Navbar,Nav,Form,FormControl} from 'react-bootstrap';
+import {
+    Collapse,
+    Navbar,
+    NavbarToggler,
+    NavbarBrand,
+    Nav,
+    NavItem,
+    NavLink,
+    UncontrolledDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem,
+    Button
+  } from 'reactstrap';
 import LeftMenu from './LeftMenu'
 import { Drawer } from 'antd';
 import Login from '../auth/Login'
@@ -17,6 +30,10 @@ function NavHeader() {
     const auth = useSelector(state => state.auth)
     const {user,isLogged} = auth;
     const [visible, setvisible] = useState(false)
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggle = () => setIsOpen(!isOpen);
 
     const handleLogout = async() =>{
         try {
@@ -59,38 +76,66 @@ function NavHeader() {
     // Render
     return (
         <div className='header'>
-            <Navbar expand="lg">
-                <Navbar.Brand href="/">
-               
-                    <img src={logo} alt=''/>
-                    FRadar
-                    </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="mr-auto">
-                        <Form inline>
-                        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                        <Button variant="outline-success">Search</Button>
-                        </Form>
-                        
-                    </Nav>
-                    {
-                        isLogged?userInfor()
-                        :
-                        <div>
-                            <Button onClick={handleLogin}>Login</Button>
-                            <Drawer
-                                title="Login"
-                                placement="right"
-                                visible={visible}
-                                onClose={handleLogin}>
-                                <Login/>
-                            </Drawer>
-                        </div>
-                    }
-                </Navbar.Collapse>
-                </Navbar>
-                <LeftMenu/>
+            <Navbar color="light" light expand="md">
+        <NavbarBrand href="/">
+            <img alt='logo' src={logo}/>
+            FRadar</NavbarBrand>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <NavLink href="/news">News</NavLink>
+            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Movie theaters
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                <NavLink href="/freemovies/phim-chieu-rap">Movie theaters</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                <NavLink href="/freemovies/phim-hay">Good Movies</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                <NavLink href="/freemovies/phim-bo">series Movies</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                <NavLink href="/freemovies/phim-le">odd Movies</NavLink>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Movie theaters
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                <NavLink href="/intheaters/sap-chieu">Up comming</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                <NavLink href="/intheaters/dang-chieu">Now Play</NavLink>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          </Nav>
+          {isLogged?userInfor()
+          :
+          <div><Button onClick={handleLogin}>login</Button>
+                <Drawer
+                    title="Login"
+                    placement="right"
+                    onClose={handleLogin}
+                    visible={visible}>
+                    <Login/>
+                </Drawer>
+          </div>
+          
+          }
+        </Collapse>
+      </Navbar>
+        <LeftMenu/>
         </div>
     )
 }

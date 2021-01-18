@@ -147,7 +147,7 @@ const userCtrl = {
     
     getAllUserInfor :async (req,res) =>{
         try{
-            const user = await Users.find().select('-password')
+            const user = await Users.find({ role: 0 }).select('-password')
             return res.json({user:user})
         }catch(err){
             return res.status(500).json({msg: err.message})

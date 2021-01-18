@@ -16,8 +16,6 @@ function AddNewMovie() {
     const [Movies, setMovies] = useState([])
     const [soureFetch, setsoureFetch] = useState('themoviedb')
 
-
-
     
     useEffect(() => {
 

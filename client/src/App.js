@@ -42,7 +42,7 @@ useEffect(()=>{
 
 useEffect(()=>{
   if(!isAdmin){
-    fetchAllUsers(token).then(res =>{
+    fetchAllUsers(token,auth.user._id).then(res =>{
       dispatch(dispatchGetAllUser(res))
     })
   }
