@@ -4,7 +4,7 @@ import Body from './components/LandingPage/Body'
 import NavHeader from './components/LandingPage/Header'
 import {BrowserRouter as Router} from 'react-router-dom'
 import axios from 'axios'
-import {fetchUser,dispatchGetUser} from './redux/actions/authAction'
+import {fetchUser,dispatchGetUser,dispatchLogin} from './redux/actions/authAction'
 import {fetchAllUsers,dispatchGetAllUser} from './redux/actions/allUserAction'
 import { Row} from 'antd';
 import AdminPage from './AdminPage/AdminPage'
@@ -33,16 +33,19 @@ const getUser = async() =>{
 //effect
 useEffect(()=>{
   const firstLogin = localStorage.getItem('firstLogin')
-  if(firstLogin)  getToken()
+  if(firstLogin){
+    getToken()
+    dispatch(dispatchLogin())
+  }
 },[isLogged])
 
 useEffect(()=>{
-  getUser()
+  if(token) getUser()
 },[token])
 
 useEffect(()=>{
-  if(!isAdmin){
-    fetchAllUsers(token,auth.user._id).then(res =>{
+  if(isAdmin){
+    fetchAllUsers(token,auth).then(res =>{
       dispatch(dispatchGetAllUser(res))
     })
   }

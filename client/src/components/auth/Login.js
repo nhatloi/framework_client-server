@@ -6,6 +6,8 @@ import {useDispatch} from 'react-redux'
 import { Form, Input, Button, Checkbox,message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
+import { GoogleLogin } from 'react-google-login';
+
 
 
 function LoginPage() {
@@ -25,6 +27,22 @@ function LoginPage() {
             message.error(err.response.data.msg)
         }
     }
+
+    
+    const responseGoogle = async (response) => {
+        console.log(response);
+        try {
+            const res = await axios.post('/user/google_login',{tokenId:response.tokenId})
+            localStorage.setItem('firstLogin',true)
+            dispatch(dispatchLogin())
+            history.push('/')
+            message.success(res.data.msg)
+        } catch (error) {
+            message.error(error.response.data.msg)
+        }
+        
+    }
+  
 
     //render
     return (
@@ -67,6 +85,14 @@ function LoginPage() {
                         <a href="/register"> Register now?</a>
                     </Form.Item>
                 </Form>
+                <GoogleLogin
+                    clientId="925372749044-6foob3s5elcv3invl18q8lo19d7h8cuj.apps.googleusercontent.com"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                >
+                    <span> Login with Google</span>
+                </GoogleLogin>
         </div> 
     )
 }
