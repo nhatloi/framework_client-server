@@ -7,6 +7,7 @@ import { Form, Input, Button, Checkbox,message} from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 
 
 
@@ -30,7 +31,6 @@ function LoginPage() {
 
     
     const responseGoogle = async (response) => {
-        console.log(response);
         try {
             const res = await axios.post('/user/google_login',{tokenId:response.tokenId})
             localStorage.setItem('firstLogin',true)
@@ -41,6 +41,20 @@ function LoginPage() {
             message.error(error.response.data.msg)
         }
         
+    }
+
+    const responseFacebook = async(response) => {
+        try {
+            const {accessToken,userID} = response
+            const res = await axios.post('/user/facebook_login',{accessToken,userID})
+            localStorage.setItem('firstLogin',true)
+            dispatch(dispatchLogin())
+            history.push('/')
+            message.success(res.data.msg)
+        } catch (error) {
+            message.error(error.response.data.msg)
+        }
+
     }
   
 
@@ -93,6 +107,14 @@ function LoginPage() {
                 >
                     <span> Login with Google</span>
                 </GoogleLogin>
+                <div className = 'facebook-login'> 
+                    <FacebookLogin
+                        appId="745646699415583"
+                        autoLoad={false}
+                        fields="name,email,picture"
+                        callback={responseFacebook}
+                    />
+                </div>
         </div> 
     )
 }

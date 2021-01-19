@@ -1,7 +1,9 @@
 import React ,{useState,useEffect}from 'react'
-import { API_URL, API_KEY,LANGUAGE ,IMAGE_BASE_URL,POSTER_SIZE} from '../../../Config'
-import { Row, Col,Input,Button, Radio } from 'antd';
+import { API_URL, API_KEY,LANGUAGE ,IMAGE_BASE_URL,POSTER_SIZE} from '../../../../Config'
+import { Row, Col,Input,Button, Radio,Drawer } from 'antd';
 import axios from 'axios'
+import InformationMovie from './InformationMovie'
+
 const { Search } = Input;
 // const search = require('youtube-search');
 // var opts = {
@@ -15,8 +17,9 @@ function AddNewMovie() {
     //const
     const [Movies, setMovies] = useState([])
     const [soureFetch, setsoureFetch] = useState('themoviedb')
+    const [visible, setvisible] = useState(false)
 
-    
+    //Effect
     useEffect(() => {
 
         if(soureFetch === 'themoviedb'){
@@ -30,6 +33,14 @@ function AddNewMovie() {
 
     function onChange(e) {
         setsoureFetch(e.target.value)
+    }
+
+    const handleAdd =(e) =>{
+        setvisible (!visible)
+    }
+
+    function loadInfor (e) {
+        console.log(e)
     }
 
 
@@ -105,7 +116,17 @@ function AddNewMovie() {
                             ))}
             </Row>
             </div>
-            <Button style={{background:'black',color:'white',position:'absolute',bottom:'10px',right:'50px'}}>Custom</Button>
+            <Button onClick={handleAdd}
+            style={{background:'black',color:'white',position:'absolute',bottom:'10px',right:'50px'}}>Custom</Button>
+            <Drawer
+                height='70%'
+                title="Add new movies"
+                placement="top"
+                visible={visible}
+                onClose={handleAdd}
+                >
+                <InformationMovie />
+            </Drawer>
         </div>
     )
 }

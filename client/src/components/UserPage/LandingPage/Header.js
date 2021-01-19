@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import {useSelector} from 'react-redux'
 import axios from 'axios';
-import logo from '../../access/images/Logo.png';    
+import logo from '../../../access/images/Logo.png';    
 import { Menu, Dropdown} from 'antd';
 import {
     Collapse,
@@ -19,7 +19,7 @@ import {
   } from 'reactstrap';
 import LeftMenu from './LeftMenu'
 import { Drawer } from 'antd';
-import Login from '../auth/Login'
+import Login from '../../auth/Login'
 
 
 

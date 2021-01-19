@@ -23,7 +23,7 @@ function Movies(props) {
            </div>
            <Drawer
                 height={'100%'}
-                title="Add new movies"
+                title="Search new movies"
                 placement="top"
                 visible={visible}
                 onClose={handleEdit}

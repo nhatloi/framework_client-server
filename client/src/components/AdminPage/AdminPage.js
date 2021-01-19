@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-import Marquee from 'react-double-marquee';
 import {useSelector} from 'react-redux'
 import { Layout, Menu } from 'antd';
 import axios from 'axios';
@@ -90,7 +89,7 @@ function AdminPage() {
                 </Sider>
                 <Layout className="site-layout" style={{ marginLeft: 200 }}>
                 <Header className="headder-admin">
-                <Marquee>This is the site for admin.</Marquee>
+                <marquee>This is the site for admin.</marquee>
                 </Header>
                 <div className='body-admin'>
                     <Account index = {indexAcount}/>

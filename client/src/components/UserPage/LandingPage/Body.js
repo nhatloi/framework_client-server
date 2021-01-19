@@ -3,18 +3,18 @@ import { Route, Switch } from "react-router-dom";
 import {useSelector} from 'react-redux'
 
 // pages for this product
-import Register from '../auth/Register';
-import ActiveEmail from '../auth/ActiveEmail';
-import ForgotPw from '../auth/ForgotPw';
-import ResetPassword from '../auth/ResetPassword'
-import Notfound from '../utils/Notfound'
-import Profile from '../Body/View/Profile'
-import Successfully from '../utils/Successfully'
-import Test from '../Body/View/Test'
-import FreeMovies from '../Body/View/FreeMovies/FreeMovies'
-import WhatMovie from '../Body/View/FreeMovies/WatchMovie'
-import InTheatersPage from '../Body/View/InTheater/InTheatersPage'
-import InTheatersDetail from '../Body/View/InTheater/InTheatersDetail'
+import Register from '../../auth/Register';
+import ActiveEmail from '../../auth/ActiveEmail';
+import ForgotPw from '../../auth/ForgotPw';
+import ResetPassword from '../../auth/ResetPassword'
+import Notfound from '../../utils/Notfound'
+import Profile from '../View/Profile'
+import Successfully from '../../utils/Successfully'
+import Test from '../View/Test'
+import FreeMovies from '../View/FreeMovies/FreeMovies'
+import WhatMovie from '../View/FreeMovies/WatchMovie'
+import InTheatersPage from '../View/InTheater/InTheatersPage'
+import InTheatersDetail from '../View/InTheater/InTheatersDetail'
 
 
 

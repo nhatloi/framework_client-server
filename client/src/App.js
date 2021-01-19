@@ -1,13 +1,13 @@
 import React,{useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import Body from './components/LandingPage/Body'
-import NavHeader from './components/LandingPage/Header'
+import Body from './components/UserPage/LandingPage/Body'
+import NavHeader from './components/UserPage/LandingPage/Header'
 import {BrowserRouter as Router} from 'react-router-dom'
 import axios from 'axios'
 import {fetchUser,dispatchGetUser,dispatchLogin} from './redux/actions/authAction'
 import {fetchAllUsers,dispatchGetAllUser} from './redux/actions/allUserAction'
 import { Row} from 'antd';
-import AdminPage from './AdminPage/AdminPage'
+import AdminPage from './components/AdminPage/AdminPage'
 
 
 function App() {
@@ -60,9 +60,9 @@ useEffect(()=>{
           isAdmin?<AdminPage/>
           :
           <div>
-            <Row className='body'>
+            <div className='body'>
               <Body/>
-            </Row>
+            </div>
             <NavHeader/>
           </div>
         }

@@ -95,9 +95,6 @@
     color: white;
 }
 
-.admin-movies .add{
-    
-}
 .admin-movies .add button{
     background: black;
     width: 60px;
@@ -125,6 +122,11 @@
 .AddNewMovie .movie-search .search-detail img{
     height: 100%;
     width: 230px;
+    cursor:pointer;
+}
+
+.facebook-login{
+    width: 83%;
 }
 
 
