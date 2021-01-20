@@ -19,6 +19,9 @@ app.use(fileUpload({
 app.use('/user',require('./Server/router/userRouter'))
 app.use('/api',require('./Server/router/upload'))
 app.use('/movie',require('./Server/router/moviesRouter'))
+app.use('/comment', require('./Server/router/comment'));
+app.use('/like', require('./Server/router/like'));
+app.use('/favorite', require('./Server/router/favorite'));
 
 //connect mongoDB
 const URI = process.env.MONGODB_URL
