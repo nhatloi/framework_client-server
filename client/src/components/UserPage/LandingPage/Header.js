@@ -1,8 +1,9 @@
 import React,{useState} from 'react'
 import {useSelector} from 'react-redux'
 import axios from 'axios';
-import logo from '../../../access/images/Logo.png';    
-import { Menu, Dropdown} from 'antd';
+import logo from '../../../access/images/Logo.png';  
+import {UpOutlined} from '@ant-design/icons';  
+import {BackTop , Menu, Dropdown} from 'antd';
 import {
     Collapse,
     Navbar,
@@ -136,6 +137,9 @@ function NavHeader() {
         </Collapse>
       </Navbar>
         <LeftMenu/>
+        <BackTop>
+          <Button className='backtop'>UP</Button>
+        </BackTop>
         </div>
     )
 }

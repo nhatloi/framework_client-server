@@ -1,6 +1,6 @@
 import React ,{useState,useEffect}from 'react'
 import { API_URL, API_KEY,LANGUAGE ,IMAGE_BASE_URL,POSTER_SIZE} from '../../../../Config'
-import { Row, Col,Input,Button, Radio,Drawer } from 'antd';
+import { Row, Col,Input,Button, Radio ,Modal} from 'antd';
 import axios from 'axios'
 import InformationMovie from './InformationMovie'
 
@@ -102,13 +102,14 @@ function AddNewMovie() {
             <Row gutter={[8, 16]}>
                 {Movies && Movies.map((movie, index) => (
                                 <React.Fragment key={index}>
-                                     <Col span={6} >
+                                     <Col span={4} >
                                         <div className = 'search-detail'>
-                                            <img alt='movie-search' src={soureFetch ==='themoviedb'?
+                                            <img id={`image_${index}`} onClick={loadInfor(index)} alt='movie-search' src={soureFetch ==='themoviedb'?
                                             `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
                                             :movie.img
                                             }/>
                                         </div>
+                                            <div style={{overflow:'hidden',height:'100px', textAlign:'center',fontSize:24,fontStyle:'oblique'}}>{movie.title}</div>
                                      </Col>
                                    
                                 
@@ -118,15 +119,24 @@ function AddNewMovie() {
             </div>
             <Button onClick={handleAdd}
             style={{background:'black',color:'white',position:'absolute',bottom:'10px',right:'50px'}}>Custom</Button>
-            <Drawer
+            <Modal
                 height='70%'
                 title="Add new movies"
                 placement="top"
                 visible={visible}
-                onClose={handleAdd}
+                title="Information Movie"
+                closable={false}
+                footer={[
+                    <Button key="back" onClick={handleAdd}>
+                      Return
+                    </Button>,
+                    <Button key="submit" type="primary"  onClick={handleAdd}>
+                      Submit
+                    </Button>,
+                  ]}
                 >
                 <InformationMovie />
-            </Drawer>
+            </Modal>
         </div>
     )
 }
