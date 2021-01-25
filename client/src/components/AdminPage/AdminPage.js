@@ -89,7 +89,6 @@ function AdminPage() {
                 </Sider>
                 <Layout className="site-layout" style={{ marginLeft: 200 }}>
                 <Header className="headder-admin">
-                <marquee>This is the site for admin.</marquee>
                 </Header>
                 <div className='body-admin'>
                     <Account index = {indexAcount}/>
