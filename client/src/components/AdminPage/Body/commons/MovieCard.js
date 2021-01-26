@@ -4,7 +4,7 @@ import InformationMovie from './InformationMovie'
 
 function MovieCard(props) {
     
-    const {src,movie,soureFetch} = props
+    const {movie,soureFetch} = props
     const [Video, setVideo] = useState([])
     const [visible, setvisible] = useState(false)
     const handleAdd =(e) =>{
@@ -27,8 +27,10 @@ function MovieCard(props) {
     }
 
     return (
-        <div>
-            <img src={src} onClick={handleAdd}/>
+        <div className='search-detail'>
+            <img src={movie.poster_path} onClick={handleAdd}/>
+
+        
 
             <Modal
                 height='70%'
@@ -47,7 +49,7 @@ function MovieCard(props) {
                     </Button>,
                   ]}
                 >
-                <InformationMovie video={Video[0]?Video[0].key:'null'}soureFetch = {soureFetch} src={src} information={movie}/>
+                <InformationMovie soureFetch = {soureFetch} data = {movie.id}/>
             </Modal>
         </div>
     )

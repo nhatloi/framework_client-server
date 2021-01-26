@@ -121,9 +121,10 @@
 
 .AddNewMovie .movie-search .search-detail img{
     height: 100%;
-    width: 230px;
+    width: 100%;
     cursor:pointer;
 }
+
 
 .facebook-login{
     width: 83%;

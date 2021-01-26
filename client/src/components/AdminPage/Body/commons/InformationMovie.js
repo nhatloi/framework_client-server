@@ -1,9 +1,28 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import { Row, Col,Input,Button, Radio ,Modal} from 'antd';
+import axios from 'axios'
 import './commons.css'
 import {Rate} from 'antd'
 
 function InformationMovie(props) {
-    const {information,src,soureFetch,video} = props
+    const {data,soureFetch} = props
+    const [movie, setmovie] = useState()
+
+    useEffect(() => {
+        if(soureFetch === 'themoviedb') fetcMoviesThemoviedb(data)
+    }, [data])
+
+    const fetcMoviesThemoviedb = async(data) => {
+        try {
+            const res = await axios.post('/movie/themoviedbdetail',{id:data})
+            setmovie(res.data.movie)
+            console.log(movie)
+        } catch (err) {
+           return err.response.data.msg
+        }
+       
+    }
+
     if(soureFetch === 'new')
     return (
         <div className="box-create">
@@ -11,23 +30,25 @@ function InformationMovie(props) {
         </div>
     )
 
-    if(soureFetch === 'themoviedb')
-    return (
-        <div className="box-create">
-            <div>
-                <img src={src} style={{height:'300px'}}/>
-                
+    if(soureFetch === 'themoviedb') {
+        return (
+            <div className="box-create">
+                <div>
+                    {/* <img src={movie.poster_path} style={{height:'300px'}}/> */}
+                    
+                </div>
+                <div className='right-box'>
+                    {/* TITLE : {movie.title}<p/>
+                    VOTE COUNT : <Rate disabled  defaultValue={movie.vote_average/2} /><p/>
+                    RELEASE DATE : {movie.release_date}<p/>
+                    OVERVIEW: {movie.overview}<p/>
+                    ID in themoviedb : {movie.id}<p/> */}
+                    VIDEO TRAILER: 
+                </div>
             </div>
-            <div className='right-box'>
-                TITLE : {information.title}<p/>
-                VOTE COUNT : <Rate disabled  defaultValue={information.vote_average/2} /><p/>
-                RELEASE DATE : {information.release_date}<p/>
-                OVERVIEW: {information.overview}<p/>
-                ID in themoviedb : {information.id}<p/>
-                VIDEO TRAILER: {video==='null'?'No video trailer':<a href={`https://www.youtube.com/watch?v=${video}`}>youtube.com/watch?v={video}</a>}
-            </div>
-        </div>
-    )
+        )
+    }
+    
 }
 
 export default InformationMovie

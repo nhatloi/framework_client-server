@@ -288,7 +288,7 @@ const moviesCtrl = {
             movie.poster_path =`${IMAGE_BASE_URL}${POSTER_SIZE}${results.poster_path}`
             movie.backdrop_path = `${IMAGE_BASE_URL}${BACKDROP_SIZE}${results.backdrop_path}`
             
-            const urlTrailer = `${THEMOVIEDBURL}movie/${movie_id}/videos?api_key=${THEMOVIEDBKEY}&language=${LANGUAGE}`
+            const urlTrailer = `${THEMOVIEDBURL}movie/${movie_id}/videos?api_key=${THEMOVIEDBKEY}`
             const keyTrailer = (await fetchData(urlTrailer)).results[0].key
             movie.trailer = 'https://www.youtube.com/watch?v=' + keyTrailer
 
@@ -303,7 +303,7 @@ const moviesCtrl = {
                 if(director.department === 'Directing')
                 movie.directors.push(director.original_name)
              }); 
-            return res.json({movies:movie})
+            return res.json({movie:movie})
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }

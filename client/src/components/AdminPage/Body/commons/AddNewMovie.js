@@ -96,8 +96,8 @@ function AddNewMovie() {
                 {Movies && Movies.map((movie, index) => (
                                 <React.Fragment key={index}>
                                      <Col span={4} >
-                                        <div className = 'search-detail'>
-                                            <MovieCard src={movie.poster_path}
+                                        <div>
+                                            <MovieCard movie={movie}
                                             soureFetch = {soureFetch}/>
                                         </div>
                                      </Col>

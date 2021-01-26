@@ -10,6 +10,6 @@ router.get('/fetchMovieDetailTheaters',moviesCtrl.DetailMovieMovieTheaters)
 router.post('/searchTheaters',moviesCtrl.SearchMovie)
 
 router.get('/themoviedb',moviesCtrl.MovieThemoviedb)
-router.get('/themoviedbdetail',moviesCtrl.MovieDetailThemoviedb)
+router.post('/themoviedbdetail',moviesCtrl.MovieDetailThemoviedb)
 
 module.exports = router
