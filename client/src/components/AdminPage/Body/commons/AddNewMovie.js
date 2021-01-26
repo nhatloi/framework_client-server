@@ -3,6 +3,7 @@ import { API_URL, API_KEY,LANGUAGE ,IMAGE_BASE_URL,POSTER_SIZE} from '../../../.
 import { Row, Col,Input,Button, Radio ,Modal} from 'antd';
 import axios from 'axios'
 import InformationMovie from './InformationMovie'
+import MovieCard from './MovieCard'
 
 const { Search } = Input;
 // const search = require('youtube-search');
@@ -38,12 +39,6 @@ function AddNewMovie() {
     const handleAdd =(e) =>{
         setvisible (!visible)
     }
-
-    function loadInfor (e) {
-        console.log(e)
-    }
-
-
 
     const handleSearch = async(props) =>{
         if(!props) return
@@ -104,12 +99,12 @@ function AddNewMovie() {
                                 <React.Fragment key={index}>
                                      <Col span={4} >
                                         <div className = 'search-detail'>
-                                            <img id={`image_${index}`} onClick={loadInfor(index)} alt='movie-search' src={soureFetch ==='themoviedb'?
+                                            <MovieCard src={soureFetch ==='themoviedb'?
                                             `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
-                                            :movie.img
-                                            }/>
+                                            :movie.img}
+                                            movie = {movie}
+                                            soureFetch = {soureFetch}/>
                                         </div>
-                                            <div style={{overflow:'hidden',height:'100px', textAlign:'center',fontSize:24,fontStyle:'oblique'}}>{movie.title}</div>
                                      </Col>
                                    
                                 
@@ -135,7 +130,7 @@ function AddNewMovie() {
                     </Button>,
                   ]}
                 >
-                <InformationMovie />
+                <InformationMovie soureFetch='new'/>
             </Modal>
         </div>
     )

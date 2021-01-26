@@ -1,0 +1,8 @@
+.box-create{
+    display: flex;
+    transform: translateX();
+}
+
+.right-box {
+    margin-left: 10px;
+}
