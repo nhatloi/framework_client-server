@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {Button,Modal} from 'antd';
 import InformationMovie from './InformationMovie'
-import { API_URL, API_KEY,LANGUAGE ,IMAGE_BASE_URL,POSTER_SIZE} from '../../../../Config'
 
 function MovieCard(props) {
     
@@ -26,19 +25,6 @@ function MovieCard(props) {
             .catch(error => console.error('Error:', error)
             )
     }
-
-    //use effect
-    useEffect(() => {
-
-        if(soureFetch === 'themoviedb'){
-            const endpoint_video = `${API_URL}movie/${movie.id}/videos?api_key=${API_KEY}&language=US-en`;
-            fetcMoviesThemoviedb(endpoint_video)
-            
-        }
-        if(soureFetch === 'moveek'){
-            
-        }
-    },[soureFetch])
 
     return (
         <div>

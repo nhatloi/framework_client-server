@@ -24,8 +24,7 @@ function AddNewMovie() {
     useEffect(() => {
 
         if(soureFetch === 'themoviedb'){
-            const endpoint_video = `${API_URL}trending/movie/week?api_key=${API_KEY}&language=${LANGUAGE}`;
-            fetcMoviesThemoviedb(endpoint_video)
+            fetcMoviesThemoviedb()
         }
         if(soureFetch === 'moveek'){
             fetchMovieMoveek()
@@ -69,15 +68,14 @@ function AddNewMovie() {
     }
 
 
-    const fetcMoviesThemoviedb = (endpoint) => {
-
-        fetch(endpoint)
-            .then(result => result.json())
-            .then(result => {
-                setMovies(result.results)
-            })
-            .catch(error => console.error('Error:', error)
-            )
+    const fetcMoviesThemoviedb = async() => {
+        try {
+            const res = await axios.get('/movie/themoviedb')
+            setMovies(res.data.movies)
+        } catch (err) {
+           return err.response.data.msg
+        }
+       
     }
     return (
         <div className= 'AddNewMovie'>
@@ -99,10 +97,7 @@ function AddNewMovie() {
                                 <React.Fragment key={index}>
                                      <Col span={4} >
                                         <div className = 'search-detail'>
-                                            <MovieCard src={soureFetch ==='themoviedb'?
-                                            `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
-                                            :movie.img}
-                                            movie = {movie}
+                                            <MovieCard src={movie.poster_path}
                                             soureFetch = {soureFetch}/>
                                         </div>
                                      </Col>
