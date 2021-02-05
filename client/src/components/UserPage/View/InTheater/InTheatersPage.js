@@ -32,7 +32,7 @@ function InTheatersPage(props) {
                                    <div className='card-movie'>
                                        <label>{movie.episode}</label>
                                         <a href={`/intheaters/detail/${movie.title}`}>
-                                            <img alt ='poster' src={movie.img}/>
+                                            <img alt ='poster' src={movie.poster_path}/>
                                             <div className='movie-infor'>
                                                 {movie.title}<p/>
                                                 Khởi chiếu: {movie.date}

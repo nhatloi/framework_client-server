@@ -1,8 +1,18 @@
 import React,{useState,useEffect} from 'react'
-import { Row, Col,Input,Button, Radio ,Modal} from 'antd';
+import { Upload,Skeleton, Space ,Form,Input,
+    Select,
+    InputNumber,
+    Switch,
+    Radio,
+    Slider,
+    Button,
+    Rate,
+    Checkbox,
+    Row,
+    Col,} from 'antd';
 import axios from 'axios'
 import './commons.css'
-import {Rate} from 'antd'
+import { UploadOutlined, InboxOutlined ,PlusOutlined,LoadingOutlined} from '@ant-design/icons';
 
 function InformationMovie(props) {
     const {data,soureFetch} = props
@@ -23,32 +33,116 @@ function InformationMovie(props) {
        
     }
 
-    if(soureFetch === 'new')
-    return (
-        <div className="box-create">
-            
+    const { Option } = Select;
+    const formItemLayout = {
+        labelCol: { span: 6 },
+        wrapperCol: { span: 14 },
+      };
+    
+    const uploadButton = (
+        <div>
+          <div style={{ marginTop: 8 }}>Upload</div>
         </div>
-    )
+    );
 
-    if(soureFetch === 'themoviedb') {
+    const Loading = (
+        <div>
+            <Skeleton.Image active={true} /> 
+            <Skeleton active={true}/> 
+        </div>
+    );
+
+
+
+
+    if(soureFetch === 'new'){
         return (
-            <div className="box-create">
-                <div>
-                    {/* <img src={movie.poster_path} style={{height:'300px'}}/> */}
-                    
-                </div>
-                <div className='right-box'>
-                    {/* TITLE : {movie.title}<p/>
-                    VOTE COUNT : <Rate disabled  defaultValue={movie.vote_average/2} /><p/>
-                    RELEASE DATE : {movie.release_date}<p/>
-                    OVERVIEW: {movie.overview}<p/>
-                    ID in themoviedb : {movie.id}<p/> */}
-                    VIDEO TRAILER: 
-                </div>
+            <div>   
+                {Loading}        
             </div>
         )
     }
-    
+    else{
+        return (
+            <div> 
+            {
+                movie?
+                <div>
+                    {/* {movie.poster_path? <img src={movie.poster_path} style={{height:'500px'}}/>:uploadButton}
+                    <div>
+                        {movie.original_title}
+                        {movie.release_date}
+                        {movie.runtime}
+                        {movie.actors}
+                        {movie.directors}
+                        {movie.title}
+                        {movie.overview}
+                    </div> */}
+                     <Form
+                        name="validate_other"
+                        {...formItemLayout}
+                        // onFinish={onFinish}
+                        initialValues={{
+                            ['run-time']: 1,
+                            ['checkbox-group']: ['A', 'B'],
+                            rate: 3.5,
+                        }}
+                        >
+                        <Form.Item label="Title">
+                            <Input defaultValue={movie.title} />
+                        </Form.Item>
+                        <Form.Item label="original title">
+                            <Input defaultValue={movie.original_title} />
+                        </Form.Item>
+                        <Form.Item label="Run Time">
+                            <Form.Item name="run-time" noStyle>
+                            <InputNumber min={1} />
+                            </Form.Item>
+                            <span className="ant-form-text"> Minutes</span>
+                        </Form.Item>
+                        <Form.Item name="rate" label="Rate">
+                            <Rate />
+                        </Form.Item>
+
+                        <Form.Item
+                            name="upload"
+                            label="Upload"
+                            valuePropName="fileList"
+                            // getValueFromEvent={normFile}
+                            extra="longgggggggggggggggggggggggggggggggggg"
+                        >
+                            <Upload name="logo" action="/upload.do" listType="picture">
+                            <Button icon={<UploadOutlined />}>Click to upload</Button>
+                            </Upload>
+                        </Form.Item>
+
+                        <Form.Item label="Dragger">
+                            <Form.Item name="dragger" valuePropName="fileList"  noStyle>
+                            <Upload.Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
+                                <p className="ant-upload-drag-icon">
+                                <InboxOutlined />
+                                </p>
+                                <p className="ant-upload-text">Click or drag file to this area to upload</p>
+                                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
+                            </Upload.Dragger>
+                            </Form.Item>
+                        </Form.Item>
+
+                        <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+                            <Button type="primary" htmlType="submit">
+                            Submit
+                            </Button>
+                        </Form.Item>
+                        </Form>
+
+                </div>
+                :<div>{Loading}</div>
+            }
+                          
+            </div>
+        )
+    }
+
 }
 
 export default InformationMovie
