@@ -13,17 +13,26 @@ const movie = new mongoose.Schema({
         type: String,
     },
     catogory: String,
-    views : {
-        type: Number,
-        default: 0 
-    },
     overview: {
         type:String
+    },
+    runtime:{
+        type:String
+    },
+    actors:{
+        type:Array
+    },
+    directors:{
+        type:Array
     },
     poster_path: {
         type:String
     },
-    videotrailer: {
+    backdrop_path: {
+        type:String
+    },
+
+    trailer: {
         type:String
     },
 }, { timestamps: true })

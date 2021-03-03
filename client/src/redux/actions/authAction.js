@@ -5,7 +5,7 @@ export const dispatchLogin = () =>{
     return{
         type:ACTIONS.LOGIN
     }
-}
+}   
 
 export const fetchUser = async(token) =>{
     const res = await axios.get('/user/infor',{

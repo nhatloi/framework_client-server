@@ -2,7 +2,7 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require("fs");
 const Scraper = require('images-scraper');
-const Movie = require('../models/Movie')
+const Movie = require('../models/Movie');
 
 const {THEMOVIEDBURL,THEMOVIEDBKEY,BACKDROP_SIZE,IMAGE_SIZE,IMAGE_BASE_URL,LANGUAGE,POSTER_SIZE} = process.env
 
@@ -308,6 +308,49 @@ const moviesCtrl = {
             return res.status(500).json({msg: error.message})
         }
     },
+    AddMovie : async (req,res) =>{
+        try {
+            const movie = req.body.movie
+            const {original_title,release_date,runtime,actors,directors,title,overview,poster_path,trailer,backdrop_path} = movie
+            const check_movie = await Movie.findOne({original_title,title,runtime})
+            if(check_movie) return res.status(400).json({msg:'this Movie already exists!'})
+            const newMovie = new Movie({
+                original_title,release_date,runtime,actors,directors,title,overview,poster_path,trailer,backdrop_path
+            })
+
+
+            await newMovie.save();
+            res.json({msg:"Movie Added!"})
+
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    GetAllMovie : async (req,res) =>{
+        try {
+            const movie = await Movie.find()
+            return res.json({totalResult:movie.length,movie:movie})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    DeleteMovie : async (req,res) =>{
+        try {
+            await Movie.findByIdAndDelete(req.params.id)
+            res.json({msg:'delete success!'})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    DeleteAllMovie : async (req,res) =>{
+        try {
+            await Movie.deleteMany()
+            res.json({msg:'delete all success!'})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    
 
 
 }

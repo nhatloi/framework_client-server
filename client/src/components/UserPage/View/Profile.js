@@ -73,7 +73,7 @@ function Profile() {
             message.success('change information successfully')
         } catch (error) {
             return console.error(error);
-        }
+        } 
         setVisible(true)
         const getToken = async()=>{
             const res = await axios.post('/user/refresh_token',null)

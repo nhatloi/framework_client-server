@@ -1,39 +1,33 @@
 import React,{useState,useEffect} from 'react'
-import { Upload,Skeleton, Space ,Form,Input,
-    Select,
-    InputNumber,
-    Switch,
-    Radio,
-    Slider,
-    Button,
-    Rate,
-    Checkbox,
-    Row,
-    Col,} from 'antd';
+import {useSelector} from 'react-redux'
+import moment from 'moment';
+import {Skeleton,Form,Input,List,DatePicker,InputNumber,Button,message} from 'antd';
 import axios from 'axios'
 import './commons.css'
-import { UploadOutlined, InboxOutlined ,PlusOutlined,LoadingOutlined} from '@ant-design/icons';
+import ReactPlayer from 'react-player/youtube'
+const { TextArea } = Input;
 
 function InformationMovie(props) {
     const {data,soureFetch} = props
+    const token = useSelector(state => state.token)
     const [movie, setmovie] = useState()
+    const dateFormat = 'YYYY/MM/DD';
 
     useEffect(() => {
         if(soureFetch === 'themoviedb') fetcMoviesThemoviedb(data)
     }, [data])
 
+
     const fetcMoviesThemoviedb = async(data) => {
         try {
             const res = await axios.post('/movie/themoviedbdetail',{id:data})
             setmovie(res.data.movie)
-            console.log(movie)
         } catch (err) {
            return err.response.data.msg
         }
        
     }
 
-    const { Option } = Select;
     const formItemLayout = {
         labelCol: { span: 6 },
         wrapperCol: { span: 14 },
@@ -51,9 +45,17 @@ function InformationMovie(props) {
             <Skeleton active={true}/> 
         </div>
     );
-
-
-
+    
+    const onFinish = async(e) =>{
+        try{
+            const res = await axios.post('/movie/addmovie/',{movie:e},
+                {headers:{Authorization:token}
+            })
+            message.success(res.data.msg)
+        }catch (error) {
+            message.error('add failed!');
+        }
+    }
 
     if(soureFetch === 'new'){
         return (
@@ -65,67 +67,78 @@ function InformationMovie(props) {
     else{
         return (
             <div> 
-            {
-                movie?
+            {movie?
                 <div>
-                    {/* {movie.poster_path? <img src={movie.poster_path} style={{height:'500px'}}/>:uploadButton}
-                    <div>
-                        {movie.original_title}
-                        {movie.release_date}
-                        {movie.runtime}
-                        {movie.actors}
-                        {movie.directors}
-                        {movie.title}
-                        {movie.overview}
-                    </div> */}
                      <Form
                         name="validate_other"
                         {...formItemLayout}
-                        // onFinish={onFinish}
+                        onFinish={onFinish}
                         initialValues={{
-                            ['run-time']: 1,
-                            ['checkbox-group']: ['A', 'B'],
-                            rate: 3.5,
+                            ['run-time']: movie.runtime?movie.runtime:1,
+                            ['original_title']:movie.original_title,
+                            ['title']:movie.title,
+                            ['overview']:movie.overview,
+                            ['release_date']:moment(movie.release_date,dateFormat),
+                            ['backdrop_path']:movie.backdrop_path,
+                            ['poster_path']:movie.poster_path,
+                            ['directors']:movie.directors,
+                            ['actors']:movie.actors,
+                            ['trailer']:movie.trailer,
                         }}
                         >
-                        <Form.Item label="Title">
-                            <Input defaultValue={movie.title} />
+                        <Form.Item label="Title" name='title'>
+                            <Input/>
                         </Form.Item>
-                        <Form.Item label="original title">
-                            <Input defaultValue={movie.original_title} />
+                        <Form.Item label="original title" name='original_title'>
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item label="release date" name='release_date'>
+                            <DatePicker format={dateFormat}/>
                         </Form.Item>
                         <Form.Item label="Run Time">
                             <Form.Item name="run-time" noStyle>
-                            <InputNumber min={1} />
+                            <InputNumber min={1}/>
                             </Form.Item>
                             <span className="ant-form-text"> Minutes</span>
                         </Form.Item>
-                        <Form.Item name="rate" label="Rate">
-                            <Rate />
+                        <Form.Item name="directors" label="Directors">
+                            <List style={{overflow:'auto',height:'100px'}}
+                            size="small"
+                            bordered
+                            dataSource={movie.directors}
+                            renderItem={item => <List.Item>{item}</List.Item>}
+                            />
+                            
                         </Form.Item>
-
-                        <Form.Item
-                            name="upload"
-                            label="Upload"
-                            valuePropName="fileList"
-                            // getValueFromEvent={normFile}
-                            extra="longgggggggggggggggggggggggggggggggggg"
-                        >
-                            <Upload name="logo" action="/upload.do" listType="picture">
-                            <Button icon={<UploadOutlined />}>Click to upload</Button>
-                            </Upload>
+                        <Form.Item name="actors" label="Actors">
+                            <List style={{overflow:'auto',height:'100px'}}
+                                size="small"
+                                bordered
+                                dataSource={movie.actors}
+                                renderItem={item => <List.Item>{item}</List.Item>}
+                                />
                         </Form.Item>
-
-                        <Form.Item label="Dragger">
-                            <Form.Item name="dragger" valuePropName="fileList"  noStyle>
-                            <Upload.Dragger name="files" action="https://www.mocky.io/v2/5cc8019d300000980a055e76">
-                                <p className="ant-upload-drag-icon">
-                                <InboxOutlined />
-                                </p>
-                                <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-                            </Upload.Dragger>
+                        <Form.Item name="overview" label="Overview">
+                            <TextArea rows={4} />
+                        </Form.Item>
+                            <Form.Item
+                                name="poster_path"
+                                label="Poster"
+                            >
+                                <img alt='' src = {movie.poster_path?movie.poster_path:null} style={{height:'300px'}}/>
+                                <input type='file' name='file' id='file_up'/>
                             </Form.Item>
+                        <Form.Item
+                                name="trailer"
+                                label="Trailer"
+                            >
+                                <ReactPlayer width="100%" height="100%" url={movie.trailer} />
+                            </Form.Item>
+
+
+                        <Form.Item label="Backdrop" name='backdrop_path'>
+                            <img alt='' src = {movie.backdrop_path?movie.backdrop_path:null} style={{width:'100%'}}/>
+                            <input type='file' name='file' id='file_up'/>
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
