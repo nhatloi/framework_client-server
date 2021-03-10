@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
+const path = require('path')
 
 
 
@@ -35,6 +36,13 @@ mongoose.connect(URI,{
     if(err) throw err;
     console.log('Connected mongoDB')
 })
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static('client/build'))
+    app.get('*',(req,res)=>{
+        res.sendFile(path.join(__dirname,'client','build','index.html'))
+    })
+}
 
 
 app.use('/', (req,res) => {
