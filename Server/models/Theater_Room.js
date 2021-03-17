@@ -11,10 +11,6 @@ const theater_room = new mongoose.Schema({
         type:Number,
         required:[true,'please enter index room'],
     },
-    address: {
-        type: String,
-        required:[true,'please enter your email'],
-    },
     seats:{
         type:Array,
         required:[true,'please enter seats'],

@@ -6,7 +6,7 @@ const TheaterCtrl = {
             const theater = req.body.theater
             const {name,address} = theater
             const check_Theater = await Theater.findOne({name,address})
-            if(check_Theater) return res.status(400).json({msg:'this Movie already exists!'})
+            if(check_Theater) return res.status(400).json({msg:'this Theater already exists!'})
             const newTheater = new Theater({name,address})
             await newTheater.save();
 
