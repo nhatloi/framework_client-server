@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react'
 import {useDispatch,useSelector} from 'react-redux'
-import Body from './components/UserPage/LandingPage/Body'
+import BodyUser from './components/UserPage/LandingPage/Body'
 import NavHeader from './components/UserPage/LandingPage/Header'
 import {BrowserRouter as Router} from 'react-router-dom'
 import axios from 'axios'
@@ -56,11 +56,15 @@ useEffect(()=>{
     <div>
       <Router>
         {
-          isAdmin?<AdminPage/>
+          isAdmin?<div>
+          <div>
+            <AdminPage/>
+          </div>
+        </div>
           :
           <div>
             <div className='body'>
-              <Body/>
+              <BodyUser/>
             </div>
             <NavHeader/>
           </div>

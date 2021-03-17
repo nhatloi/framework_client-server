@@ -23,6 +23,9 @@ app.use('/movie',require('./Server/router/moviesRouter'))
 app.use('/comment', require('./Server/router/comment'));
 app.use('/like', require('./Server/router/like'));
 app.use('/favorite', require('./Server/router/favorite'));
+app.use('/theater', require('./Server/router/TheaterRouter'));
+
+
 
 //connect mongoDB
 const URI = process.env.MONGODB_URL

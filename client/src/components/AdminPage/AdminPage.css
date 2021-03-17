@@ -1,9 +1,7 @@
 .body-admin{
     height: 100vh;
     background: white;
-    position: relative;
-    display: flex;
-    overflow:hidden;
+    display: block;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     color: white;
@@ -18,19 +16,14 @@
 .user-Admin{
     width: 100%;
     height: 60px;
-    color: white;
+    color:white;
+    background: black;
     text-align: center;
     font-size:24px;
     padding-top: 30px;
 }
-.headder-admin{
-    color: white;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 20px;
-}
 .account{
     padding: 20px;
-    position: absolute;
     height: 100vh;
     width: 100%;
     background:green;
@@ -45,21 +38,18 @@
     color: white;
 }
 .news{
-    position: absolute;
     height: 100vh;
     width: 100%;
     background:red;
     transition: transform 0.4s ease-in-out;
 }
 .advertisement {
-    position: absolute;
     height: 100vh;
     width: 100%;
     background:royalblue;
     transition: transform 0.4s ease-in-out;
 }
 .theaters{
-    position: absolute;
     height: 100vh;
     width: 100%;
     background:rgb(206, 206, 58);
@@ -67,11 +57,9 @@
     padding: 20px;
 }
 .admin-movies{
-    position: absolute;
     height: 100vh;
     width: 100%;
     background:tomato;
-    transition: transform 0.4s ease-in-out;
     padding: 20px;
 }
 

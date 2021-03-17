@@ -3,6 +3,8 @@ import { Form} from 'antd';
 
 function InformationUser(props) {
     const infor = props.infor
+    // acount
+    if(props.account)
     return (
         <div className='information'>
             <div className= 'left-infor'>
@@ -28,6 +30,14 @@ function InformationUser(props) {
                 </Form>
             </div>
 
+        </div>
+    )
+
+
+    if(props.movie)
+    return (
+        <div className='information' style={{backgroundImage:`url("${infor.backdrop_path}")`,backgroundRepeat: 'no-repeat',backgroundPosition:'center'}}>
+           <img src={infor.poster_path} style={{top:'0',left:'0',height:'500px'}}/>
         </div>
     )
 }

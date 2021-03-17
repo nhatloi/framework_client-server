@@ -1,8 +1,8 @@
 import React ,{useState,useEffect}from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import axios from 'axios'
-import { Table,Typography,message,Drawer,Modal} from 'antd';
-import { EyeOutlined,DeleteOutlined} from '@ant-design/icons';
+import { Table,Typography,message,Drawer,Modal,Input,Button } from 'antd';
+import { EyeOutlined,DeleteOutlined,UserOutlined,SearchOutlined} from '@ant-design/icons';
 import {fetchAllUsers,dispatchGetAllUser} from '../../../redux/actions/allUserAction'
 import Information from './commons/InformationUser'
 const { Text} = Typography;
@@ -12,15 +12,15 @@ const initialState = {
     avatar:'',
 }
 
-function Account(props) {
+function Account() {
 
     
     const dispatch = useDispatch()
         
     const [visible, setvisible] = useState(false)
-    const index = props.index
     const token = useSelector(state => state.token)
     const users = useSelector(state => state.users)
+    const [userView, setuserView] = useState([])
     const [userInfor, setuserInfor] = useState(initialState)
     const [isModalVisible, setIsModalVisible] = useState(false);
      //const 
@@ -44,6 +44,20 @@ function Account(props) {
           },
       ];
     
+      const handleSearch = (e) =>{
+        var count=[];
+        users.forEach(element => {
+            if(element.name.toLowerCase().search(e.target.value) != -1 || element.email.toLowerCase().search(e.target.value) != -1){
+                count.push(element);
+            }
+        });
+        if(count==0)
+            setuserView(users);
+            if(count!=0) {
+                setuserView(count);
+            }
+      }
+
       const Deletehandle = () =>{
         setIsModalVisible(true)
       }
@@ -72,20 +86,29 @@ function Account(props) {
 
 
     useEffect(()=>{
+        User_eff();
+      },[dispatch,token,users])
+
+      
+    const User_eff = () =>{
         fetchAllUsers(token).then(res =>{
             dispatch(dispatchGetAllUser(res))
           })
-      },[dispatch,token])
+        setuserView(users);
+    }
 
 
     //render
     return (
-        <div className='account' style={{zIndex:index}}>
+        <div className='account' >
             <h2><Text underline>User Manager</Text></h2>
-            <Table columns={columns} dataSource={users}
+            <div style={{width:"300px",float:'right',display:'flex'}}>
+              <Input size="large" placeholder="Search" prefix={<UserOutlined />} onChange={handleSearch}/>
+            </div>
+            <Table columns={columns} dataSource={userView}
             onRow={(record, rowIndex) => {
                 return {
-                  onClick: event => {setuserInfor(users[rowIndex])}, // click row
+                  onClick: event => {setuserInfor(userView[rowIndex])}, // click row
                   onContextMenu: event => {}, // right button click row
                 };
               }}
@@ -98,7 +121,7 @@ function Account(props) {
                 visible={visible}
                 onClose={handleEdit}
                 >
-                <Information infor ={userInfor}/>
+                <Information account infor ={userInfor}/>
             </Drawer>
             <Modal title="confirm deletion" visible={isModalVisible} onOk={handleOkDelete} onCancel={handleCancelDelete}>
                 <p>Delete User?</p>
