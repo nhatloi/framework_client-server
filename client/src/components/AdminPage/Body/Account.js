@@ -86,17 +86,14 @@ function Account() {
 
 
     useEffect(()=>{
-        User_eff();
-      },[dispatch,token,users])
-
-      
-    const User_eff = () =>{
         fetchAllUsers(token).then(res =>{
             dispatch(dispatchGetAllUser(res))
           })
-        setuserView(users);
-    }
 
+        if(!userView[0])
+          setuserView(users);
+      },[dispatch,token,users])
+      
 
     //render
     return (

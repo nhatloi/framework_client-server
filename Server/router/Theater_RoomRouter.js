@@ -3,7 +3,8 @@ const Theater_RoomCtrl = require('../controllers/theater_roomCtrl')
 const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 
-router.post('/addtheater_room',auth,authAdmin, Theater_RoomCtrl.AddTheater)
+router.post('/addtheater_room',auth,authAdmin, Theater_RoomCtrl.AddRoom)
+router.get('/getinfor_room',auth,authAdmin, Theater_RoomCtrl.GetInforRoom)
 module.exports = router
 
 

@@ -25,6 +25,7 @@ app.use('/like', require('./Server/router/like'));
 app.use('/favorite', require('./Server/router/favorite'));
 app.use('/theater', require('./Server/router/TheaterRouter'));
 app.use('/theater_room', require('./Server/router/Theater_RoomRouter'));
+app.use('/screening', require('./Server/router/ScreeningRouter'));
 
 
 

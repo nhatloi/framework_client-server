@@ -5,7 +5,7 @@ const theater_room = new mongoose.Schema({
     theaterId: {
         type: Schema.Types.ObjectId,
         ref: 'Theater',
-        required:[true,'please enter '],
+        required:[true,'please enter field'],
     },
     index: {
         type:Number,

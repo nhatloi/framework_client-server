@@ -3,8 +3,7 @@ const Theater = require('../models/Theater')
 const TheaterCtrl = {
     AddTheater : async(req,res) =>{
         try{
-            const theater = req.body.theater
-            const {name,address} = theater
+            const {name,address} = req.body
             const check_Theater = await Theater.findOne({name,address})
             if(check_Theater) return res.status(400).json({msg:'this Theater already exists!'})
             const newTheater = new Theater({name,address})
