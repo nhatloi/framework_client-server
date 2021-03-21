@@ -11,9 +11,11 @@ const theater_room = new mongoose.Schema({
         type:Number,
         required:[true,'please enter index room'],
     },
-    seats:{
+    matrix_chair:{
         type:Array,
         required:[true,'please enter seats'],
+        default:[0,0]
+
     }
 
 }, { timestamps: true })

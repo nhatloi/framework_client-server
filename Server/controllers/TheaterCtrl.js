@@ -14,6 +14,43 @@ const TheaterCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
+    DeleteTheater : async(req,res) =>{
+        try{
+            await Theater.findByIdAndDelete(req.params.id)
+        res.json({msg:'delete success!'})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    UpdateTheater : async(req,res) =>{
+        try{
+            const {name,address,id} =req.body
+            await Theater.findOneAndUpdate({_id:id},{
+              name,address
+          })
+
+            res.json({msg:'Update Theater successfully!'})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    GetAll_Theater : async(req,res) =>{
+        try{
+            const theater = await Theater.find()
+            return res.json({theater:theater})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+
+    GetOne_Theater : async(req,res) =>{
+        try{
+            const Theater = await Theater.find({ role: 0 }).select('-password')
+            res.json({msg:'Get one Theater successfully!'})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
 
 }
 

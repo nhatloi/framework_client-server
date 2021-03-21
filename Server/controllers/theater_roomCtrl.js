@@ -15,13 +15,40 @@ const Theater_RoomCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-    GetInforRoom : async(req,res) =>{
+    DeleteRoom : async(req,res) =>{
         try{
-            const {_id} = req.body
-            const check_Room = await theater_room.findById({_id})
-            const check_Theater = await Theater.findById({_id:check_Room.theaterId})
-            if(!check_Room || !check_Theater) return res.status(400).json({msg:'not found!'})
-            res.json({Room:check_Room,Theater:check_Theater})
+
+            res.json({msg:'Delete Theater Room successfully!'})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    UpdateRoom : async(req,res) =>{
+        try{
+
+            res.json({msg:'Update Theater Room successfully!'})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    GetInfor_allRoom : async(req,res) =>{
+        try{
+            // const {_id} = req.body
+            // const check_Room = await theater_room.findById({_id})
+            // const check_Theater = await Theater.findById({_id:check_Room.theaterId})
+            // if(!check_Room || !check_Theater) return res.status(400).json({msg:'not found!'})
+            // res.json({Room:check_Room,Theater:check_Theater})
+            res.json({msg:'get infor all Room in Theater successfully!'})
+
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+
+    GetInfor_oneRoomByindex : async(req,res) =>{
+        try{
+            
+            res.json({msg:'get one room by index Theater Room successfully!'})
 
         }catch(err) {
             return res.status(500).json({msg: err.message})

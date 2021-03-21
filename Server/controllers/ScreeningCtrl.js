@@ -18,12 +18,38 @@ const ScreeningCtrl = {
             return res.status(500).json({msg: err.message})
         }
     },
-    GetInforScreening : async(req,res) =>{
+    DeleteScreening : async(req,res) =>{
         try{
-            const {_id} = req.body
-            const check_Screening = await Screening.findById({_id})
-            res.json({Screening:check_Screening})
+            res.json({msg:'Delete Screening successfully!'})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
 
+    UpdateScreening : async(req,res) =>{
+        try{
+            res.json({msg:'Update Screening successfully!'})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    Get_allScreening : async(req,res) =>{
+        try{
+            res.json({msg:'get all Screening successfully!'})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    Get_byMovie : async(req,res) =>{
+        try{
+            res.json({msg:'get by movie Screening successfully!'})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+    Get_byTimeStart : async(req,res) =>{
+        try{
+            res.json({msg:'get by time start Screening successfully!'})
         }catch(err) {
             return res.status(500).json({msg: err.message})
         }

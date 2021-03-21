@@ -12,12 +12,14 @@ const screening = new mongoose.Schema({
         ref: 'Movie',
         required:[true,'please enter '],
     },
-    day: {
+    time_start: {
         type:Date,
         required:[true,'please enter'],
     },
-
-
+    time_end: {
+        type:Date,
+        required:[true,'please enter'],
+    },
 }, { timestamps: true })
 
 
