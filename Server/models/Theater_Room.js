@@ -15,7 +15,6 @@ const theater_room = new mongoose.Schema({
         type:Array,
         required:[true,'please enter seats'],
         default:[0,0]
-
     }
 
 }, { timestamps: true })

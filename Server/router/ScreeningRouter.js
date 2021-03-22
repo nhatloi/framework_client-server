@@ -4,7 +4,7 @@ const auth = require('../middleware/auth')
 const authAdmin = require('../middleware/authAdmin')
 
 router.post('/addscreening',auth,authAdmin, ScreeningCtrl.AddScreening)
-router.post('/deletescreening',auth,authAdmin, ScreeningCtrl.DeleteScreening)
+router.delete('/deletescreening/:id',auth,authAdmin, ScreeningCtrl.DeleteScreening)
 router.post('/updatescreening',auth,authAdmin, ScreeningCtrl.UpdateScreening)
 router.get('/get_allscreening',auth,authAdmin, ScreeningCtrl.Get_allScreening)
 router.get('/get_bymovie',auth,authAdmin, ScreeningCtrl.Get_byMovie)

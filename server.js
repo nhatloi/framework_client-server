@@ -22,6 +22,7 @@ app.use('/api',require('./Server/router/upload'))
 app.use('/movie',require('./Server/router/moviesRouter'))
 app.use('/comment', require('./Server/router/comment'));
 app.use('/like', require('./Server/router/like'));
+app.use('/news', require('./Server/router/NewsRouter'));
 app.use('/favorite', require('./Server/router/favorite'));
 app.use('/theater', require('./Server/router/TheaterRouter'));
 app.use('/theater/theater_room', require('./Server/router/Theater_RoomRouter'));

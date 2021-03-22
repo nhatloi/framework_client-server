@@ -13,13 +13,21 @@ const screening = new mongoose.Schema({
         required:[true,'please enter '],
     },
     time_start: {
-        type:Date,
+        type:String,
         required:[true,'please enter'],
     },
     time_end: {
-        type:Date,
+        type:String,
         required:[true,'please enter'],
     },
+    seats:{
+        type:Number,
+        default:0,
+    },
+    matrix_seats:{
+        type:Array,
+    }
+
 })
 
 

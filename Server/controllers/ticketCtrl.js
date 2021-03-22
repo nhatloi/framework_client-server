@@ -1,16 +1,20 @@
-
+const Screening = require('../models/Screening')
 const Ticket = require('../models/Ticket')
 
 
-const ScreeningCtrl = {
+const TicketCtrl = {
     AddTicket : async(req,res) =>{
         try{
-            // const {theater_RoomId,MovieId,day} = req.body
-            // const check_Screening = await Screening.findOne({theater_RoomId,MovieId,day})
-            // if(check_Screening) return res.status(400).json({msg:'this Screening already exists!'})
-            // const newtheater_Screening = new Screening({theater_RoomId,MovieId,day})
-            // await newtheater_Screening.save();
-
+            const {ScreeningId,UserId,number_seat} = req.body
+            const check_ticket= await Ticket.findOne({ScreeningId,UserId,number_seat})
+            if(check_ticket) return res.status(400).json({msg:'this Ticket already exists!'})
+            const newTicket = new Ticket({ScreeningId,UserId,number_seat})
+            var check_seat= await Screening.findById(ScreeningId)
+            if(check_seat.matrix_seats[number_seat[0]][number_seat[1]] == 0)
+                return res.status(500).json({msg:"seats already exists!"})
+            check_seat.matrix_seats[number_seat[0]][number_seat[1]] = 0 
+            await Screening.findOneAndUpdate({_id:ScreeningId},{matrix_seats:check_seat.matrix_seats,seats:check_seat.seats-1})
+            await newTicket.save();
             res.json({msg:'Add Screening successfully!'})
         }catch(err) {
             return res.status(500).json({msg: err.message})
@@ -18,29 +22,49 @@ const ScreeningCtrl = {
     },
     DeleteTicket : async(req,res) =>{
         try{
+            const check_ticket= await Ticket.findById(req.params.id)
+            var check_seat= await Screening.findById(check_ticket.ScreeningId)
+            check_seat.matrix_seats[check_ticket.number_seat[0]][check_ticket.number_seat[1]] =1
+            await Screening.findOneAndUpdate({_id:check_ticket.ScreeningId},{matrix_seats:check_seat.matrix_seats,seats:check_seat.seats+1})
+            await Ticket.findByIdAndDelete(req.params.id)
             res.json({msg:'Delete Ticket successfully!'})
         }catch(err) {
             return res.status(500).json({msg: err.message})
         }
     },
 
-    UpdateTicket : async(req,res) =>{
+    Change_seat : async(req,res) =>{
         try{
-            res.json({msg:'Update Ticket successfully!'})
+            const {number_seat,id} = req.body
+            const check_ticket= await Ticket.findById(id)
+            var check_seat= await Screening.findById(check_ticket.ScreeningId)
+            if(check_seat.matrix_seats[number_seat[0]][number_seat[1]] == 0)
+                return res.status(500).json({msg:"seats already exists!"})
+            check_seat.matrix_seats[number_seat[0]][number_seat[1]] = 0
+            check_seat.matrix_seats[check_ticket.number_seat[0]][check_ticket.number_seat[1]] = 1
+            await Ticket.findOneAndUpdate({_id:id},{number_seat:number_seat})
+            await Screening.findOneAndUpdate({_id:check_ticket.ScreeningId},{matrix_seats:check_seat.matrix_seats})
+            res.json({msg:'Change seat successfully!'})
         }catch(err) {
             return res.status(500).json({msg: err.message})
         }
     },
+
     Get_allTicket : async(req,res) =>{
         try{
-            res.json({msg:'get all Ticket successfully!'})
+            const ticket = await Ticket.find()
+            return res.json({ticket:ticket})
+           
         }catch(err) {
             return res.status(500).json({msg: err.message})
         }
     },
+
     Get_byUser : async(req,res) =>{
         try{
-            res.json({msg:'get by user Ticket successfully!'})
+            const {userId} = req.body
+            const ticket = await Ticket.find({UserId:userId})
+            return res.json({ticket:ticket})
         }catch(err) {
             return res.status(500).json({msg: err.message})
         }
@@ -55,4 +79,4 @@ const ScreeningCtrl = {
 
 }
 
-module.exports = ScreeningCtrl
+module.exports = TicketCtrl
