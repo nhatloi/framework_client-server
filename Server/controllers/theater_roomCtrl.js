@@ -1,15 +1,14 @@
 const theater_room = require('../models/Theater_Room')
-const Theater = require('../models/Theater')
+// const Theater = require('../models/Theater')
 
 const Theater_RoomCtrl = {
     AddRoom : async(req,res) =>{
         try{
-            const {theaterId,index,seats} = req.body
+            const {theaterId,index,matrix_chair} = req.body
             const check_Theater = await theater_room.findOne({theaterId,index})
             if(check_Theater) return res.status(400).json({msg:'this Theater Room already exists!'})
-            const newtheater_room = new theater_room({theaterId,index,seats})
+            const newtheater_room = new theater_room({theaterId,index,matrix_chair})
             await newtheater_room.save();
-
             res.json({msg:'Add Theater Room successfully!'})
         }catch(err) {
             return res.status(500).json({msg: err.message})
@@ -17,8 +16,8 @@ const Theater_RoomCtrl = {
     },
     DeleteRoom : async(req,res) =>{
         try{
-
-            res.json({msg:'Delete Theater Room successfully!'})
+            
+        res.json({msg:""})
         }catch(err) {
             return res.status(500).json({msg: err.message})
         }

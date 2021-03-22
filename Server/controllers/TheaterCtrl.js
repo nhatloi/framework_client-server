@@ -28,7 +28,6 @@ const TheaterCtrl = {
             await Theater.findOneAndUpdate({_id:id},{
               name,address
           })
-
             res.json({msg:'Update Theater successfully!'})
         }catch(err) {
             return res.status(500).json({msg: err.message})
@@ -44,9 +43,18 @@ const TheaterCtrl = {
     },
 
     GetOne_Theater : async(req,res) =>{
+        const {id,name} =req.body
+        if(id)
         try{
-            const Theater = await Theater.find({ role: 0 }).select('-password')
-            res.json({msg:'Get one Theater successfully!'})
+            const theater = await Theater.findOne({_id:id})
+            res.json({theater:theater})
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+        if(name)
+        try{
+            const theater = await Theater.findOne({name:name})
+            res.json({theater:theater})
         }catch(err) {
             return res.status(500).json({msg: err.message})
         }
