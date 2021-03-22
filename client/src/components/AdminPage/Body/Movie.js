@@ -26,6 +26,7 @@ function Movie() {
     const [visible, setvisible] = useState(false)
     const token = useSelector(state => state.token)
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [searching, setsearching] = useState(0)
     const handleEdit =() =>{
         setvisible (!visible)
     }
@@ -53,17 +54,17 @@ function Movie() {
 
     useEffect(() => {
         movies_eff()
-    }, [Movies])
+    }, [])
 
     const movies_eff = async() =>{
         try{
             const res = await axios.get('/movie/getallmovie', {headers:{Authorization:token}})
             setMovies(res.data.movie)
-            setmoviesViewView(Movies);
         }catch (error) {
             console.log(error);
         }
     }
+
     const Deletehandle = () =>{
         setIsModalVisible(true)
       }
@@ -88,17 +89,16 @@ function Movie() {
 
     const handleSearch = (e) =>{
         const str = e.target.value;
+        if(str==="")
+            setsearching(0)
+        else setsearching(1)
         var count=[];
         Movies.forEach(element => {
             if(element.title.toLowerCase().search(str) != -1){
                 count.push(element);
             }
         });
-        if(count==0)
-            setmoviesViewView(Movies);
-            if(count!=0) {
-                setmoviesViewView(count);
-            }
+        setmoviesViewView(count);
       }
 
 
@@ -110,7 +110,7 @@ function Movie() {
            <div style={{width:"300px",float:'right',display:'flex'}}>
               <Input size="large" placeholder="Search" prefix={<UserOutlined />} onChange={handleSearch}/>
             </div>
-           <Table columns={columns} dataSource={moviesView}
+           <Table columns={columns} dataSource={searching==0?Movies:moviesView}
             onRow={(record, rowIndex) => {
                 return {
                     onClick: event => {setmovieinfor(moviesView[rowIndex])}, // click row

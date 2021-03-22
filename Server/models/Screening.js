@@ -20,7 +20,7 @@ const screening = new mongoose.Schema({
         type:Date,
         required:[true,'please enter'],
     },
-}, { timestamps: true })
+})
 
 
 module.exports = mongoose.model('Screening',screening)

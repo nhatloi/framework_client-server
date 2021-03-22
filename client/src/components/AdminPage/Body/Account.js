@@ -20,9 +20,10 @@ function Account() {
     const [visible, setvisible] = useState(false)
     const token = useSelector(state => state.token)
     const users = useSelector(state => state.users)
-    const [userView, setuserView] = useState([])
+    const [userView, setuserView] = useState(users)
     const [userInfor, setuserInfor] = useState(initialState)
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [searching, setsearching] = useState(0)
      //const 
      const columns = [
         {
@@ -45,17 +46,16 @@ function Account() {
       ];
     
       const handleSearch = (e) =>{
+        if(e.target.value==='')
+            setsearching(0)
+        else setsearching(1)
         var count=[];
         users.forEach(element => {
             if(element.name.toLowerCase().search(e.target.value) != -1 || element.email.toLowerCase().search(e.target.value) != -1){
                 count.push(element);
             }
         });
-        if(count==0)
-            setuserView(users);
-            if(count!=0) {
-                setuserView(count);
-            }
+        setuserView(count)
       }
 
       const Deletehandle = () =>{
@@ -89,10 +89,7 @@ function Account() {
         fetchAllUsers(token).then(res =>{
             dispatch(dispatchGetAllUser(res))
           })
-
-        if(!userView[0])
-          setuserView(users);
-      },[dispatch,token,users])
+      },[dispatch,token])
       
 
     //render
@@ -102,7 +99,7 @@ function Account() {
             <div style={{width:"300px",float:'right',display:'flex'}}>
               <Input size="large" placeholder="Search" prefix={<UserOutlined />} onChange={handleSearch}/>
             </div>
-            <Table columns={columns} dataSource={userView}
+            <Table columns={columns} dataSource={searching==0?users:userView}
             onRow={(record, rowIndex) => {
                 return {
                   onClick: event => {setuserInfor(userView[rowIndex])}, // click row
