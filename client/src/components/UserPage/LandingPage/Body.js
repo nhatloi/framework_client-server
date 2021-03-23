@@ -11,10 +11,9 @@ import Notfound from '../../utils/Notfound'
 import Profile from '../View/Profile'
 import Successfully from '../../utils/Successfully'
 import Test from '../View/Test'
-import FreeMovies from '../View/FreeMovies/FreeMovies'
-import WhatMovie from '../View/FreeMovies/WatchMovie'
 import InTheatersPage from '../View/InTheater/InTheatersPage'
 import InTheatersDetail from '../View/InTheater/InTheatersDetail'
+import News from '../View/News/NewsPage'
 
 
 
@@ -44,10 +43,11 @@ function Body() {
                     {/* no need to login */}
                     <Route exact path="/user/activation/:activation_token" component={ActiveEmail}/>
                     <Route exact path="/test" component={Test}/>
-                    <Route exact path="/freemovies/:category" component={FreeMovies}/>
-                    <Route exact path="/whatmovie/:nameMovie/:episode" component={WhatMovie}/>
                     <Route exact path="/intheaters/:query" component={InTheatersPage}/>
                     <Route exact path="/intheaters/detail/:nameMovie" component={InTheatersDetail}/>
+
+                    {/* News */}
+                    <Route exact path="/news" component={News}/>
                     
                 </Switch>
             </section>

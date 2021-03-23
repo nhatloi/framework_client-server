@@ -15,5 +15,3 @@ export const IMAGE_SIZE = 'w1280'
 
 // w92, w154, w185, w342, w500, w780, original
 export const POSTER_SIZE = 'w500'
-
-export const FREE_MOVIES_URL = 'http://motphimmoi.net/'

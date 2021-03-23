@@ -94,25 +94,6 @@ function NavHeader() {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
-                <NavLink href="/freemovies/phim-chieu-rap">Movie theaters</NavLink>
-                </DropdownItem>
-                <DropdownItem>
-                <NavLink href="/freemovies/phim-hay">Good Movies</NavLink>
-                </DropdownItem>
-                <DropdownItem>
-                <NavLink href="/freemovies/phim-bo">series Movies</NavLink>
-                </DropdownItem>
-                <DropdownItem>
-                <NavLink href="/freemovies/phim-le">odd Movies</NavLink>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Movie theaters
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
                 <NavLink href="/intheaters/sap-chieu">Up comming</NavLink>
                 </DropdownItem>
                 <DropdownItem>

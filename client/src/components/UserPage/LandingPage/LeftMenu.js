@@ -36,20 +36,6 @@ function LeftMenu() {
             <Menu.Item key="favorite" icon={<HeartOutlined />}>
             <a href="/favorite">Favorite</a>
             </Menu.Item>
-            <SubMenu key="Freemovies" icon={<FastForwardOutlined />} title="Free movies">
-              <Menu.Item key="Movies in theaters">
-                <a href="/freemovies/phim-chieu-rap">Movies in theathers</a>
-              </Menu.Item>
-              <Menu.Item key="Good movies">
-                <a href="/freemovies/phim-hay">Good movies</a>
-              </Menu.Item>
-              <Menu.Item key="Odd movies">
-                <a href="/freemovies/phim-le">Odd movies</a>
-              </Menu.Item>
-              <Menu.Item key="Series movies">
-                <a href="/freemovies/phim-bo">Series movie</a>
-              </Menu.Item>
-            </SubMenu>
             <SubMenu key="In Theaters" icon={<AppstoreOutlined />} title="In Theaters">
               <Menu.Item key="up-comming">
               <a href="/intheaters/sap-chieu">Up Comming</a>
