@@ -10,6 +10,9 @@ import Account from './Body/Account'
 import Movie from './Body/Movie'
 import Theaters from './Body/Theaters'
 import News from './Body/News'
+import Theater_room from './Body/Theater_room'
+import Screening from './Body/Screening'
+import Tickets from './Body/Tickets'
 import Advertisement from './Body/Advertisement'
 
 
@@ -48,8 +51,13 @@ function AdminPage() {
                         <Link href="#account" title="Account"/>
                         <Link href="#movies" title="Movies" />
                         <Link href="#theaters" title="Theaters" />
+                        <Link href="#theaters-room" title="Theaters Room" />
+                        <Link href="#screening" title="Screening" />
+                        <Link href="#tickets" title="Tickets" />
                         <Link href="#news" title="News" />
                         <Link href="#advertisement" title="Advertisement" />
+
+                        
                     </div>
                 <Menu.Item onClick={handleLogout} key="Logout" icon={<PoweroffOutlined />}>
                     Logout
@@ -62,6 +70,9 @@ function AdminPage() {
                     <div id="account"><Account/></div>
                     <div id="movies"><Movie/></div>
                     <div id="theaters"><Theaters/></div>
+                    <div id="theaters-room"><Theater_room/></div>
+                    <div id="screening"><Screening/></div>
+                    <div id="tickets"><Tickets/></div>
                     <div id="news"><News/></div>
                     <div id="advertisement"><Advertisement/></div>
                 </div>
