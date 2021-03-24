@@ -1,10 +1,10 @@
 import React ,{useState,useEffect}from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import axios from 'axios'
-import { Table,Typography,message,Drawer,Modal,Input,Button } from 'antd';
-import { EyeOutlined,DeleteOutlined,UserOutlined,SearchOutlined} from '@ant-design/icons';
+import { Table,Typography,message,Drawer,Modal,Input } from 'antd';
+import { EyeOutlined,DeleteOutlined,UserOutlined} from '@ant-design/icons';
 import {fetchAllUsers,dispatchGetAllUser} from '../../../redux/actions/allUserAction'
-import Information from './commons/InformationUser'
+import Information from './commons/Information'
 const { Text} = Typography;
 const initialState = {
     email:'',
@@ -94,7 +94,7 @@ function Account() {
 
     //render
     return (
-        <div className='account' >
+        <div className='body-container' >
             <h2><Text underline>User Manager</Text></h2>
             <div style={{width:"300px",float:'right',display:'flex'}}>
               <Input size="large" placeholder="Search" prefix={<UserOutlined />} onChange={handleSearch}/>
@@ -102,8 +102,7 @@ function Account() {
             <Table columns={columns} dataSource={searching==0?users:userView}
             onRow={(record, rowIndex) => {
                 return {
-                  onClick: event => {setuserInfor(userView[rowIndex])}, // click row
-                  onContextMenu: event => {}, // right button click row
+                  onClick: event => {setuserInfor(searching==0?users[rowIndex]:userView[rowIndex])}, // click row
                 };
               }}
             />
@@ -115,7 +114,7 @@ function Account() {
                 visible={visible}
                 onClose={handleEdit}
                 >
-                <Information account infor ={userInfor}/>
+                <Information account infor ={userInfor} />
             </Drawer>
             <Modal title="confirm deletion" visible={isModalVisible} onOk={handleOkDelete} onCancel={handleCancelDelete}>
                 <p>Delete User?</p>

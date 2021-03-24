@@ -11,6 +11,7 @@ router.get('/themoviedb',moviesCtrl.MovieThemoviedb)
 router.post('/themoviedbdetail',moviesCtrl.MovieDetailThemoviedb)
 
 router.post('/addmovie',auth,authAdmin, moviesCtrl.AddMovie)
+router.post('/updatemovie',auth,authAdmin, moviesCtrl.UpdateMovie)
 router.get('/getallmovie',auth,authAdmin, moviesCtrl.GetAllMovie)
 router.delete('/delete/:id',auth,authAdmin,moviesCtrl.DeleteMovie)
 router.delete('/delete_all',auth,authAdmin,moviesCtrl.DeleteAllMovie)

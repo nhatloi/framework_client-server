@@ -1,10 +1,9 @@
 import React,{useState,useEffect} from 'react'
-import {Typography,Drawer,Table,Modal,message,Input} from 'antd';
-import AddNewMovie from './commons/AddNewMovie'
+import {Typography,Drawer,Table,Modal,message,Input,Button} from 'antd';
 import {useSelector} from 'react-redux'
 import { EyeOutlined,DeleteOutlined,UserOutlined} from '@ant-design/icons';
 import axios from 'axios'
-import Information from './commons/InformationUser'
+import Information from './commons/Information'
 
 const { Text} = Typography;
 const initialState = {
@@ -105,7 +104,7 @@ function Movie() {
 
 
     return (
-        <div className='admin-movies'>
+        <div className='body-container'>
            <h2><Text underline>Movies Manager</Text></h2>
            <div style={{width:"300px",float:'right',display:'flex'}}>
               <Input size="large" placeholder="Search" prefix={<UserOutlined />} onChange={handleSearch}/>
@@ -113,11 +112,12 @@ function Movie() {
            <Table columns={columns} dataSource={searching==0?Movies:moviesView}
             onRow={(record, rowIndex) => {
                 return {
-                    onClick: event => {setmovieinfor(moviesView[rowIndex])}, // click row
+                    onClick: event => {setmovieinfor(searching==0?Movies[rowIndex]:moviesView[rowIndex])}, // click row
                     onContextMenu: event => {}, // right button click row
                 };
               }}
             />
+            <Button>New</Button>
            <Drawer
                 width={'50%'}
                 title="Information"
@@ -130,7 +130,6 @@ function Movie() {
             <Modal title="confirm deletion" visible={isModalVisible} onOk={handleOkDelete} onCancel={handleCancelDelete} >
                 <p>Delete Movie?</p>
             </Modal>
-
         </div>
     )
 }

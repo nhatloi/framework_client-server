@@ -3,7 +3,7 @@ import {Typography,Drawer,Table,Modal,message,Input} from 'antd';
 import {useSelector} from 'react-redux'
 import { EyeOutlined,DeleteOutlined,UserOutlined} from '@ant-design/icons';
 import axios from 'axios'
-import Information from './commons/InformationUser'
+import Information from './commons/Information'
 const { Text} = Typography;
 const initialState = {
     description:'',
@@ -60,7 +60,6 @@ function News() {
           try{
               const res = await axios.get('/news/get_allnews', {headers:{Authorization:token}})
               console.log(res)
-              setNews(res.data.news)
           }catch (error) {
               console.log(error);
           }
@@ -104,7 +103,7 @@ function News() {
 
 
     return (
-        <div className='news'>
+        <div className='body-container'>
             <h2><Text underline>News Manager</Text></h2>
             <div style={{width:"300px",float:'right',display:'flex'}}>
             <Input size="large" placeholder="Search" prefix={<UserOutlined />} onChange={handleSearch}/>

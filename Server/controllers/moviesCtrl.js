@@ -239,6 +239,18 @@ const moviesCtrl = {
             return res.status(500).json({msg: error.message})
         }
     },
+
+    UpdateMovie : async (req,res) =>{
+        try {
+            const {id,original_title,release_date,overview,trailer} =req.body
+            await Movie.findOneAndUpdate({_id:id},{
+                original_title,release_date,overview,trailer})
+
+            res.json({msg:'update success!'})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
     DeleteAllMovie : async (req,res) =>{
         try {
             await Movie.deleteMany()

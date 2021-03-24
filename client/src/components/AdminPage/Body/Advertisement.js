@@ -1,10 +1,13 @@
 import React from 'react'
+import {Typography } from 'antd';
 
-function Advertisement(props) {
-    const index = props.index
+
+const { Text} = Typography;
+
+function Advertisement() {
     return (
-        <div className='advertisement'>
-            <h2>Advertisement</h2>
+        <div className='body-container'>
+            <h2><Text underline>Advertisement Manager</Text></h2>
         </div>
     )
 }
