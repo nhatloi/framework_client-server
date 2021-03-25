@@ -35,7 +35,7 @@ const movie = new mongoose.Schema({
     trailer: {
         type:String
     },
-    backdrop_path: {
+    release_date: {
         type:String
     },
 }, { timestamps: true })

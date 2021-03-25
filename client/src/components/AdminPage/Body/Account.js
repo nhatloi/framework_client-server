@@ -1,7 +1,7 @@
 import React ,{useState,useEffect}from 'react'
 import {useDispatch,useSelector} from 'react-redux'
 import axios from 'axios'
-import { Table,Typography,message,Drawer,Modal,Input } from 'antd';
+import { Table,Typography,message,Drawer,Modal,Input ,Button} from 'antd';
 import { EyeOutlined,DeleteOutlined,UserOutlined} from '@ant-design/icons';
 import {fetchAllUsers,dispatchGetAllUser} from '../../../redux/actions/allUserAction'
 import Information from './commons/Information'
@@ -119,6 +119,7 @@ function Account() {
             <Modal title="confirm deletion" visible={isModalVisible} onOk={handleOkDelete} onCancel={handleCancelDelete}>
                 <p>Delete User?</p>
             </Modal>
+            
         </div>
     )
 }

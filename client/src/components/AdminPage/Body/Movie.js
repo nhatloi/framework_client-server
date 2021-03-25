@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux'
 import { EyeOutlined,DeleteOutlined,UserOutlined} from '@ant-design/icons';
 import axios from 'axios'
 import Information from './commons/Information'
+import AddNewMovie from './commons/AddNewMovie'
 
 const { Text} = Typography;
 const initialState = {
@@ -26,8 +27,12 @@ function Movie() {
     const token = useSelector(state => state.token)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [searching, setsearching] = useState(0)
+    const [New, setNew] = useState(false)
     const handleEdit =() =>{
         setvisible (!visible)
+    }
+    const handleAdd =() =>{
+        setNew (!New)
     }
 
     const columns = [
@@ -117,7 +122,7 @@ function Movie() {
                 };
               }}
             />
-            <Button>New</Button>
+            {/* information */}
            <Drawer
                 width={'50%'}
                 title="Information"
@@ -127,9 +132,23 @@ function Movie() {
                 >
                 <Information movie infor ={movieinfor}/>
             </Drawer>
+
+            {/*Add new */}
+            <Drawer
+                width={'80%'}
+                title="New Movie"
+                placement="left"
+                visible={New}
+                onClose={handleAdd}
+                >
+                <AddNewMovie/>
+            </Drawer>
             <Modal title="confirm deletion" visible={isModalVisible} onOk={handleOkDelete} onCancel={handleCancelDelete} >
                 <p>Delete Movie?</p>
             </Modal>
+            <div className="button_add" >
+                <Button onClick={handleAdd}>New</Button>
+            </div>
         </div>
     )
 }

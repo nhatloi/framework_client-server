@@ -6,11 +6,6 @@ import InformationMovie from './InformationMovie'
 import MovieCard from './MovieCard'
 
 const { Search } = Input;
-// const search = require('youtube-search');
-// var opts = {
-//     maxResults: 10,
-//     key: 'AIzaSyDI_zPC4aEbkvVm03X2qtHoZL03XipKxTs'
-//   };
 
 
 

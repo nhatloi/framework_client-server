@@ -15,6 +15,8 @@ function InformationMovie(props) {
 
     useEffect(() => {
         if(soureFetch === 'themoviedb') fetcMoviesThemoviedb(data)
+        if(soureFetch === 'moveek') fetcMoviesThemoviedb(data)
+
     }, [data])
 
 

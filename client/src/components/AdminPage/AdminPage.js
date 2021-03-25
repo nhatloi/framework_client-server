@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {useSelector} from 'react-redux'
-import { Layout, Menu,Anchor ,Button,Space,Form,Input,Modal} from 'antd';
+import { Layout, Menu,Anchor ,Button,Drawer,Form,Input} from 'antd';
 import axios from 'axios';
 import {
   PoweroffOutlined
@@ -36,25 +36,6 @@ function AdminPage() {
             window.location.href='/';
         }
     }
-    const handleAdd = async() =>{
-        try {
-            setvisible(!visible)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-    const info = () =>{
-        Modal.info({
-          title: 'This is a notification message',
-          content: (
-            <div>
-              <p>some messages...some messages...</p>
-              <p>some messages...some messages...</p>
-            </div>
-          ),
-          onCancel() {},
-        });
-      }
     
 
 
@@ -103,30 +84,7 @@ function AdminPage() {
                 </div>
                 </Layout>
             </Layout>
-            <div className="button_add">
-                <Button onClick={info}>ADD</Button>
-            </div>
-
-
-            <Space>
-                           <Form   onFinish={handleAdd}
-                                    name="basic"
-                            >
-                            <Form.Item
-                                label="Username"
-                                name="username"
-                                rules={[{ required: true, message: 'Please input your username!' }]}
-                            >
-                                <Input />
-                            </Form.Item>
-
-                            <Form.Item >
-                                <Button type="primary" htmlType="submit" onClick={handleAdd}>
-                                Submit
-                                </Button>
-                            </Form.Item>
-                            </Form>
-            </Space>
+            
         </div>
     )
 }
