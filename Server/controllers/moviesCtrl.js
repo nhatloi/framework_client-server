@@ -138,7 +138,6 @@ const moviesCtrl = {
         try {
             const url = `${THEMOVIEDBURL}movie/popular?api_key=${THEMOVIEDBKEY}&language=${LANGUAGE}`
             const results = (await fetchData(url)).results
-
             results.forEach(movie => {
                 const newMovie = {
                     id:'',
@@ -154,6 +153,33 @@ const moviesCtrl = {
               }); 
 
             return res.json({movies})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+        
+    
+    },
+    SearchThemoviedb : async (req,res) =>{
+        const movies = []
+        const key = req.body.key
+        try {
+            const url = `${THEMOVIEDBURL}search/movie/?api_key=${THEMOVIEDBKEY}&language=${LANGUAGE}&query=${key}`
+            const results = (await fetchData(url)).results
+            results.forEach(movie => {
+                const newMovie = {
+                    id:'',
+                    title:'',
+                    poster_path:'',
+                    release_date:'',
+                }
+                newMovie.id = movie.id
+                newMovie.poster_path =`${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}`
+                newMovie.title = movie.original_title
+                newMovie.release_date = movie.release_date
+                movies.push(newMovie)
+              }); 
+        return res.json({key:key})
+           // return res.json({movies})
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }
@@ -223,6 +249,7 @@ const moviesCtrl = {
             return res.status(500).json({msg: error.message})
         }
     },
+    
     GetAllMovie : async (req,res) =>{
         try {
             const movie = await Movie.find()

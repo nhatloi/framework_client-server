@@ -31,7 +31,6 @@ const movie = new mongoose.Schema({
     backdrop_path: {
         type:String
     },
-
     trailer: {
         type:String
     },

@@ -1,6 +1,7 @@
 import React from 'react'
-import { Form,Button,Input,message} from 'antd';
+import { Form,Button,Input,message,DatePicker} from 'antd';
 import axios from 'axios'
+import moment from 'moment'
 import {useSelector} from 'react-redux'
 
 const { TextArea } = Input;
@@ -13,6 +14,7 @@ function Information(props) {
         labelCol: { span: 4 },
         wrapperCol: { span: 24 },
       };
+      const dateFormat = 'YYYY/MM/DD';
 
     const OnEditMovie =  async (values) =>{
         await axios.post('/movie/updatemovie',{id:infor._id,original_title:values.original_title,release_date:values.release_date,overview:values.overview,trailer:values.trailer},{headers:{Authorization:token}})
@@ -58,10 +60,16 @@ function Information(props) {
         <div>
             <Form name="information"  {...layout}  onFinish={OnEditMovie}
             initialValues={{
-                overview: infor.overview,
-                original_title:infor.original_title,
-                release_date:infor.release_date,
-                trailer:infor.trailer
+                ['run-time']: infor.runtime?infor.runtime:1,
+                ['original_title']:infor.original_title,
+                ['title']:infor.title,
+                ['overview']:infor.overview,
+                ['release_date']:moment(infor.release_date,dateFormat),
+                ['backdrop_path']:infor.backdrop_path,
+                ['poster_path']:infor.poster_path,
+                ['directors']:infor.directors,
+                ['actors']:infor.actors,
+                ['trailer']:infor.trailer,
               }}
             > 
                     <Form.Item label="background">
@@ -77,7 +85,7 @@ function Information(props) {
                         <TextArea  rows={4}/>
                     </Form.Item>
                     <Form.Item label="Release date" name="release_date">
-                        <Input/>
+                        <DatePicker format={dateFormat}/>
                     </Form.Item>
                     <Form.Item label="trailer" name="trailer">
                         <Input/>

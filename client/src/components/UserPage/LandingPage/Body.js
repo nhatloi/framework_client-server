@@ -14,11 +14,6 @@ import Test from '../View/Test'
 import InTheatersPage from '../View/InTheater/InTheatersPage'
 import InTheatersDetail from '../View/InTheater/InTheatersDetail'
 import News from '../View/News/NewsPage'
-
-
-
-
-
 function Body() {
     //const
     const auth = useSelector(state => state.auth)

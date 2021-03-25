@@ -11,8 +11,8 @@
     padding: 20px;
     height: 100vh;
     width: 100%;
-    background: rgb(83, 131, 153);
     position: relative;
+    background: linear-gradient(to bottom, #a770ef, #cf8bf3, #fdb99b);
 }
 .body-admin h2{
     color: black;

@@ -1,4 +1,5 @@
 import React ,{useState,useEffect}from 'react'
+import {useSelector} from 'react-redux'
 import { API_URL, API_KEY,LANGUAGE ,IMAGE_BASE_URL,POSTER_SIZE} from '../../../../Config'
 import { Row, Col,Input,Button, Radio ,Modal} from 'antd';
 import axios from 'axios'
@@ -14,6 +15,7 @@ function AddNewMovie() {
     const [Movies, setMovies] = useState([])
     const [soureFetch, setsoureFetch] = useState('themoviedb')
     const [visible, setvisible] = useState(false)
+    const token = useSelector(state => state.token)
 
     //Effect
     useEffect(() => {
@@ -37,15 +39,20 @@ function AddNewMovie() {
     const handleSearch = async(props) =>{
         if(!props) return
         if(soureFetch === 'themoviedb'){
-            const endpoint_video = `${API_URL}search/movie?api_key=${API_KEY}&language=${LANGUAGE}&query=${props}`;
-            fetcMoviesThemoviedb(endpoint_video)
+            const key = `${props}`
+            try {
+                const res = await axios.get('/movie/searchthemoviedb', {key:'themoviedb'})
+                setMovies(res.data.results)
+                console.log(res.data.results)
+            } catch (err) {
+               return err.response.data.msg
+            }
         }
         if(soureFetch === 'moveek'){
             const url = ` https://moveek.com/tim-kiem/?s=${props}`
             try {
                 const res = await axios.post('/movie/searchTheaters', {url:url})
                 setMovies(res.data)
-                console.log(res)
             } catch (err) {
                return err.response.data.msg
             }
@@ -63,9 +70,9 @@ function AddNewMovie() {
     }
 
 
-    const fetcMoviesThemoviedb = async() => {
+    const fetcMoviesThemoviedb = async(url) => {
         try {
-            const res = await axios.get('/movie/themoviedb')
+            const res = await axios.get('/movie/themoviedb',{headers:{Authorization:token}})
             setMovies(res.data.movies)
         } catch (err) {
            return err.response.data.msg
