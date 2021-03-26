@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import {useSelector} from 'react-redux'
-import moment from 'moment';
+import moment, { now } from 'moment';
 import {Skeleton,Form,Input,List,DatePicker,InputNumber,Button,message} from 'antd';
 import axios from 'axios'
 import './commons.css'
@@ -8,22 +8,21 @@ import ReactPlayer from 'react-player/youtube'
 const { TextArea } = Input;
 
 function InformationMovie(props) {
-    const {data,soureFetch} = props
+    const {data, custom} = props
     const token = useSelector(state => state.token)
     const [movie, setmovie] = useState()
     const dateFormat = 'YYYY/MM/DD';
 
     useEffect(() => {
-        if(soureFetch === 'themoviedb') fetcMoviesThemoviedb(data)
-        if(soureFetch === 'moveek') fetcMoviesThemoviedb(data)
-
+        if(!custom)
+            fetcMovies(data)
     }, [data])
 
-
-    const fetcMoviesThemoviedb = async(data) => {
+    const fetcMovies = async(data) => {
         try {
-            const res = await axios.post('/movie/themoviedbdetail',{id:data})
+            const res = await axios.get('/movie/fetchMovieDetailTheaters',{headers:{url:data.linkmovie}})
             setmovie(res.data.movie)
+            console.log(res.data.movie)
         } catch (err) {
            return err.response.data.msg
         }
@@ -59,11 +58,73 @@ function InformationMovie(props) {
         }
     }
 
-    if(soureFetch === 'new'){
+    if(custom)
+    {
         return (
-            <div>   
-                {Loading}        
-            </div>
+            <div>
+                     <Form
+                        name="validate_other"
+                        {...formItemLayout}
+                        onFinish={onFinish}
+                        >
+                        <Form.Item label="Title" name='title'>
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item label="original title" name='original_title'>
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item label="release date" name='release_date'>
+                            <DatePicker format={dateFormat}/>
+                        </Form.Item>
+                        <Form.Item label="Run Time">
+                            <Form.Item name="run-time" noStyle>
+                            <InputNumber min={1}/>
+                            </Form.Item>
+                            <span className="ant-form-text"> Minutes</span>
+                        </Form.Item>
+                        <Form.Item name="directors" label="Directors">
+                            <List style={{overflow:'auto',height:'100px'}}
+                            size="small"
+                            bordered
+                            renderItem={item => <List.Item>{item}</List.Item>}
+                            />
+                            
+                        </Form.Item>
+                        <Form.Item name="actors" label="Actors">
+                            <List style={{overflow:'auto',height:'100px'}}
+                                size="small"
+                                bordered
+                                renderItem={item => <List.Item>{item}</List.Item>}
+                                />
+                        </Form.Item>
+                        <Form.Item name="overview" label="Overview">
+                            <TextArea rows={4} />
+                        </Form.Item>
+                            <Form.Item
+                                name="poster_path"
+                                label="Poster"
+                            >
+                                <input type='file' name='file' id='file_up'/>
+                            </Form.Item>
+                        <Form.Item
+                                name="trailer"
+                                label="Trailer"
+                            >
+                            </Form.Item>
+
+
+                        <Form.Item label="Backdrop" name='backdrop_path'>
+                            <input type='file' name='file' id='file_up'/>
+                        </Form.Item>
+
+                        <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+                            <Button type="primary" htmlType="submit">
+                            Submit
+                            </Button>
+                        </Form.Item>
+                        </Form>
+
+                </div>
         )
     }
     else{
@@ -158,6 +219,8 @@ function InformationMovie(props) {
         )
     }
 
-}
+    }
+
+// }
 
 export default InformationMovie

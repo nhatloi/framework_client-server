@@ -5,7 +5,7 @@ const authAdmin = require('../middleware/authAdmin')
 
 router.post('/fetchMovieTheaters',moviesCtrl.MovieTheaters)
 router.get('/fetchMovieDetailTheaters',moviesCtrl.DetailMovieMovieTheaters)
-router.post('/searchTheaters',moviesCtrl.SearchMovie)
+router.get('/searchTheaters',moviesCtrl.SearchMovie)
 router.get('/searchthemoviedb',moviesCtrl.SearchThemoviedb)
 
 router.get('/themoviedb',auth,authAdmin,moviesCtrl.MovieThemoviedb)

@@ -52,7 +52,7 @@ const moviesCtrl = {
     
     },
     DetailMovieMovieTheaters : async (req,res) =>{
-        url = req.body.url
+        const url = req.header("url")
         const content = await fetchData(url)
         const $ =cheerio.load(content)
         const movie = {
@@ -103,7 +103,8 @@ const moviesCtrl = {
         return res.json({movie})        
     },
     SearchMovie : async (req,res) =>{
-        url = req.body.url
+
+        const url = req.header("url")
         const movies = []
         try {
             const content = await fetchData(url)
@@ -124,7 +125,7 @@ const moviesCtrl = {
 
                 movies.push(movie)
             })
-            return res.json(movies)
+            return res.json({movies})
           
         } catch (error) {
             return res.status(500).json({msg: error.message})
@@ -161,7 +162,7 @@ const moviesCtrl = {
     },
     SearchThemoviedb : async (req,res) =>{
         const movies = []
-        const key = req.body.key
+        const key = req.header("key")
         try {
             const url = `${THEMOVIEDBURL}search/movie/?api_key=${THEMOVIEDBKEY}&language=${LANGUAGE}&query=${key}`
             const results = (await fetchData(url)).results
@@ -178,8 +179,7 @@ const moviesCtrl = {
                 newMovie.release_date = movie.release_date
                 movies.push(newMovie)
               }); 
-        return res.json({key:key})
-           // return res.json({movies})
+           return res.json({movies})
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }

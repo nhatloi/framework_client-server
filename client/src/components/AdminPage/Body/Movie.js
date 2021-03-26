@@ -109,7 +109,8 @@ function Movie() {
 
 
     return (
-        <div className='body-container'>
+        <div>
+            <div className='body-container'>
            <h2><Text underline>Movies Manager</Text></h2>
            <div style={{width:"300px",float:'right',display:'flex'}}>
               <Input size="large" placeholder="Search" prefix={<UserOutlined />} onChange={handleSearch}/>
@@ -122,6 +123,7 @@ function Movie() {
                 };
               }}
             />
+
             {/* information */}
            <Drawer
                 width={'50%'}
@@ -133,22 +135,14 @@ function Movie() {
                 <Information movie infor ={movieinfor}/>
             </Drawer>
 
-            {/*Add new */}
-            <Drawer
-                width={'80%'}
-                title="New Movie"
-                placement="left"
-                visible={New}
-                onClose={handleAdd}
-                >
-                <AddNewMovie/>
-            </Drawer>
             <Modal title="confirm deletion" visible={isModalVisible} onOk={handleOkDelete} onCancel={handleCancelDelete} >
                 <p>Delete Movie?</p>
             </Modal>
-            <div className="button_add" >
-                <Button onClick={handleAdd}>New</Button>
+
             </div>
+            <div className="new-movie">
+                <AddNewMovie/>
+            </div> 
         </div>
     )
 }

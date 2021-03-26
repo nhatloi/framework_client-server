@@ -47,6 +47,9 @@
     right: 10px;
 }
 
+.new-movie {
+    min-height: 100vh;
+}
 
 
 
