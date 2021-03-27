@@ -1,7 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import {useSelector} from 'react-redux'
-import moment, { now } from 'moment';
+import moment   from 'moment';
 import {Skeleton,Form,Input,List,DatePicker,InputNumber,Button,message} from 'antd';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import axios from 'axios'
 import './commons.css'
 import ReactPlayer from 'react-player/youtube'
@@ -30,11 +31,19 @@ function InformationMovie(props) {
         }
        
     }
+    const formItemLayoutWithOutLabel = {
+        wrapperCol: {
+          xs: { span: 24, offset: 0 },
+          sm: { span: 20, offset: 4 },
+        },
+      };
 
     const formItemLayout = {
         labelCol: { span: 6 },
         wrapperCol: { span: 14 },
       };
+
+
     
     const uploadButton = (
         <div>
@@ -67,6 +76,7 @@ function InformationMovie(props) {
                 title:e.title,
                 backdrop_path:bannerImg,
                 directors:e.directors,
+                actors:e.actors,
                 original_title:e.original_title,
                 overview:e.overview,
                 poster_path:posterImg,
@@ -75,12 +85,13 @@ function InformationMovie(props) {
                 trailer:e.trailer,
             }
 
-            // const res = await axios.post('/movie/addmovie/',{movie:e},
-            //     {headers:{Authorization:token}
-            // })
-            // message.success(res.data.msg)
+            const res = await axios.post('/movie/addmovie/',{movie:movie},
+                {headers:{Authorization:token}
+            })
+            //message.success(res.data.msg)
 
-            console.log({movie:movie})
+            console.log(movie)
+            console.log(res.data.msg)
 
         }catch (error) {
             message.error('add failed!');
@@ -148,21 +159,123 @@ function InformationMovie(props) {
                             </Form.Item>
                             <span className="ant-form-text"> Minutes</span>
                         </Form.Item>
-                        <Form.Item name="directors" label="Directors">
-                            <List style={{overflow:'auto',height:'100px'}}
-                            size="small"
-                            bordered
-                            renderItem={item => <List.Item>{item}</List.Item>}
-                            />
-                            
-                        </Form.Item>
-                        <Form.Item name="actors" label="Actors">
-                            <List style={{overflow:'auto',height:'100px'}}
-                                size="small"
-                                bordered
-                                renderItem={item => <List.Item>{item}</List.Item>}
-                                />
-                        </Form.Item>
+                        <Form.List
+                                name="actors"
+                                rules={[
+                                {
+                                    validator: async (_, actors) => {
+                                    if (!actors || actors.length < 1) {
+                                        return Promise.reject(new Error('At least 1 actors'));
+                                    }
+                                    },
+                                },
+                                ]}
+                            >
+                                {(fields, { add, remove }, { errors }) => (
+                                <>
+                                    {fields.map((field, index) => (
+                                    <Form.Item
+                                        {...formItemLayoutWithOutLabel}
+                                        label='Actors'
+                                        required={false}
+                                        key={field.key}
+                                    >
+                                        <Form.Item
+                                        {...field}
+                                        validateTrigger={['onChange', 'onBlur']}
+                                        rules={[
+                                            {
+                                            required: true,
+                                            whitespace: true,
+                                            message: "Please input Actors name or delete this field.",
+                                            },
+                                        ]}
+                                        noStyle
+                                        >
+                                        <Input placeholder="Actors name" style={{ width: '60%' }} />
+                                        </Form.Item>
+                                        {fields.length > 1 ? (
+                                        <MinusCircleOutlined
+                                            className="dynamic-delete-button"
+                                            onClick={() => remove(field.name)}
+                                        />
+                                        ) : null}
+                                    </Form.Item>
+                                    ))}
+                                    <Form.Item>
+                                    <Button
+                                        type="dashed"
+                                        onClick={() => add()}
+                                        style={{ width: '60%' }}
+                                        icon={<PlusOutlined />}
+                                    >
+                                        Add Actors
+                                    </Button>
+                                    <Form.ErrorList errors={errors} />
+                                    </Form.Item>
+                                </>
+                                )}
+                            </Form.List>
+
+                            <Form.List
+                                name="directors"
+                                rules={[
+                                {
+                                    validator: async (_, directors) => {
+                                    if (!directors || directors.length < 1) {
+                                        return Promise.reject(new Error('At least 1 directors'));
+                                    }
+                                    },
+                                },
+                                ]}
+                            >
+                                {(fields, { add, remove }, { errors }) => (
+                                <>
+                                    {fields.map((field, index) => (
+                                    <Form.Item
+                                        {...formItemLayoutWithOutLabel}
+                                        label='Directors'
+                                        required={false}
+                                        key={field.key}
+                                    >
+                                        <Form.Item
+                                        {...field}
+                                        validateTrigger={['onChange', 'onBlur']}
+                                        rules={[
+                                            {
+                                            required: true,
+                                            whitespace: true,
+                                            message: "Please input Actors name or delete this field.",
+                                            },
+                                        ]}
+                                        noStyle
+                                        >
+                                        <Input placeholder="directors name" style={{ width: '60%' }} />
+                                        </Form.Item>
+                                        {fields.length > 1 ? (
+                                        <MinusCircleOutlined
+                                            className="dynamic-delete-button"
+                                            onClick={() => remove(field.name)}
+                                        />
+                                        ) : null}
+                                    </Form.Item>
+                                    ))}
+                                    <Form.Item>
+                                    <Button
+                                        type="dashed"
+                                        onClick={() => add()}
+                                        style={{ width: '60%' }}
+                                        icon={<PlusOutlined />}
+                                    >
+                                        Add Directors
+                                    </Button>
+                                    <Form.ErrorList errors={errors} />
+                                    </Form.Item>
+                                </>
+                                )}
+                            </Form.List>
+
+
                         <Form.Item name="overview" label="Overview">
                             <TextArea rows={4} />
                         </Form.Item>
@@ -178,6 +291,7 @@ function InformationMovie(props) {
                                 name="trailer"
                                 label="Trailer"
                             >
+                                <Input/>
                             </Form.Item>
 
 
@@ -192,6 +306,7 @@ function InformationMovie(props) {
                             </Button>
                         </Form.Item>
                         </Form>
+
 
                 </div>
         )

@@ -27,13 +27,10 @@ function Movie() {
     const token = useSelector(state => state.token)
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [searching, setsearching] = useState(0)
-    const [New, setNew] = useState(false)
     const handleEdit =() =>{
         setvisible (!visible)
     }
-    const handleAdd =() =>{
-        setNew (!New)
-    }
+
 
     const columns = [
         {

@@ -8,6 +8,8 @@ function Theater_room() {
     return (
         <div className='body-container'>
             <h2><Text underline>Theater Room Manager</Text></h2>
+
+            
         </div>
     )
 }
