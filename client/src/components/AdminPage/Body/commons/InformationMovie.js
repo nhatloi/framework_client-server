@@ -12,6 +12,8 @@ function InformationMovie(props) {
     const token = useSelector(state => state.token)
     const [movie, setmovie] = useState()
     const dateFormat = 'YYYY/MM/DD';
+    const [posterImg, setposterImg] = useState('')
+    const [bannerImg, setbannerImg] = useState('')
 
     useEffect(() => {
         if(!custom)
@@ -53,10 +55,63 @@ function InformationMovie(props) {
                 {headers:{Authorization:token}
             })
             message.success(res.data.msg)
+
         }catch (error) {
             message.error('add failed!');
         }
     }
+
+    const onCustom = async(e) =>{
+        try{
+            const movie={
+                title:e.title,
+                backdrop_path:bannerImg,
+                directors:e.directors,
+                original_title:e.original_title,
+                overview:e.overview,
+                poster_path:posterImg,
+                release_date:e.release_date,
+                run_time:e.run_time,
+                trailer:e.trailer,
+            }
+
+            // const res = await axios.post('/movie/addmovie/',{movie:e},
+            //     {headers:{Authorization:token}
+            // })
+            // message.success(res.data.msg)
+
+            console.log({movie:movie})
+
+        }catch (error) {
+            message.error('add failed!');
+        }
+    }
+      
+    const upImage = async(e) =>{
+        e.preventDefault();
+        try {
+            const file = e.target.files[0]
+           if(!file) return console.error('No files were uploaded.');
+           if(file.type !== 'image/jpeg' && file.type !== 'image/png') return console.error('file format incorrect.');
+
+           let formData = new FormData()
+           formData.append('file',file)
+           const res = await axios.post('/api/uploadimg',formData,{
+               headers:{'content-type':'multipart/form-data',Authorization:token}
+           })
+
+           if(e.target.id=="poster"){
+                setposterImg(res.data.url)
+           }
+           if(e.target.id=="banner"){
+                setbannerImg(res.data.url)
+          }
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     if(custom)
     {
@@ -65,7 +120,18 @@ function InformationMovie(props) {
                      <Form
                         name="validate_other"
                         {...formItemLayout}
-                        onFinish={onFinish}
+                        onFinish={onCustom}
+                        initialValues={{
+                            ['run-time']: 1,
+                            ['original_title']:"",
+                            ['title']:"",
+                            ['overview']:"",
+                            ['release_date']:"",
+                            ['backdrop_path']:"",
+                            ['directors']:"",
+                            ['actors']:"",
+                            ['trailer']:"",
+                        }}
                         >
                         <Form.Item label="Title" name='title'>
                             <Input/>
@@ -77,7 +143,7 @@ function InformationMovie(props) {
                             <DatePicker format={dateFormat}/>
                         </Form.Item>
                         <Form.Item label="Run Time">
-                            <Form.Item name="run-time" noStyle>
+                            <Form.Item name="run_time" noStyle>
                             <InputNumber min={1}/>
                             </Form.Item>
                             <span className="ant-form-text"> Minutes</span>
@@ -104,7 +170,9 @@ function InformationMovie(props) {
                                 name="poster_path"
                                 label="Poster"
                             >
-                                <input type='file' name='file' id='file_up'/>
+                                <img style={{height:"300px"}} alt="poster" src={posterImg}/>
+                                <Input type='file' id='poster' onChange={upImage}/>
+                            
                             </Form.Item>
                         <Form.Item
                                 name="trailer"
@@ -114,7 +182,8 @@ function InformationMovie(props) {
 
 
                         <Form.Item label="Backdrop" name='backdrop_path'>
-                            <input type='file' name='file' id='file_up'/>
+                            <img style={{width:"100%"}} alt="banner" src={bannerImg}/>
+                            <input type='file' id='banner' onChange={upImage}/>
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
@@ -159,7 +228,7 @@ function InformationMovie(props) {
                             <DatePicker format={dateFormat}/>
                         </Form.Item>
                         <Form.Item label="Run Time">
-                            <Form.Item name="run-time" noStyle>
+                            <Form.Item name="run_time" noStyle>
                             <InputNumber min={1}/>
                             </Form.Item>
                             <span className="ant-form-text"> Minutes</span>
@@ -189,7 +258,6 @@ function InformationMovie(props) {
                                 label="Poster"
                             >
                                 <img alt='' src = {movie.poster_path?movie.poster_path:null} style={{height:'300px'}}/>
-                                <input type='file' name='file' id='file_up'/>
                             </Form.Item>
                         <Form.Item
                                 name="trailer"
@@ -201,7 +269,6 @@ function InformationMovie(props) {
 
                         <Form.Item label="Backdrop" name='backdrop_path'>
                             <img alt='' src = {movie.backdrop_path?movie.backdrop_path:null} style={{width:'100%'}}/>
-                            <input type='file' name='file' id='file_up'/>
                         </Form.Item>
 
                         <Form.Item wrapperCol={{ span: 12, offset: 6 }}>

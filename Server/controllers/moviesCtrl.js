@@ -98,7 +98,7 @@ const moviesCtrl = {
         //get poster
         const google = new Scraper({  
           } );
-        const results = await google.scrape(`banner movie : '${movie.original_title}'`,1);
+        const results = await google.scrape(`banner movie : "${movie.title}"`,1);
         movie.backdrop_path = results[0].url
         return res.json({movie})        
     },
