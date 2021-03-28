@@ -52,8 +52,38 @@ const TicketCtrl = {
 
     Get_allTicket : async(req,res) =>{
         try{
-            const ticket = await Ticket.find()
-            return res.json({ticket:ticket})
+
+            Ticket.
+                find().
+                populate(
+                    {
+                        path: "ScreeningId",
+                        populate:{
+                            path:'theater_RoomId',
+                            populate:{
+                                path:'theaterId',
+                                select:'name'
+                            },
+                            select:'index'
+                        },
+                        select:'time_start',
+                        }
+                ).
+                populate('UserId','name').
+                populate(
+                    {
+                        path: "ScreeningId",
+                        populate:{
+                            path:'MovieId',
+                            select:'title'
+                        },
+                        select:'time_start'
+                        }
+                ).
+                exec(function (err, ticket) {
+                    if (err) return handleError(err);
+                    return res.json({Ticket:ticket})
+                });
            
         }catch(err) {
             return res.status(500).json({msg: err.message})

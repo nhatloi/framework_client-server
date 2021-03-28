@@ -30,7 +30,7 @@ const ScreeningCtrl = {
                     return res.status(400).json({msg:"this time of Screening already exists! "})
             }
 
-            const Room = await Theater_Room.findOne({_id:theater_RoomId}).select("matrix_chair")
+            const Room = await Theater_Room.findById(theater_RoomId).select("matrix_chair")
             const matrix_chair = new Array();
             for(var i = 0 ; i < Room.matrix_chair[0]; i++){
                 matrix_chair[i]= new Array();

@@ -9,7 +9,7 @@ const ticket = new mongoose.Schema({
     },
     UserId: {
         type: Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
         required:[true,'please enter fields'],
     },
     number_seat: {
