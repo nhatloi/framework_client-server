@@ -1,5 +1,4 @@
 const theater_room = require('../models/Theater_Room')
-const Theater = require('../models/Theater')
 
 const Theater_RoomCtrl = {
     AddRoom : async(req,res) =>{
@@ -61,7 +60,7 @@ const Theater_RoomCtrl = {
         //search by Theater
         if(theaterId)
         try{
-            const Room = await theater_room.findOne({theaterId:theaterId})
+            const Room = await theater_room.find({theaterId:theaterId})
             return res.json({theater_room:Room})
         }catch(err) {
             return res.status(500).json({msg: err.message})

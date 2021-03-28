@@ -1,6 +1,7 @@
 const Screening = require('../models/Screening')
 const Movie = require('../models/Movie');
 const Theater_Room = require('../models/Theater_Room');
+const Theater = require('../models/Theater');
 
 const ScreeningCtrl = {
     AddScreening : async(req,res) =>{
@@ -77,9 +78,21 @@ const ScreeningCtrl = {
                 return res.status(500).json({msg: err.message})
             }
         }
+        else
         try{
-            const screening = await Screening.find()
-            return res.json({screening:screening})
+            Screening.
+                find().populate(
+                    {
+                        path: "theater_RoomId",
+                        populate:{path:"theaterId"}
+                        }
+                ).
+                populate('MovieId').
+                exec(function (err, screening) {
+                    if (err) return handleError(err);
+                    return res.json({screenings:screening})
+                });
+
         }catch(err) {
             return res.status(500).json({msg: err.message})
         }

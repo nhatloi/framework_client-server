@@ -13,7 +13,6 @@ const theater_room = new mongoose.Schema({
     },
     matrix_chair:{
         type:Array,
-        required:[true,'please enter seats'],
         default:[0,0]
     }
 
