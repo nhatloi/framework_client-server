@@ -89,7 +89,7 @@ const ScreeningCtrl = {
             const {Movie_name} = req.body
 
             Screening.
-                find({seats: { $gte: 0 }, MovieId: await Movie.findOne({title:Movie_name}).select("_id")}).
+                find({seats: { $gte: 0 }, MovieId: await Movie.findOne({title:Movie_name})}).
                 exec(function (err, movie) {
                     if (err) return handleError(err);
                     return res.json({screening:movie})

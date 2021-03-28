@@ -1,5 +1,5 @@
 const theater_room = require('../models/Theater_Room')
-// const Theater = require('../models/Theater')
+const Theater = require('../models/Theater')
 
 const Theater_RoomCtrl = {
     AddRoom : async(req,res) =>{
@@ -35,8 +35,13 @@ const Theater_RoomCtrl = {
     },
     GetInfor_allRoom : async(req,res) =>{
         try{
-            const Room = await theater_room.find()
-            return res.json({theater_room:Room})
+
+            theater_room.
+                find().populate('theaterId').
+                exec(function (err, theater) {
+                    if (err) return handleError(err);
+                    return res.json({theater_room:theater})
+                });
 
         }catch(err) {
             return res.status(500).json({msg: err.message})
