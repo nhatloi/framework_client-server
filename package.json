@@ -17,6 +17,7 @@
   "author": "Nhatloi",
   "license": "ISC",
   "dependencies": {
+    "@nativescript-community/ui-collectionview": "^4.0.29",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "bootstrap": "^4.5.3",

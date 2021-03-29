@@ -117,7 +117,6 @@ function NavHeader() {
           }
         </Collapse>
       </Navbar>
-        <LeftMenu/>
         <BackTop>
           <Button className='backtop'>UP</Button>
         </BackTop>

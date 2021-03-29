@@ -1,12 +1,7 @@
 /* Header */
 
 .header {
-    position: fixed;
-    top:0;
     background: white;
-    width: 100vmax;
-    padding-right: 10px;
-    
 }
 .header a{
     color: black;

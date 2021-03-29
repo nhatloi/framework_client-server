@@ -65,10 +65,7 @@ useEffect(()=>{
         </div>
           :
           <div>
-            <div className='body'>
               <BodyUser/>
-            </div>
-            <NavHeader/>
           </div>
         }
       </Router>

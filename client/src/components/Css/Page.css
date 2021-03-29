@@ -1,10 +1,3 @@
-/* body */
-.body{
-    min-height: 100vmax;
-    width:100%;
-    padding-top: 40px;
-}
-
 /* forgot password form */
 .fg_pass{
     text-align: center;
