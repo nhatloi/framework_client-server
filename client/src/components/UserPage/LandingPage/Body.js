@@ -16,6 +16,8 @@ import InTheatersDetail from '../View/InTheater/InTheatersDetail'
 import News from '../View/News/NewsPage'
 import Home from '../View/Home'
 import Header from './Header'
+import Footer from './Footer'
+import MovieDetail from '../View/MovieDetail'
 function Body() {
     //const
     const auth = useSelector(state => state.auth)
@@ -27,7 +29,7 @@ function Body() {
             <div>
                 <Header/>
             </div>
-            <div>
+            <div className="body">
                 <section>
                     <Switch>
                         <Route exact path="/" component={Home}/>
@@ -49,9 +51,14 @@ function Body() {
 
                         {/* News */}
                         <Route exact path="/news" component={News}/>
+                        {/* Movie */}
+                        <Route exact path="/movie/:id" component={MovieDetail}/>
                         
                     </Switch>
                 </section>
+            </div>
+            <div>
+                <Footer/>
             </div>
       </div>
     )

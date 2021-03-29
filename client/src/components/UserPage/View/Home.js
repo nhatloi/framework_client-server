@@ -3,17 +3,17 @@ import axios from 'axios'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import ReactPlayer from 'react-player/youtube'
-import { List, message, Avatar, Spin } from 'antd';
+import { List, message, Avatar, Spin,Row,Col} from 'antd';
 
 import './Home.css'
 
 
 function Home() {
-    const [movies, setMovies] = useState([])
+    const [comingSoon, setcomingSoon] = useState([])
+    const [playNow, setplayNow] = useState([])
     const [News, setNews] = useState([])
     const [autoPlay, setautoPlay] = useState(true)
     const [movieFocus, setmovieFocus] = useState([])
-    const [tranform, settranform] = useState('500%')
 
  
     useEffect(() => {
@@ -22,36 +22,40 @@ function Home() {
 
     const fetchData = async () =>{
         try {
-            const res = await axios.get('/movie/getallmovie')
+            const res = await axios.get('/movie/getplaynow')
             setmovieFocus(res.data.movie[0])
-            setMovies(res.data.movie);
+            setplayNow(res.data.movie);
             const res2 = await axios.get('/news/get_allnews')
             setNews(res2.data.news)
+            const res3 = await axios.get('/movie/getcomingsoon')
+            setcomingSoon(res3.data.movie)
         } catch (err) {
-           return err.response.data.msg
+           return;
         }
     }
 
     const handleChange = (e)=>{
-        setmovieFocus(movies[e])
+        setmovieFocus(playNow[e])
     }
     
 
     return (
-
+        <div>
         <div className="home"> 
             <div className="list-movie">
                 <Carousel verticalSwipe='natural' autoPlay={autoPlay} centerMode={true} infiniteLoop={true} onChange={handleChange}>
-                    {movies && movies.map((movie, index) => (
+                    {playNow && playNow.map((movie, index) => (
                                         <div className="box">
                                             <div className="detail">
                                                 <h2>{movie.title}</h2>
                                                 <p>{new Date(movie.release_date).toLocaleDateString()}</p>
                                             </div>
-                                            <img src={movie.poster_path} />
+                                            <a alt="movie-detail" href={`/movie/${movie._id}`}><img src={movie.poster_path} /></a>
                                         </div>
                                             ))}
                 </Carousel>
+
+                <h2> Now Playing</h2>
             </div>
             <div className='trailer'>
                 <ReactPlayer url={movieFocus.trailer} onPlay={()=>{setautoPlay(false)}} onPause={()=>{setautoPlay(true)}}/>
@@ -75,8 +79,33 @@ function Home() {
                     
                 </List>
             </div>
-
-
+            </div>
+            
+            <div className="coming_soon">
+                <h2>Coming Soon</h2>
+            <Row gutter={[8, 8]}>
+                        {comingSoon && comingSoon.map((movie, index) => (
+                            <React.Fragment key={index}>
+                               <Col span={6} >
+                                   <div className='card-movie'>
+                                       <label>{movie.episode}</label>
+                                        <a href={`/intheaters/detail/${movie.title}`}>
+                                            <img alt ='poster' src={movie.poster_path}/>
+                                            <div className='movie-infor'>
+                                                {movie.title}<p/>
+                                                Khởi chiếu: {new Date(movie.release_date).toLocaleDateString()}
+                                                </div>
+                                        </a>
+                                   </div>
+                                    
+                                    
+                                </Col>
+                                
+                            </React.Fragment>
+                                
+                        ))}
+                </Row>
+            </div>
         </div>
     )
 }

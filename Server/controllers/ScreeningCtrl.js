@@ -29,7 +29,7 @@ const ScreeningCtrl = {
                 if(check== false)
                     return res.status(400).json({msg:"this time of Screening already exists! "})
             }
-
+            const movie = await Movie.findByIdAndUpdate(MovieId,{premiere:1})
             const Room = await Theater_Room.findById(theater_RoomId).select("matrix_chair")
             const matrix_chair = new Array();
             for(var i = 0 ; i < Room.matrix_chair[0]; i++){

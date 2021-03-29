@@ -58,7 +58,7 @@ const moviesCtrl = {
         const movie = {
             original_title:'',
             release_date:'',
-            runtime:'',
+            runtime:0,
             actors:[],
             directors:[],
             title:'',
@@ -72,14 +72,23 @@ const moviesCtrl = {
           movie.title = body.find('h1.text-truncate > a').attr('title');
           movie.original_title = body.find('p.text-truncate').text().trim();
           movie.original_title = movie.original_title.replace(/\s+/g,' ')
-          const trailer = body.find('.row .text-sm-left > a.btn-outline-light').attr('data-video-url');
+          const trailer = body.find('.youtube >iframe').attr('src');
           if(!trailer) movie.trailer = 'null'
           else  movie.trailer = 'https://www.youtube.com/watch?v=' + trailer
           movie.overview = body.find('p.text-justify').text();
     
         $('.text-sm-left > span').each((i,e)=>{
-            if(i === 0) movie.release_date = $(e).text();
-            if(i === 1) movie.runtime = $(e).text();
+            if(i === 0){
+                var date = new Date($(e).text());
+                date.setHours(date.getHours()+7);
+                movie.release_date = date;
+            }
+            if(i === 1){
+                var value = $(e).text();
+                var number = value.match(/\d/g);
+                number = number.join("");
+                movie.runtime = parseInt(number);
+            }
         })
         $('.mb-2').each((i,e)=>{
             if(i===0){
@@ -258,6 +267,33 @@ const moviesCtrl = {
             return res.status(500).json({msg: error.message})
         }
     },
+
+    GetMovieById : async (req,res) =>{
+        try {
+            const movie = await Movie.findById(req.params.id)
+            return res.json(movie)
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+    GetComing_soon : async (req,res) =>{
+        try {
+            const movie = await Movie.find({premiere:0})
+            return res.json({totalResult:movie.length,movie:movie})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+
+    GetPlaynow : async (req,res) =>{
+        try {
+            const movie = await Movie.find({premiere:1})
+            return res.json({totalResult:movie.length,movie:movie})
+        } catch (error) {
+            return res.status(500).json({msg: error.message})
+        }
+    },
+
     DeleteMovie : async (req,res) =>{
         try {
             await Movie.findByIdAndDelete(req.params.id)
@@ -269,10 +305,13 @@ const moviesCtrl = {
 
     UpdateMovie : async (req,res) =>{
         try {
-            const {id,original_title,release_date,overview,trailer} =req.body
+            const {premiere,id,original_title,release_date,overview,trailer} =req.body
+            if(!premiere)
             await Movie.findOneAndUpdate({_id:id},{
                 original_title,release_date,overview,trailer})
-
+            if(premiere)
+                await Movie.findOneAndUpdate({_id:id},{
+                    original_title,release_date,overview,trailer,premiere})
             res.json({msg:'update success!'})
         } catch (error) {
             return res.status(500).json({msg: error.message})

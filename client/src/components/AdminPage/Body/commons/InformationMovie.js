@@ -321,7 +321,7 @@ function InformationMovie(props) {
                         {...formItemLayout}
                         onFinish={onFinish}
                         initialValues={{
-                            ['run-time']: movie.runtime?movie.runtime:1,
+                            ['run_time']: movie.runtime?movie.runtime:1,
                             ['original_title']:movie.original_title,
                             ['title']:movie.title,
                             ['overview']:movie.overview,

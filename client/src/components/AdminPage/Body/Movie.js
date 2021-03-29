@@ -13,15 +13,16 @@ const initialState = {
     poster_path:'',
     backdrop_path:'',
     _id:'',
-    directors:'',
-    actors:'',
+    directors:[],
+    actors:[],
+    trailer:'',
 }
 
 function Movie() {
     
     //const
     const [Movies, setMovies] = useState([])
-    const [moviesView, setmoviesViewView] = useState([])
+    const [moviesView, setmoviesView] = useState(Movies)
     const [movieinfor, setmovieinfor] = useState(initialState)
     const [visible, setvisible] = useState(false)
     const token = useSelector(state => state.token)
@@ -39,7 +40,7 @@ function Movie() {
         },
         {
           title: 'Name',
-          dataIndex: 'title',
+          dataIndex: 'original_title',
         },
         {
             title: "Action",
@@ -99,7 +100,7 @@ function Movie() {
                 count.push(element);
             }
         });
-        setmoviesViewView(count);
+        setmoviesView(count);
       }
 
 
@@ -116,7 +117,6 @@ function Movie() {
             onRow={(record, rowIndex) => {
                 return {
                     onClick: event => {setmovieinfor(searching==0?Movies[rowIndex]:moviesView[rowIndex])}, // click row
-                    onContextMenu: event => {}, // right button click row
                 };
               }}
             />
@@ -129,7 +129,7 @@ function Movie() {
                 visible={visible}
                 onClose={handleEdit}
                 >
-                <Information movie infor ={movieinfor}/>
+                <Information movie infor= {movieinfor}/>
             </Drawer>
 
             <Modal title="confirm deletion" visible={isModalVisible} onOk={handleOkDelete} onCancel={handleCancelDelete} >

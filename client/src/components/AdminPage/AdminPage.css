@@ -1,3 +1,6 @@
+.body {
+    min-height: 80vh;
+}
 .body-admin{
     height: 100vh;
     background: white;
