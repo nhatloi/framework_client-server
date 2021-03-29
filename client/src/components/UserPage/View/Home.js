@@ -3,12 +3,14 @@ import axios from 'axios'
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import ReactPlayer from 'react-player/youtube'
+import { List, message, Avatar, Spin } from 'antd';
 
 import './Home.css'
 
 
 function Home() {
     const [movies, setMovies] = useState([])
+    const [News, setNews] = useState([])
     const [autoPlay, setautoPlay] = useState(true)
     const [movieFocus, setmovieFocus] = useState([])
     const [tranform, settranform] = useState('500%')
@@ -22,7 +24,9 @@ function Home() {
         try {
             const res = await axios.get('/movie/getallmovie')
             setmovieFocus(res.data.movie[0])
-            return setMovies(res.data.movie);
+            setMovies(res.data.movie);
+            const res2 = await axios.get('/news/get_allnews')
+            setNews(res2.data.news)
         } catch (err) {
            return err.response.data.msg
         }
@@ -50,10 +54,27 @@ function Home() {
                 </Carousel>
             </div>
             <div className='trailer'>
-                <ReactPlayer url={movieFocus.trailer} onPlay={()=>{setautoPlay(false); settranform('-500%')}} onPause={()=>{setautoPlay(true);settranform('500%')}}/>
-                <div className='overview' style={{background:'black'}} >{movieFocus.overview}</div>
+                <ReactPlayer url={movieFocus.trailer} onPlay={()=>{setautoPlay(false)}} onPause={()=>{setautoPlay(true)}}/>
+                <div className='overview' >{movieFocus.overview}</div>
             </div>
-       
+            <div className="news">
+                <List
+                    dataSource={News}
+                    renderItem={item => (
+                    <List.Item key={item.description}>
+                        <List.Item.Meta
+                        avatar={
+                            <Avatar src={item.img} />
+                        }
+                        title={<a href={item.link}>{item.description}</a>}
+                        description={`${item.source} - ${item.time}`}
+                        />
+                    </List.Item>
+                    )}
+                >
+                    
+                </List>
+            </div>
 
 
         </div>

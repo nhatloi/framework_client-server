@@ -53,10 +53,18 @@
 }
 
 .trailer .overview {
-    background: black;
-    transition: transform 10s ease-in-out;
     height: 100%;
-    translate: ;
+    transform: translateX(-100%);
+    transition: transform 3s ease-in-out; 
+}
+.trailer:hover .overview {
+    transform: translateX(0);   
+}
+.news {
+    width: 30%;
+    padding: 5px;
+    margin-left: 10px;
+    background: white;
 }
 
 
