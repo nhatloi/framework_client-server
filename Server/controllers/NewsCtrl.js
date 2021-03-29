@@ -57,8 +57,14 @@ const NewCtrl = {
 
     GetAllNews : async (req,res) =>{
         try {
-            const news = await News.find()
-            return res.json({news:news})
+            News.
+                find().populate('WriterId').
+                exec(function (err, news) {
+                    if (err) return handleError(err);
+                    return res.json({news:news})
+                });
+
+          
         } catch (error) {
             return res.status(500).json({msg: error.message})
         }

@@ -14,6 +14,7 @@ import Test from '../View/Test'
 import InTheatersPage from '../View/InTheater/InTheatersPage'
 import InTheatersDetail from '../View/InTheater/InTheatersDetail'
 import News from '../View/News/NewsPage'
+import Home from '../View/Home'
 function Body() {
     //const
     const auth = useSelector(state => state.auth)
@@ -24,7 +25,7 @@ function Body() {
         <div className='body'>
             <section>
                 <Switch>
-
+                    <Route exact path="/" component={Home}/>
                     {/* must login first */}
                     <Route exact path="/register" component={isLogged? Notfound: Register}/>
                     <Route exact path="/forgot" component={isLogged? Notfound:ForgotPw}/>

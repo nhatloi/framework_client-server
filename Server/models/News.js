@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const News = new mongoose.Schema({
     WriterId: {
         type: Schema.Types.ObjectId,
-        ref: 'user',
+        ref: 'User',
         required:[true,'please enter fields'],
     },
     description: {

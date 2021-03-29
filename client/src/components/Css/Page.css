@@ -2,16 +2,7 @@
 .body{
     min-height: 100vmax;
     width:100%;
-    background: linear-gradient(to bottom, #2a2833, #040405);
     padding-top: 40px;
-}
-
-.body h2{
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 2rem;
-    letter-spacing: 1.5px;
-    color: white;
 }
 
 /* forgot password form */
