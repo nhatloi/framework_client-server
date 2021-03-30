@@ -1,0 +1,41 @@
+.view-movie{
+    display: flex;
+    overflow-x: auto;
+}
+
+.container h2{
+    text-align: center;
+    font-size: 30px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+
+.view-movie .card-movie{
+    margin: 10px;
+    background: black;
+    text-align: center;
+}
+
+.view-theater {
+    margin: auto;
+    display: flex;
+    overflow-x: auto;
+}
+
+.view-theater .card-theater{
+    height: 100px;
+    width: 400px;
+    background:darkcyan;
+    margin: 10px;
+    border-radius: 20px;
+    text-align: center;
+    padding: 10px;
+    
+}
+
+.view-screening{
+    margin: auto;
+    padding: 10px;
+    background:lightgray;
+    height: 500px;
+}

@@ -2,6 +2,10 @@ import React,{useState,useEffect}from 'react'
 import ReactPlayer from 'react-player/youtube'
 import axios from 'axios'
 import './MovieDetail.css'
+import {
+    PlayCircleOutlined
+  } from '@ant-design/icons';
+import { Button } from 'antd'
 
 function MovieDetail(props) {
 
@@ -24,23 +28,32 @@ function MovieDetail(props) {
         }
     }
     return (
-        <div style={{
-            background:`url(${movie.backdrop_path})`,
-            backgroundPosition:'center',
-            backgroundRepeat:'no-repeat',
-            backgroundAttachment:'fixed',
-            backgroundSize:'cover'}}>
-            <div className='banner'>
-                <div className="poster">
-                    <img alt="poster" src={movie.poster_path}/>
-                    <div className='detail'>
-                    {movie.original_title}
-                    {movie.overview}
-                    {movie.release_date}    
-                </div>
-                </div>
+        <div>
+            <div className="movie-detail">
+            <div class="text">
+                <p style={{marginTop:"5%"}}><h1 style={{color:'red'}}>{movie.original_title}</h1><p/>
+                Actors : 
+                {movie.actors && movie.actors.map((item, index) => (
+                    index==0?`"${item}"`:` , "${item}"`
+                                            ))}
+                <p/>
+                Directors : 
+                {movie.directors && movie.directors.map((item, index) => (
+                    index==0?`"${item}"`:` , "${item}"`
+                                            ))}
+                <p/>
+                {movie.overview}<p/>
+                <a href="#trailer"><PlayCircleOutlined/> View Trailer</a><p/>
+                <a href="/bookticket">Book tickets</a>
+                </p>
+                <img style={{height:"500px",width:"300px",opacity:'1',float:'right'}} src={movie.poster_path}/>
             </div>
-            <div className='trailer'>
+                <img src={movie.backdrop_path}/>
+               
+             <div className='poster'>
+            </div>
+            </div>
+            <div id='trailer' className="trailer">
                 <ReactPlayer url={movie.trailer}/>
             </div>
         </div>

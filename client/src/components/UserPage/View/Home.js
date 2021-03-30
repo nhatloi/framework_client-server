@@ -89,7 +89,7 @@ function Home() {
                                <Col span={6} >
                                    <div className='card-movie'>
                                        <label>{movie.episode}</label>
-                                        <a href={`/intheaters/detail/${movie.title}`}>
+                                        <a href={`/movie/${movie._id}`}>
                                             <img alt ='poster' src={movie.poster_path}/>
                                             <div className='movie-infor'>
                                                 {movie.title}<p/>

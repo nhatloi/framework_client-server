@@ -16,7 +16,6 @@
 .list-movie h2{
     font-size: 30px;
     color: red;
-    background: green;
 }
 
 .box{
@@ -45,7 +44,6 @@
     height: 100%;
     display: block;
     object-fit: cover;
-    /* pointer-events:none; */
 }
 .box:hover .detail{
     transform: translateY(0);
@@ -90,4 +88,9 @@
 .coming_soon a{
     color:linen;
 }
+.coming_soon h2{
+    
+    color:linen;
+}
+
 

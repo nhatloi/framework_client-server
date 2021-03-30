@@ -18,6 +18,9 @@ import Home from '../View/Home'
 import Header from './Header'
 import Footer from './Footer'
 import MovieDetail from '../View/MovieDetail'
+import BookTicket from '../View/BookTicket'
+import BookTicketbyMovie from '../View/BookTicketbyMovie'
+
 function Body() {
     //const
     const auth = useSelector(state => state.auth)
@@ -53,6 +56,8 @@ function Body() {
                         <Route exact path="/news" component={News}/>
                         {/* Movie */}
                         <Route exact path="/movie/:id" component={MovieDetail}/>
+                        <Route exact path="/bookticket/" component={BookTicket}/>
+                        <Route exact path="/bookticket/:id" component={BookTicketbyMovie}/>
                         
                     </Switch>
                 </section>

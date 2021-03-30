@@ -85,11 +85,14 @@ function NavHeader() {
         <Collapse isOpen={isOpen} navbar>
 
           <Nav className="mr-auto" navbar>
+          <NavItem>
+              <NavLink href="/bookticket">Book Ticket</NavLink>
+            </NavItem>
             <NavItem>
               <NavLink href="/news">News</NavLink>
             </NavItem>
             <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
+              {/* <DropdownToggle nav caret>
                 Movie theaters
               </DropdownToggle>
               <DropdownMenu right>
@@ -99,7 +102,7 @@ function NavHeader() {
                 <DropdownItem>
                 <NavLink href="/intheaters/dang-chieu">Now Play</NavLink>
                 </DropdownItem>
-              </DropdownMenu>
+              </DropdownMenu> */}
             </UncontrolledDropdown>
           </Nav>
           {isLogged?userInfor()
