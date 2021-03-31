@@ -44,7 +44,7 @@ function MovieDetail(props) {
                 <p/>
                 {movie.overview}<p/>
                 <a href="#trailer"><PlayCircleOutlined/> View Trailer</a><p/>
-                <a href="/bookticket">Book tickets</a>
+                <a href={`/bookticket/${id}`}>Book tickets</a>
                 </p>
                 <img style={{height:"500px",width:"300px",opacity:'1',float:'right'}} src={movie.poster_path}/>
             </div>
@@ -53,8 +53,13 @@ function MovieDetail(props) {
              <div className='poster'>
             </div>
             </div>
-            <div id='trailer' className="trailer">
-                <ReactPlayer url={movie.trailer}/>
+            <div id='trailer' className="detail-trailer">
+                <ReactPlayer url={movie.trailer}
+                height='100%'
+                width='100%' 
+                playIcon
+                controls={true}  
+                />
             </div>
         </div>
     )

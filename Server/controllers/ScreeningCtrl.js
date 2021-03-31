@@ -2,44 +2,27 @@ const Screening = require('../models/Screening')
 const Movie = require('../models/Movie');
 const Theater_Room = require('../models/Theater_Room');
 const Theater = require('../models/Theater');
+const { populate } = require('../models/Screening');
+const mongoose = require('mongoose');
 
 const ScreeningCtrl = {
     AddScreening : async(req,res) =>{
         try{
-            const {theater_RoomId,MovieId,time_start,time_end} = req.body
-            if(time_start >= time_end){
-                return res.status(400).json({msg:'times not correct'})
-            }
+            const {theater_RoomId,MovieId,time_start,time_lasts,launch_date} = req.body
 
-            const check_Screening = await Screening.findOne({theater_RoomId,MovieId,time_start,time_end})
+            const check_Screening = await Screening.findOne({theater_RoomId,MovieId,time_start,launch_date})
             if(check_Screening) return res.status(400).json({msg:"this Screening already exists!"})
-
-            const check_time_Screening = await Screening.find({theater_RoomId:theater_RoomId})
-            if(check_time_Screening){
-                var check = true;
-                const n_start = new Date(time_start)
-                n_start.setHours(n_start.getHours()+7)
-                check_time_Screening.forEach(element => {
-                    var t_end = new Date(element.time_end)
-                        t_end.setHours(t_end.getHours()+7)
-                    if(t_end >= n_start){
-                        check= false;
-                    }
-                });
-                if(check== false)
-                    return res.status(400).json({msg:"this time of Screening already exists! "})
-            }
-            const movie = await Movie.findByIdAndUpdate(MovieId,{premiere:1})
+            await Movie.findByIdAndUpdate(MovieId,{premiere:1})
             const Room = await Theater_Room.findById(theater_RoomId).select("matrix_chair")
             const matrix_chair = new Array();
             for(var i = 0 ; i < Room.matrix_chair[0]; i++){
                 matrix_chair[i]= new Array();
                 for(var j = 0 ; j < Room.matrix_chair[1]; j++){
-                    matrix_chair[i][j] = 1;
+                    matrix_chair[i][j] = 0;
                 }
             }
             const seats = Room.matrix_chair[0]* Room.matrix_chair[1];
-            const newtheater_Screening = new Screening({theater_RoomId,MovieId,time_start,time_end,matrix_seats:matrix_chair,seats})
+            const newtheater_Screening = new Screening({theater_RoomId,MovieId,time_start,time_lasts,launch_date,matrix_seats:matrix_chair,seats})
             await newtheater_Screening.save();
             res.json({msg:'Add Screening successfully!'})
         }catch(err) {
@@ -106,6 +89,45 @@ const ScreeningCtrl = {
                 exec(function (err, movie) {
                     if (err) return handleError(err);
                     return res.json({screening:movie})
+                });
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+
+    Get_byMovieandTheater : async(req,res) =>{
+        try{
+            const {Movie_id,Theater_id} = req.body
+
+            Screening.
+                find({MovieId: await Movie.findOne({MovieId:Movie_id}), theater_RoomId:await Movie.findOne({theaterId:Theater_id}) }).
+                exec(function (err, screening) {
+                    if (err) return handleError(err);
+                    return res.json({screening:screening})
+                });
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+
+    
+    Get_byMovieId : async(req,res) =>{
+        try{
+            const Movie_id = req.params.id
+
+            Screening
+            .find({MovieId:Movie_id})
+            .populate(
+                {
+                    path:'theater_RoomId',
+                    populate:{
+                        path:'theaterId'
+                    }
+                }
+            )
+            .exec(function (err, screening) {
+                    if (err) return handleError(err);
+                    return res.json(screening)
                 });
         }catch(err) {
             return res.status(500).json({msg: err.message})

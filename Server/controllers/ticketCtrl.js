@@ -52,7 +52,6 @@ const TicketCtrl = {
 
     Get_allTicket : async(req,res) =>{
         try{
-
             Ticket.
                 find().
                 populate(

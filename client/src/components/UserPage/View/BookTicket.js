@@ -9,22 +9,22 @@ import './BookTicket.css'
 function BookTicket() {
 
     const [playNow, setplayNow] = useState([])
-    const [theater, settheater] = useState([])
+    //const [theater, settheater] = useState([])
 
 
     useEffect(() => {
         fetchData();
-        theater_eff();
+      //  theater_eff();
     },[])
 
-    const theater_eff = async() =>{
-        try{
-            const res = await axios.get('/theater/get_alltheater')
-            settheater(res.data.theater)
-        }catch (error) {
-            console.log(error);
-        }
-    }
+    // const theater_eff = async() =>{
+    //     try{
+    //         const res = await axios.get('/theater/get_alltheater')
+    //         settheater(res.data.theater)
+    //     }catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
     const fetchData = async () =>{
         try {
@@ -42,7 +42,7 @@ function BookTicket() {
                 {playNow && playNow.map((movie, index) => (
                                     <div className='card-movie'>
                                         <label>{movie.episode}</label>
-                                            <a href={`/intheaters/detail/${movie.title}`}>
+                                            <a href={`/bookticket/${movie._id}`}>
                                                 <img alt ='poster' src={movie.poster_path}/>
                                                 <div className='movie-infor'>
                                                     {movie.title}<p/>
@@ -52,7 +52,7 @@ function BookTicket() {
                                     </div>       
                 ))}
             </div>
-            <div className="view-theater">
+            {/* <div className="view-theater">
                 
                 {theater && theater.map((item, index) => (
                                     <div className="card-theater">
@@ -64,7 +64,7 @@ function BookTicket() {
             </div>
             <div className="view-screening">
                     sadf
-            </div>
+            </div> */}
         </div>
     )
 }

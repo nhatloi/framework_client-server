@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {Drawer,Typography,Table,Modal,message,Input,Form,Button,Select,DatePicker} from 'antd';
+import {Drawer,Typography,Table,Modal,message,Input,Form,Button,Select,DatePicker,TimePicker} from 'antd';
 import {useSelector} from 'react-redux'
 import { SettingOutlined,DeleteOutlined,UserOutlined} from '@ant-design/icons';
 import axios from 'axios'
@@ -151,17 +151,19 @@ function Screening() {
 
 
     const Settinghandle = async (e) =>{
-        const time_start = new Date(e.time_start[0]._d).toLocaleString()
-        const time_end = new Date(e.time_start[1]._d).toLocaleString()
+        const day = e.day._d.toLocaleDateString()
+        const time_start = e.time_start._d.toLocaleTimeString()
+        const time_lasts = e.time_lasts._d.toLocaleTimeString()
             if(addnew)
             try {
-                const res = await axios.post(`/theater/screening/addscreening`,{theater_RoomId:e.room,MovieId:e.movie,time_start:time_start,time_end:time_end},
+                const res = await axios.post(`/theater/screening/addscreening`,{theater_RoomId:e.room,MovieId:e.movie,time_start:time_start,time_lasts:time_lasts,launch_date:day},
                 {headers:{Authorization:token}
                 })
                 message.success(res.data.msg)
 
                 localStorage.setItem('updatePage',true)
                 Screening_eff();
+               console.log(time_lasts)
                 
             } catch (error) {
                 message.warning("not add")
@@ -169,7 +171,7 @@ function Screening() {
             else
             try {
 
-                const res = await axios.post(`/theater/screening/updatescreening`,{id:viewinfor._id,theater_RoomId:e.room,MovieId:e.movie,time_start:time_start,time_end:time_end},
+                const res = await axios.post(`/theater/screening/updatescreening`,{id:viewinfor._id,theater_RoomId:e.room,MovieId:e.movie,time_start:time_start,time_lasts:time_lasts,launch_date:day},
                 {headers:{Authorization:token}
                 })
 
@@ -281,8 +283,14 @@ function Screening() {
                                     ))}
                             </Select>
                         </Form.Item>
+                        <Form.Item name="day" label="Launch Date">
+                            <DatePicker/>
+                        </Form.Item>
                         <Form.Item name="time_start" label="Time Start">
-                            <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />
+                            <TimePicker/>
+                        </Form.Item>
+                        <Form.Item name="time_lasts" label="Time lasts">
+                            <TimePicker/>
                         </Form.Item>
 
                             <Button type="primary" htmlType="submit">

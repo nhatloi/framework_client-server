@@ -1,4 +1,5 @@
 const theater_room = require('../models/Theater_Room')
+const Screening = require('../models/Screening')
 
 const Theater_RoomCtrl = {
     AddRoom : async(req,res) =>{
@@ -41,6 +42,18 @@ const Theater_RoomCtrl = {
                     if (err) return handleError(err);
                     return res.json({theater_room:theater})
                 });
+
+        }catch(err) {
+            return res.status(500).json({msg: err.message})
+        }
+    },
+
+    GetMany_Room : async(req,res) =>{
+        const {day} =req.body
+        var a = []
+        try{
+            const screening= await Screening.find({launch_date:day})
+            return res.json({screening:screening})
 
         }catch(err) {
             return res.status(500).json({msg: err.message})

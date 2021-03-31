@@ -16,7 +16,6 @@
     height: 500px;
     width: 300px;
     top: 10%;
-    left:20px;
 }
 
 .movie-detail .poster img{
@@ -35,6 +34,12 @@
 .text p{
     margin-right: 20%;
     margin-left: 5%;
+}
+
+.detail-trailer {
+    width: 100vw;
+    height: 700px;
+    background: black;
 }
 
 
