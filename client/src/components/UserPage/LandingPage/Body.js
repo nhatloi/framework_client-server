@@ -20,6 +20,8 @@ import Footer from './Footer'
 import MovieDetail from '../View/MovieDetail'
 import BookTicket from '../View/BookTicket'
 import BookTicketbyMovie from '../View/BookTicketbyMovie'
+import Totalmovie from '../View/Totalmovie'
+
 
 function Body() {
     //const
@@ -58,6 +60,9 @@ function Body() {
                         <Route exact path="/movie/:id" component={MovieDetail}/>
                         <Route exact path="/bookticket/" component={BookTicket}/>
                         <Route exact path="/bookticket/:id" component={BookTicketbyMovie}/>
+                        <Route exact path="/movie/total/:key" component={Totalmovie}/>
+
+
                         
                     </Switch>
                 </section>

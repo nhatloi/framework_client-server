@@ -54,8 +54,7 @@ function Home() {
                                         </div>
                                             ))}
                 </Carousel>
-
-                <h2> Now Playing</h2>
+                <a href='/movie/total/playing_now'><h2> Now Playing</h2></a>
             </div>
             <div className='trailer'>
                 <ReactPlayer url={movieFocus.trailer} onPlay={()=>{setautoPlay(false)}} onPause={()=>{setautoPlay(true)}}/>
@@ -82,7 +81,7 @@ function Home() {
             </div>
             
             <div className="coming_soon">
-                <h2>Coming Soon</h2>
+                <a href='/movie/total/comingsoon'><h2>Coming Soon</h2></a>
             <Row gutter={[8, 8]}>
                         {comingSoon && comingSoon.map((movie, index) => (
                             <React.Fragment key={index}>
